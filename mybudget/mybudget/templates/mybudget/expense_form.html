@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h2>Create Expense</h2>
+
+    <form action="" method="post" role="form" class="form-inline" >
+        {% csrf_token %}
+        {% bootstrap_form_errors form layout='inline' %}
+        {% bootstrap_form form layout='inline' %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Submit
+            </button>
+        {% endbuttons %}
+    </form>
+
+{% endblock %}

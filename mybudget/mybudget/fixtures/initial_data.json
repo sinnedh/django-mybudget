@@ -1,0 +1,167 @@
+[
+  {
+    "fields": {
+      "username": "dennis",
+      "first_name": "",
+      "last_name": "",
+      "is_active": true,
+      "is_superuser": true,
+      "is_staff": true,
+      "last_login": "2014-11-06T20:32:18.160Z",
+      "groups": [],
+      "user_permissions": [],
+      "password": "pbkdf2_sha256$12000$S3RAIhjEuyI6$pGVEi3JUeQ996fEGtYHQkHROKThUfU3BSQhygaN7qGs=",
+      "email": "",
+      "date_joined": "2014-11-06T20:32:18.160Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+  },
+
+  {
+    "model": "mybudget.Organisation",
+    "pk": 1,
+    "fields": {
+      "name": "Judith und Dennis"
+    }
+  },
+
+  {
+    "model": "mybudget.Account",
+    "pk": 1,
+    "fields": {
+      "organisation": 1,
+      "user": 1
+    }
+  },
+
+  {
+    "model": "mybudget.Category",
+    "pk": 1,
+    "fields": {
+      "organisation": 1,
+      "name": "Gehalt"
+    }
+  },
+  {
+    "model": "mybudget.Category",
+    "pk": 2,
+    "fields": {
+      "organisation": 1,
+      "name": "Lebensmittel"
+    }
+  },
+  {
+    "model": "mybudget.Category",
+    "pk": 3,
+    "fields": {
+      "organisation": 1,
+      "name": "Auswärts essen"
+    }
+  },
+  {
+    "model": "mybudget.Category",
+    "pk": 4,
+    "fields": {
+      "organisation": 1,
+      "name": "Kleidung"
+    }
+  },
+  {
+    "model": "mybudget.Category",
+    "pk": 5,
+    "fields": {
+      "organisation": 1,
+      "name": "Geschenke"
+    }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "account": 1,
+      "date": "2014-11-03",
+      "comment": "orderbird",
+      "amount": 2100
+    }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "account": 1,
+      "date": "2014-11-03",
+      "comment": "terrestris",
+      "amount": 400
+    }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "account": 1,
+      "date": "2014-11-05",
+      "comment": "Edeka",
+      "amount": -22.65
+    }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 4,
+    "fields": {
+      "category": 3,
+      "account": 1,
+      "date": "2014-11-05",
+      "comment": "Mittagessen Bibimbab",
+      "amount": -7
+    }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 5,
+    "fields": {
+      "category": 3,
+      "account": 1,
+      "date": "2014-11-06",
+      "comment": "Frühstück",
+      "amount": -2.60
+    }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 6,
+    "fields": {
+      "category": 3,
+      "account": 1,
+      "date": "2014-11-06",
+      "comment": "Mittagessen Vabrique",
+      "amount": -2.60
+     }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 7,
+    "fields": {
+      "category": 4,
+      "account": 1,
+      "date": "2014-11-06",
+      "comment": "COS: weißes Hemd",
+      "amount": -59.00
+    }
+  },
+  {
+    "model": "mybudget.Expense",
+    "pk": 8,
+    "fields": {
+      "category": 5,
+      "account": 1,
+      "date": "2014-11-06",
+      "comment": "Schwesterherz: Photobooth Aga und Bärlin Brettchen Judith",
+      "amount": -26.00
+    }
+  }
+ 
+]

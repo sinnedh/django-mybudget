@@ -1,0 +1,87 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load i18n  %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block extrahead %}
+{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+<!-- Container -->
+    {% block header %}
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">MyBudget</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'expense_add' %}">Create</a></li>
+                <li><a href="{% url 'expense_list' %}">List</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{ user.username }} </strong><span class="glyphicon glyphicon-user"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Profile (TODO)</a></li>
+                    <li><a href="#">Change Passwort (TODO)</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    {% endblock %}
+
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+
+    <!-- Content -->
+    <div class="container">
+        <div id="content" class="{% block coltype %}colM{% endblock %}">
+            {% if title and subtitle %}
+            <div class="page-header">
+                <h1>{{ title }} <small>{{ subtitle }}</small></h1>
+            </div>
+            {% endif %}
+            {% block content %}
+            {{ content }}
+            {% endblock %}
+            <br class="clear" />
+        </div>
+
+    <!-- END Content -->
+
+    <hr /> 
+    {% block footer %}
+        <div id="footer">
+        </div>
+    {% endblock %}
+    </div>
+
+</body>
+</html>
+
