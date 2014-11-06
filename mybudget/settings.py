@@ -60,12 +60,14 @@ WSGI_APPLICATION = 'mybudget.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+
+DATABASE_URL: postgres://mtcoxkptamowqx:qAj3Woq0NlSCqjjADFKdwC2taV@ec2-54-163-255-191.compute-1.amazonaws.com:5432/dcpu7ln0efr0uj
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -88,7 +90,7 @@ USE_TZ = True
 #    os.path.join(BASE_DIR, "static"),
 #)
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR + "/static/"
+STATIC_ROOT = BASE_DIR + "/../static/"
 
 
 TEMPLATE_DIRS = (
