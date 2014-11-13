@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mybudget',
+#    'mybudget',
     'bootstrap3',
     'django_extensions',
     'jquery',
@@ -52,9 +52,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'mybudget.urls'
+ROOT_URLCONF = 'urls'
 
-WSGI_APPLICATION = 'mybudget.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database

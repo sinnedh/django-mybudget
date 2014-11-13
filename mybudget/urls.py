@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from mybudget.views import ExpenseListView, ExpenseCreateView
+from mybudget.views import CategoryListView, CategoryCreateView
 
 urlpatterns = patterns(
     '',
@@ -14,8 +15,12 @@ urlpatterns = patterns(
     url(r'^logout/?$', 'mybudget.views.logout_view', name='logout'),
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^/$', ExpenseListView.as_view(), name='expense_list'),
     url(r'^expenses/$', ExpenseListView.as_view(), name='expense_list'),
     url(r'^expense/add/$', ExpenseCreateView.as_view(), name='expense_add'),
 #    url(r'^expense/(?P<pk>[0-9]+)/$', AuthorUpdate.as_view(), name='author_update'),
 #    url(r'^expense/(?P<pk>[0-9]+)/delete/$', AuthorDelete.as_view(), name='author_delete'),
+
+    url(r'^categories/$', CategoryListView.as_view(), name='category_list'),
+    url(r'^categories/add/$', CategoryCreateView.as_view(), name='category_add'),
 )
