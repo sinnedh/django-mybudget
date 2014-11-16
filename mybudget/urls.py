@@ -15,7 +15,7 @@ urlpatterns = patterns(
     url(r'^logout/?$', 'mybudget.views.logout_view', name='logout'),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^/$', ExpenseListView.as_view(), name='expense_list'),
+    url(r'^$', ExpenseListView.as_view(), name='expense_list'),
     url(r'^expenses/$', ExpenseListView.as_view(), name='expense_list'),
     url(r'^expense/add/$', ExpenseCreateView.as_view(), name='expense_add'),
 #    url(r'^expense/(?P<pk>[0-9]+)/$', AuthorUpdate.as_view(), name='author_update'),

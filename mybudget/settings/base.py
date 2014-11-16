@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-#    'mybudget',
+    'mybudget',
     'bootstrap3',
     'django_extensions',
     'jquery',
@@ -52,23 +52,15 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'mybudget.urls'
 
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = 'mybudget.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
 DATABASES = {}
-#    DATABASES['default'] =  {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#DATABASE_URL: postgres://mtcoxkptamowqx:qAj3Woq0NlSCqjjADFKdwC2taV@ec2-54-163-255-191.compute-1.amazonaws.com:5432/dcpu7ln0efr0uj
 
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
 
 
 # Internationalization
@@ -89,7 +81,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+#    os.path.join(BASE_DIR, "static"),
 )
 STATIC_ROOT = BASE_DIR + "/static/"
 #STATIC_ROOT = 'staticfiles'
@@ -101,7 +93,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 TEMPLATE_DIRS = (
-    BASE_DIR + '/mybudget/templates/',
+    BASE_DIR + '/templates/',
 )
 
 LOGIN_URL = 'login'

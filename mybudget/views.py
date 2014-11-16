@@ -34,7 +34,7 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     fields = ['name', 'description',]
     success_url = reverse_lazy('expense_list')
 
-  def form_valid(self, form):
+    def form_valid(self, form):
         form.instance.organisation = self.request.user.account.organisation
         return super(CategoryCreateView, self).form_valid(form)
 
@@ -52,7 +52,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     fields = ['date', 'amount', 'category', ]
     success_url = reverse_lazy('expense_list')
 
-  def form_valid(self, form):
+    def form_valid(self, form):
         form.instance.account = self.request.user.account
         return super(ExpenseCreateView, self).form_valid(form)
 
