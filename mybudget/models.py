@@ -13,6 +13,9 @@ class Organisation(models.Model):
     name = models.TextField(_('name'))
     description = models.TextField(_('description'), blank=True)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Account(models.Model):
     class Meta:
@@ -54,4 +57,3 @@ class Expense(models.Model):
 
     def __unicode__(self):
         return '{} Euro ({})'.format(self.amount, self.date)
-
