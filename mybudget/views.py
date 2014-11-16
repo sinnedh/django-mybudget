@@ -5,7 +5,6 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -21,22 +20,44 @@ class LoginRequiredMixin(object):
         return login_required(view)
 
 
+def logout_view(request):
+    logout(request)
+    messages.add_message(request, messages.SUCCESS, _('You have been logged out succesfully!'))
+    return HttpResponseRedirect(redirect_to=reverse('login'))
+
+
 # TODO filter for categories of own organisation
 class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
-    queryset = Expense.objects.all()
+    queryset = Category.objects.all()
 
 
 # TODO validations
-# TODO assign to user
+# TODO assign to organisation
 class CategoryCreateView(LoginRequiredMixin, CreateView):
-    model = Expense
-    fields = ['name', 'description',]
-    success_url = reverse_lazy('expense_list')
+    model = Category
+    fields = ['name', 'description', 'super_category', ]
+    success_url = reverse_lazy('category_list')
 
     def form_valid(self, form):
         form.instance.organisation = self.request.user.account.organisation
         return super(CategoryCreateView, self).form_valid(form)
+
+
+# TODO validations
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
+    model = Category
+    fields = ['name', 'description', 'super_category', ]
+    success_url = reverse_lazy('category_list')
+
+    def form_valid(self, form):
+        form.instance.organisation = self.request.user.account.organisation
+        return super(CategoryCreateView, self).form_valid(form)
+
+
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
+    model = Category
+    success_url = reverse_lazy('category_list')
 
 
 # TODO filter for own expenses
@@ -46,7 +67,6 @@ class ExpenseListView(LoginRequiredMixin, ListView):
 
 
 # TODO validations
-# TODO assign to user
 class ExpenseCreateView(LoginRequiredMixin, CreateView):
     model = Expense
     fields = ['date', 'amount', 'category', ]
@@ -57,17 +77,19 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
         return super(ExpenseCreateView, self).form_valid(form)
 
 
+# TODO validations
 class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     model = Expense
-    fields = ['name']
+    fields = ['date', 'amount', 'category', ]
+    success_url = reverse_lazy('expense_list')
+
+    def form_valid(self, form):
+        form.instance.account = self.request.user.account
+        return super(ExpenseCreateView, self).form_valid(form)
 
 
-#class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
-#    model = Expense
-#    success_url = reverse_lazy('expense-list')
+class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
+    model = Expense
+    success_url = reverse_lazy('expense_list')
 
 
-def logout_view(request):
-    logout(request)
-    messages.add_message(request, messages.SUCCESS, _('You have been logged out succesfully!'))
-    return HttpResponseRedirect(redirect_to=reverse('login'))

@@ -31,8 +31,9 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
+    super_category = models.ForeignKey('self', null=True, blank=True, default=None)
     organisation = models.ForeignKey(Organisation)
-    name = models.TextField(_('name'))
+    name = models.CharField(_('name'), max_length=256)
     description = models.TextField(_('description'), blank=True)
 
     def __unicode__(self):
@@ -50,3 +51,7 @@ class Expense(models.Model):
     date = models.DateField(_('date'))
     amount = models.DecimalField(_('amount'), decimal_places=2, max_digits=10, default=0.00)
     comment = models.TextField(_('comment'), blank=True)
+
+    def __unicode__(self):
+        return '{} Euro ({})'.format(self.amount, self.date)
+

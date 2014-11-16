@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Categories</h2>
+    <table class="table table-striped">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Super Category</th>
+        </tr>
+        {% for category in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'category_update' category.pk %}">Edit</a> / 
+                <a href="{% url 'category_delete' category.pk %}">Delete</a>
+            </td>
+            <td>{{ category.name }}</td>
+            <td>{{ category.desciption }}</td>
+            <td>{{ category.super_category }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

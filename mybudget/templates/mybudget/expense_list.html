@@ -4,6 +4,7 @@
     <h2>Expenses</h2>
     <table class="table table-striped">
         <tr>
+            <th></th>
             <th>Date</th>
             <th>Amount</th>
             <th>Category</th>
@@ -11,8 +12,12 @@
         </tr>
         {% for expense in object_list %}
         <tr>
+            <td>
+                <a href="{% url 'expense_update' expense.pk %}">Edit</a> / 
+                <a href="{% url 'expense_delete' expense.pk %}">Delete</a>
+            </td>
             <td>{{ expense.date }}</td>
-            <td>{{ expense.amount }}</td>
+            <td>{{ expense.amount }} Euro</td>
             <td>{{ expense.category }}</td>
             <td>{{ expense.account }}</td>
         </tr>
