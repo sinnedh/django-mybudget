@@ -63,7 +63,7 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 # TODO filter for own expenses
 class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
-    queryset = Expense.objects.all()
+    queryset = Expense.objects.all().order_by('-date')
 
 
 # TODO validations
@@ -91,5 +91,3 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Expense
     success_url = reverse_lazy('expense_list')
-
-
