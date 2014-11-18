@@ -4,13 +4,17 @@
 {% block content %}
     <h2>Create Expense</h2>
 
-    <form action="" method="post" role="form" class="form-inline" >
+    <form action="" method="post" role="form" class="form" >
         {% csrf_token %}
         {% bootstrap_form_errors form layout='inline' %}
         {% bootstrap_form form layout='inline' %}
         {% buttons %}
             <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "star" %} Create Expense
+            {% if object %}
+                {% bootstrap_icon "pencil" %} Update Expense
+            {% else %}
+                {% bootstrap_icon "plus" %} Create Expense
+            {% endif %}
             </button>
         {% endbuttons %}
     </form>
