@@ -29,7 +29,7 @@ def logout_view(request):
 # TODO filter for categories of own organisation
 class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('super_category', 'name')
 
 
 # TODO validations
@@ -52,7 +52,7 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.organisation = self.request.user.account.organisation
-        return super(CategoryCreateView, self).form_valid(form)
+        return super(CategoryUpdateView, self).form_valid(form)
 
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
@@ -85,7 +85,7 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.account = self.request.user.account
-        return super(ExpenseCreateView, self).form_valid(form)
+        return super(ExpenseUpdateView, self).form_valid(form)
 
 
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
