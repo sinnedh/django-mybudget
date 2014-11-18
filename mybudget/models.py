@@ -42,6 +42,23 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_expense_sum(self):
+        # TODO: implement caching
+        expense_sum = 0
+        for e in self.expense_set.all():
+            expense_sum += e.amount
+        return expense_sum
+
+    def get_total_expense_sum(self):
+        """
+        Includes all sub-categories
+        """
+        expense_sum = self.get_expense_sum()
+        # sum over all sub categories
+        for subcat in self.category_set.all():
+            expense_sum += subcat.get_expense_sum()
+        return expense_sum
+
 
 class Expense(models.Model):
     class Meta:
