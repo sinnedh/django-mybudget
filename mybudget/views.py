@@ -69,7 +69,7 @@ class ExpenseListView(LoginRequiredMixin, ListView):
 # TODO validations
 class ExpenseCreateView(LoginRequiredMixin, CreateView):
     model = Expense
-    fields = ['date', 'amount', 'category', ]
+    fields = ['date', 'amount', 'category', 'comment', ]
     success_url = reverse_lazy('expense_list')
 
     def form_valid(self, form):
