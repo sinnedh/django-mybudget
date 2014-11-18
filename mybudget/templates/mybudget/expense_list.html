@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load mybudget_extras %}
 
 {% block content %}
     <h2>Expenses</h2>
@@ -17,7 +18,7 @@
                 <a href="{% url 'expense_delete' expense.pk %}">Delete</a>
             </td>
             <td>{{ expense.date }}</td>
-            <td>{{ expense.amount }} Euro</td>
+            <td>{{ expense.amount|currency }} &euro;</td>
             <td>{{ expense.category }}</td>
             <td>{{ expense.account }}</td>
         </tr>
