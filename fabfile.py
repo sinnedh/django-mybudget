@@ -22,7 +22,7 @@ def migrate(settings='mybudget.settings.development'):
     local('python manage.py migrate --settings={}'.format(settings))
 
 
-def test(settings='mybudget.settings.development'):
+def test(settings='mybudget.settings.testing'):
     clean_pyc(settings)
     local('python manage.py test --failfast --settings={}'.format(settings))
 
