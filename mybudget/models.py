@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -68,7 +69,7 @@ class Expense(models.Model):
     category = models.ForeignKey(Category)
     account = models.ForeignKey(Account)
 
-    date = models.DateField(_('date'))
+    date = models.DateField(_('date'), default=datetime.date.today)
     amount = models.DecimalField(_('amount'), decimal_places=2, max_digits=10, default=0.00)
     comment = models.TextField(_('comment'), blank=True)
 
