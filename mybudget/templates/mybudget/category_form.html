@@ -2,7 +2,11 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h2>Create Category</h2>
+    {% if object %}
+        <h2>Update Category</h2>
+    {% else %}
+        <h2>Create Category</h2>
+    {% endif %}
 
     <form action="" method="post" role="form" class="form" >
         {% csrf_token %}
