@@ -27,6 +27,11 @@ def test(settings='mybudget.settings.testing'):
     local('python manage.py test --failfast --settings={}'.format(settings))
 
 
+def backup_db():
+    local('heroku pgbackups:capture')
+    local('curl -o latest.dump `heroku pgbackups:url`')
+
+
 def deploy(settings='mybudget.settings.production'):
     local('git push heroku master')
     local('heroku run python manage.py clean_pyc --settings={}'.format(settings))
