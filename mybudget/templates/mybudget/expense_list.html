@@ -9,6 +9,7 @@
             <th>Date</th>
             <th>Amount</th>
             <th>Category</th>
+            <th>Comment</th>
             <th>Account</th>
         </tr>
         {% for expense in object_list %}
@@ -20,6 +21,7 @@
             <td>{{ expense.date }}</td>
             <td>{{ expense.amount|currency }} &euro;</td>
             <td>{{ expense.category }}</td>
+            <td>{{ expense.comment|max_length_string:35 }}</td>
             <td>{{ expense.account }}</td>
         </tr>
         {% endfor %}

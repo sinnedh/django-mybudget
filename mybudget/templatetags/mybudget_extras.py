@@ -9,3 +9,12 @@ register = template.Library()
 def currency(value):
     value = round(float(value), 2)
     return "%s%s" % (intcomma(int(value)), ("%0.2f" % value)[-3:].replace('.', ','))
+
+
+@register.filter(name='max_length_string')
+def max_length_string(value, max_length=20):
+    if len(value) > max_length:
+        short_value = '{} ...'.format(value[:max_length-4])
+    else:
+        short_value = value
+    return short_value
