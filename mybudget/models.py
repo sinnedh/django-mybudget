@@ -4,6 +4,12 @@ import datetime
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
+
+
+#class BaseModel(models.Model):
+#    created_at = models.DateTimeField(auto_now_add=True)
+#    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Organisation(models.Model):
@@ -13,6 +19,8 @@ class Organisation(models.Model):
 
     name = models.TextField(_('name'))
     description = models.TextField(_('description'), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 
     def __unicode__(self):
         return self.name
@@ -25,6 +33,8 @@ class Account(models.Model):
 
     organisation = models.ForeignKey(Organisation)
     user = models.OneToOneField(User)
+    created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 
     def __unicode__(self):
         return self.user.username
@@ -39,6 +49,8 @@ class Category(models.Model):
     organisation = models.ForeignKey(Organisation)
     name = models.CharField(_('name'), max_length=256)
     description = models.TextField(_('description'), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 
     def __unicode__(self):
         return self.name
@@ -72,6 +84,8 @@ class Expense(models.Model):
     date = models.DateField(_('date'), default=datetime.date.today)
     amount = models.DecimalField(_('amount'), decimal_places=2, max_digits=10, default=0.00)
     comment = models.TextField(_('comment'), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 
     def __unicode__(self):
         return '{} Euro ({})'.format(self.amount, self.date)
