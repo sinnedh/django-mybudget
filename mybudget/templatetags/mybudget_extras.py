@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import template
 from django.contrib.humanize.templatetags.humanize import intcomma
 
@@ -14,7 +15,8 @@ def currency(value):
 @register.filter(name='max_length_string')
 def max_length_string(value, max_length=20):
     if len(value) > max_length:
-        short_value = '{} ...'.format(value[:max_length-4])
-    else:
-        short_value = value
-    return short_value
+        subs = value[:max_length-4]
+        return subs + ' ...'
+        # TODO: why does this not work?
+        # return '{} ...'.format(subs)
+    return value
