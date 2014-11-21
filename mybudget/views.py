@@ -26,14 +26,14 @@ def logout_view(request):
     return HttpResponseRedirect(redirect_to=reverse('login'))
 
 
-# TODO filter for categories of own organisation
 class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
-    queryset = Category.objects.all().order_by('super_category', 'name')
+
+    def get_queryset(self):
+        return self.request.user.account.organisation.category_set.all().order_by('super_category', 'name')
 
 
 # TODO validations
-# TODO assign to organisation
 class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['name', 'description', 'super_category', ]
@@ -63,7 +63,9 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 # TODO filter for own expenses
 class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
-    queryset = Expense.objects.all().order_by('-date')
+
+    def get_queryset(self):
+        return self.request.user.account.organisation.get_expenses().order_by('-date', '-created_at')
 
 
 # TODO validations

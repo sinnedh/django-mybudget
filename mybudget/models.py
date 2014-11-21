@@ -22,6 +22,9 @@ class Organisation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 
+    def get_expenses(self):
+        return Expense.objects.filter(account__in=self.account_set.all())
+
     def __unicode__(self):
         return self.name
 

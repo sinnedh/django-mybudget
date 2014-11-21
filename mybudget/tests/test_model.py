@@ -13,6 +13,23 @@ class BaseModelTests(BaseTests):
     pass
 
 
+class OrganisationModelTests(BaseModelTests):
+    def test_get_expenses(self):
+        c1 = Category.objects.create(name='A category', organisation=self.o1)
+        c2 = Category.objects.create(name='Another category', organisation=self.o2)
+        e1_1 = Expense.objects.create(account=self.a1, category=c1, amount=1.1)
+        e1_2 = Expense.objects.create(account=self.a1, category=c1, amount=1.2)
+        e1_3 = Expense.objects.create(account=self.a1, category=c1, amount=1.3)
+        e1_4 = Expense.objects.create(account=self.a2, category=c1, amount=1.4)
+        e2_1 = Expense.objects.create(account=self.a3, category=c2, amount=2.1)
+        e2_2 = Expense.objects.create(account=self.a3, category=c2, amount=2.2)
+        e2_3 = Expense.objects.create(account=self.a4, category=c2, amount=2.3)
+        self.assertEqual(self.o1.get_expenses().count(), 4)
+        self.assertEqual(self.o2.get_expenses().count(), 3)
+        self.assertItemsEqual(self.o1.get_expenses(), [e1_1, e1_2, e1_3, e1_4])
+        self.assertItemsEqual(self.o2.get_expenses(), [e2_1, e2_2, e2_3])
+
+
 class CategoryModelTests(BaseModelTests):
     def test_get_expense_sum(self):
         c = Category.objects.create(name='Category 1', organisation=self.o1)
@@ -58,8 +75,8 @@ class CategoryModelTests(BaseModelTests):
         self.assertEqual(category.get_expense_sum(),
                          decimal.Decimal('11.11'))
         sub_category1 = Category.objects.create(name='Category 1',
-                                               organisation=self.o1,
-                                               super_category=category)
+                                                organisation=self.o1,
+                                                super_category=category)
         expense1 = Expense.objects.create(comment='Expense 1',
                                           account=self.a1,
                                           date=datetime.date(2014, 11, 11),
@@ -70,8 +87,8 @@ class CategoryModelTests(BaseModelTests):
         self.assertEqual(category.get_expense_sum(),
                          decimal.Decimal('11.11'))
         sub_category2 = Category.objects.create(name='Category 2',
-                                               organisation=self.o1,
-                                               super_category=category)
+                                                organisation=self.o1,
+                                                super_category=category)
         expense2 = Expense.objects.create(comment='Expense 2',
                                           account=self.a1,
                                           date=datetime.date(2014, 11, 11),
@@ -104,9 +121,6 @@ class CategoryModelTests(BaseModelTests):
                                           category=sub_category)
         self.assertEqual(sub_category.get_expense_sum(),
                          decimal.Decimal('99.99'))
-
-
-
 
     def test_get_total_expense_sum(self):
         c = Category.objects.create(name='Category 1', organisation=self.o1)
@@ -152,8 +166,8 @@ class CategoryModelTests(BaseModelTests):
         self.assertEqual(category.get_total_expense_sum(),
                          decimal.Decimal('11.11'))
         sub_category1 = Category.objects.create(name='Category 1',
-                                               organisation=self.o1,
-                                               super_category=category)
+                                                organisation=self.o1,
+                                                super_category=category)
         expense1 = Expense.objects.create(comment='Expense 1',
                                           account=self.a1,
                                           date=datetime.date(2014, 11, 11),
@@ -165,8 +179,8 @@ class CategoryModelTests(BaseModelTests):
                          decimal.Decimal('111.10'))
 
         sub_category2 = Category.objects.create(name='Category 2',
-                                               organisation=self.o1,
-                                               super_category=category)
+                                                organisation=self.o1,
+                                                super_category=category)
         expense2 = Expense.objects.create(comment='Expense 2',
                                           account=self.a1,
                                           date=datetime.date(2014, 11, 11),
