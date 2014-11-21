@@ -52,8 +52,16 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 
+    def get_super_category_chain(self, chain=None):
+        if chain is None:
+            chain = []
+        if self.super_category:
+            self.super_category.get_super_category_chain(chain=chain)
+        chain.append(self.name)
+        return chain
+
     def __unicode__(self):
-        return self.name
+        return ' > '.join(self.get_super_category_chain())
 
     def get_expense_sum(self):
         # TODO: implement caching
