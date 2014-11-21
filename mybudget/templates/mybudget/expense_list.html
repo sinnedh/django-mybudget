@@ -20,7 +20,7 @@
             </td>
             <td>{{ expense.date }}</td>
             <td>{{ expense.amount|currency }} &euro;</td>
-            <td>{{ expense.category }}</td>
+            <td>{{ expense.category.name }}</td>
             <td>{{ expense.comment|max_length_string:35 }}</td>
             <td>{{ expense.account }}</td>
         </tr>
