@@ -31,7 +31,8 @@ class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
 
     def get_queryset(self):
-        return self.request.user.account.organisation.category_set.all().order_by('super_category', 'name')
+        # TODO improve this query such that
+        return self.request.user.account.organisation.category_set.all().order_by('super_category__name', 'name')
 
 
 # TODO validations
