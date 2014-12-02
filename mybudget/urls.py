@@ -23,7 +23,7 @@ urlpatterns = patterns(
     url(r'^logout/?$', 'mybudget.views.logout_view', name='logout'),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', ExpenseListView.as_view(), name='expense_list'),
+    url(r'^$', ExpenseCreateView.as_view(), name='start'),
     url(r'^expenses/$', ExpenseListView.as_view(), name='expense_list'),
     url(r'^expenses/latest/$', LatestExpenseListView.as_view(), name='latest_expense_list'),
     url(r'^expense/add/$', ExpenseCreateView.as_view(), name='expense_add'),

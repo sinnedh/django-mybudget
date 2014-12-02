@@ -3,6 +3,12 @@
 
 {% block content %}
     <h2>Expenses</h2>
+    <p>
+        <a href="{% url 'expense_add' %}" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span>
+            Create new expense
+        </a>
+    </p>
     <table class="table table-striped">
         <tr>
             <th></th>
@@ -32,4 +38,12 @@
         </tr>
         {% endfor %}
     </table>
+    {% if show_link_to_all_expenses %}
+    <p>
+        <a href="{% url 'expense_list' %}" class="btn btn-default">
+            <span class="glyphicon glyphicon-list"></span>
+            Show all expenses
+        </a>
+    </p>
+    {% endif %}
 {% endblock %}

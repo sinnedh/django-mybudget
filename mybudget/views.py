@@ -66,8 +66,13 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
 
     def get_queryset(self):
-        all_expenses = self.request.user.account.organisation
+        all_expenses = self.request.user.account.organisation.get_expenses()
         return all_expenses.order_by('-date', '-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super(ExpenseListView, self).get_context_data(**kwargs)
+        context['show_link_to_all_expenses'] = False
+        return context
 
 
 # TODO filter for own expenses
@@ -77,6 +82,11 @@ class LatestExpenseListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         all_expenses = self.request.user.account.organisation.get_latest_expenses(days=7)
         return all_expenses.order_by('-date', '-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super(LatestExpenseListView, self).get_context_data(**kwargs)
+        context['show_link_to_all_expenses'] = True
+        return context
 
 
 # TODO validations

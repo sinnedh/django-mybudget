@@ -26,17 +26,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">MyBudget</a>
+            <a class="navbar-brand" href="{% url 'start' %}">MyBudget</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'expense_add' %}">Create expense</a></li>
-                <li><a href="{% url 'expense_list' %}">All expenses</a></li>
-                <li><a href="{% url 'latest_expense_list' %}">Latest expenses</a></li>
-                <li><a href="{% url 'category_add' %}">Create Category</a></li>
-                <li><a href="{% url 'category_list' %}">List categories</a></li>
+                <li><a href="{% url 'latest_expense_list' %}">Expenses</a></li>
+                <li><a href="{% url 'category_list' %}">Categories</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
