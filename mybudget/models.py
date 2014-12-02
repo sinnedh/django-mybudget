@@ -7,11 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 
-#class BaseModel(models.Model):
-#    created_at = models.DateTimeField(auto_now_add=True)
-#    updated_at = models.DateTimeField(auto_now=True)
-
-
 class Organisation(models.Model):
     class Meta:
         verbose_name = _('Organisation')
@@ -95,6 +90,7 @@ class Expense(models.Model):
     date = models.DateField(_('date'), default=datetime.date.today)
     amount = models.DecimalField(_('amount'), decimal_places=2, max_digits=10, default=0.00)
     comment = models.TextField(_('comment'), blank=True)
+    is_shared = models.BooleanField(_('Is shared'), default=False)
     created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 

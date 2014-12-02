@@ -9,8 +9,9 @@
             <th>Date</th>
             <th>Amount</th>
             <th>Category</th>
-            <th>Comment</th>
             <th>Account</th>
+            <th>Is shared?</th>
+            <th>Comment</th>
         </tr>
         {% for expense in object_list %}
         <tr>
@@ -21,8 +22,13 @@
             <td>{{ expense.date }}</td>
             <td>{{ expense.amount|currency }} &euro;</td>
             <td>{{ expense.category.name }}</td>
-            <td>{{ expense.comment|max_length_string:35 }}</td>
             <td>{{ expense.account }}</td>
+            <td>
+            {% if expense.is_shared  %}
+                <span class="glyphicon glyphicon-ok"></span>
+            {% endif %}
+            </td>
+            <td>{{ expense.comment|max_length_string:35 }}</td>
         </tr>
         {% endfor %}
     </table>
