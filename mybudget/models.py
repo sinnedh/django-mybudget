@@ -20,6 +20,12 @@ class Organisation(models.Model):
     def get_expenses(self):
         return Expense.objects.filter(account__in=self.account_set.all())
 
+    def get_latest_expenses(self, days=1):
+        min_date = datetime.date.today() - datetime.timedelta(days=days)
+        return Expense.objects.filter(
+            account__in=self.account_set.all(),
+            date__gt=min_date)
+
     def __unicode__(self):
         return self.name
 

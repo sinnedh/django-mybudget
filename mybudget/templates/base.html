@@ -33,7 +33,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'expense_add' %}">Create expense</a></li>
-                <li><a href="{% url 'expense_list' %}">List expenses</a></li>
+                <li><a href="{% url 'expense_list' %}">All expenses</a></li>
+                <li><a href="{% url 'latest_expense_list' %}">Latest expenses</a></li>
                 <li><a href="{% url 'category_add' %}">Create Category</a></li>
                 <li><a href="{% url 'category_list' %}">List categories</a></li>
             </ul>

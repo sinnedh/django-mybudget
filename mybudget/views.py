@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -60,12 +61,22 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('category_list')
 
 
-# TODO filter for own expenses
+# TODO filter for own expenses, daterange, category ...
 class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
 
     def get_queryset(self):
-        return self.request.user.account.organisation.get_expenses().order_by('-date', '-created_at')
+        all_expenses = self.request.user.account.organisation
+        return all_expenses.order_by('-date', '-created_at')
+
+
+# TODO filter for own expenses
+class LatestExpenseListView(LoginRequiredMixin, ListView):
+    model = Expense
+
+    def get_queryset(self):
+        all_expenses = self.request.user.account.organisation.get_latest_expenses(days=7)
+        return all_expenses.order_by('-date', '-created_at')
 
 
 # TODO validations

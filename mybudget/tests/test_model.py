@@ -14,6 +14,23 @@ class BaseModelTests(BaseTests):
 
 
 class OrganisationModelTests(BaseModelTests):
+    def test_get_latest_expenses(self):
+        today = datetime.date.today()
+        c1 = Category.objects.create(name='A category', organisation=self.o1)
+        e1_1 = Expense.objects.create(date=today-datetime.timedelta(days=2),
+                                      account=self.a1, category=c1, amount=1.1)
+        e1_2 = Expense.objects.create(date=today-datetime.timedelta(days=31),
+                                      account=self.a1, category=c1, amount=1.2)
+        e1_3 = Expense.objects.create(date=today-datetime.timedelta(days=6),
+                                      account=self.a1, category=c1, amount=1.3)
+        e1_4 = Expense.objects.create(date=today-datetime.timedelta(days=8),
+                                      account=self.a2, category=c1, amount=1.4)
+        self.assertItemsEqual(self.o1.get_latest_expenses(days=32), [e1_1, e1_2, e1_3, e1_4])
+        self.assertItemsEqual(self.o1.get_latest_expenses(days=7), [e1_1, e1_3])
+        self.assertItemsEqual(self.o1.get_latest_expenses(days=3), [e1_1])
+        self.assertItemsEqual(self.o1.get_latest_expenses(days=1), [])
+        self.assertItemsEqual(self.o1.get_latest_expenses(days=0), [])
+
     def test_get_expenses(self):
         c1 = Category.objects.create(name='A category', organisation=self.o1)
         c2 = Category.objects.create(name='Another category', organisation=self.o2)
