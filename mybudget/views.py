@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
-
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -62,7 +60,6 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('category_list')
 
 
-# TODO filter for own expenses, daterange, category ...
 class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
 
@@ -76,7 +73,17 @@ class ExpenseListView(LoginRequiredMixin, ListView):
         return context
 
 
-# TODO filter for own expenses
+class FilteredExpenseListView(ExpenseListView):
+    def get_queryset(self):
+        # filter for account
+        filter_account = int(self.request.REQUEST.get('account', None))
+        qs = super(FilteredExpenseListView, self).get_queryset()
+        if filter_account is not None:
+            qs = qs.filter(account_id=filter_account)
+        return qs
+
+
+# TODO: merge with  FilteredExpenseListVIew
 class LatestExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
 

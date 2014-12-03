@@ -6,6 +6,7 @@ from mybudget.views import (ExpenseListView,
                             ExpenseCreateView,
                             ExpenseUpdateView,
                             ExpenseDeleteView,
+                            FilteredExpenseListView,
                             LatestExpenseListView,)
 from mybudget.views import (CategoryListView,
                             CategoryCreateView,
@@ -24,8 +25,9 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', ExpenseCreateView.as_view(), name='start'),
-    url(r'^expenses/$', ExpenseListView.as_view(), name='expense_list'),
+    url(r'^expenses/filter/$', FilteredExpenseListView.as_view(), name='filtered_expense_list'),
     url(r'^expenses/latest/$', LatestExpenseListView.as_view(), name='latest_expense_list'),
+    url(r'^expenses/$', ExpenseListView.as_view(), name='expense_list'),
     url(r'^expense/add/$', ExpenseCreateView.as_view(), name='expense_add'),
     url(r'^expense/(?P<pk>[0-9]+)/$', ExpenseUpdateView.as_view(), name='expense_update'),
     url(r'^expense/(?P<pk>[0-9]+)/delete/$', ExpenseDeleteView.as_view(), name='expense_delete'),
