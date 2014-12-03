@@ -75,11 +75,18 @@ class ExpenseListView(LoginRequiredMixin, ListView):
 
 class FilteredExpenseListView(ExpenseListView):
     def get_queryset(self):
-        # filter for account
-        filter_account = int(self.request.REQUEST.get('account', None))
         qs = super(FilteredExpenseListView, self).get_queryset()
+
+        # filter for account
+        filter_account = self.request.REQUEST.get('account', None)
         if filter_account is not None:
-            qs = qs.filter(account_id=filter_account)
+            qs = qs.filter(account_id=int(filter_account))
+
+        # filter for category
+        filter_category = self.request.REQUEST.get('category', None)
+        if filter_category is not None:
+            qs = qs.filter(category_id=int(filter_category))
+
         return qs
 
 
