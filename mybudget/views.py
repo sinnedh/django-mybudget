@@ -3,13 +3,15 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
-from mybudget.models import Expense, Category
+from models import Expense, Category
+from forms import ExpenseFilterForm
 
 
 class LoginRequiredMixin(object):
@@ -25,12 +27,17 @@ def logout_view(request):
     return HttpResponseRedirect(redirect_to=reverse('login'))
 
 
+# TODO implement the filters from expenses !?!
 class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
 
     def get_queryset(self):
-        # TODO improve this query such that
         return self.request.user.account.organisation.category_set.all().order_by('super_category__name', 'name')
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context['category_count'] = self.get_queryset().count()
+        return context
 
 
 # TODO validations
@@ -69,7 +76,12 @@ class ExpenseListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ExpenseListView, self).get_context_data(**kwargs)
+        context['expenses_sum'] = self.get_queryset().aggregate(
+            expenses_sum=Sum('amount'))['expenses_sum']
         context['show_link_to_all_expenses'] = False
+        context['expenses_count'] = self.get_queryset().count()
+        context['filter_form'] = ExpenseFilterForm(self.request.GET)
+
         return context
 
 
@@ -79,19 +91,19 @@ class FilteredExpenseListView(ExpenseListView):
 
         # filter for account
         filter_account = self.request.REQUEST.get('account', None)
-        if filter_account is not None:
+        if filter_account:
             qs = qs.filter(account_id=int(filter_account))
 
         # filter for category
         filter_category = self.request.REQUEST.get('category', None)
-        if filter_category is not None:
+        if filter_category:
             qs = qs.filter(category_id=int(filter_category))
 
         return qs
 
 
 # TODO: merge with  FilteredExpenseListVIew
-class LatestExpenseListView(LoginRequiredMixin, ListView):
+class LatestExpenseListView(ExpenseListView):
     model = Expense
 
     def get_queryset(self):

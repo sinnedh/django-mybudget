@@ -1,15 +1,24 @@
 {% extends "base.html" %}
 {% load mybudget_extras %}
+{% load bootstrap3 %}
+
 
 {% block content %}
-    <h2>Categories</h2>
-    <p>
-        <a href="{% url 'category_add' %}" class="btn btn-primary">
-            <span class="glyphicon glyphicon-plus"></span>
-            Create new category
-        </a>
-    </p>
-    <table class="table table-striped">
+
+<h2>Categories</h2>
+
+<p>
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a href="{% url 'category_add' %}" class="btn btn-success">
+                {% bootstrap_icon "plus" %} New category
+            </a>
+        </div>
+    </div>
+</p>
+
+<div class="panel panel-default">
+    <table class="table">
         <tr>
             <th></th>
             <th>Name</th>
@@ -32,4 +41,9 @@
         </tr>
         {% endfor %}
     </table>
+    <div class="panel-footer">
+        <h3 class="panel-title">There are {{ category_count }} categories.</h3>
+    </div>
+</div>
+
 {% endblock %}

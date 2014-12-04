@@ -32,10 +32,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'latest_expense_list' %}">Expenses</a></li>
+                <li><a href="{% url 'expense_list' %}">Expenses</a></li>
                 <li><a href="{% url 'category_list' %}">Categories</a></li>
-                <li><a href="{% url 'filtered_expense_list' %}?account=1">(Dennis)</a></li>
-                <li><a href="{% url 'filtered_expense_list' %}?account=2">(Judith)</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

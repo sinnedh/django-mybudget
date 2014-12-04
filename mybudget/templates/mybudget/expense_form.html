@@ -2,25 +2,32 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    {% if object %}
-        <h2>Update Expense</h2>
-    {% else %}
-        <h2>Create Expense</h2>
-    {% endif %}
+{% if object %}
+    <h2>Update Expense</h2>
+{% else %}
+    <h2>Create Expense</h2>
+{% endif %}
 
-    <form action="" method="post" role="form" class="form" >
-        {% csrf_token %}
-        {% bootstrap_form_errors form layout='inline' %}
-        {% bootstrap_form form layout='inline' %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-            {% if object %}
-                {% bootstrap_icon "pencil" %} Update Expense
-            {% else %}
-                {% bootstrap_icon "plus" %} Create Expense
-            {% endif %}
-            </button>
-        {% endbuttons %}
-    </form>
-
+<form action="" method="post" role="form" class="form" >
+    {% csrf_token %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {% bootstrap_form_errors form %}
+        </div>
+        <div class="panel-body">
+            {% bootstrap_form form %}
+        </div>
+        <div class="panel-footer">
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                {% if object %}
+                    {% bootstrap_icon "pencil" %} Update Expense
+                {% else %}
+                    {% bootstrap_icon "plus" %} Create Expense
+                {% endif %}
+                </button>
+            {% endbuttons %}
+        </div>
+    </div>
+</form>
 {% endblock %}

@@ -1,15 +1,34 @@
 {% extends "base.html" %}
 {% load mybudget_extras %}
+{% load bootstrap3 %}
+
 
 {% block content %}
-    <h2>Expenses</h2>
-    <p>
-        <a href="{% url 'expense_add' %}" class="btn btn-primary">
-            <span class="glyphicon glyphicon-plus"></span>
-            Create new expense
-        </a>
-    </p>
-    <table class="table table-striped">
+
+<h2>Expenses</h2>
+
+<p>
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a href="{% url 'expense_add' %}" class="btn btn-success">
+                {% bootstrap_icon "plus" %} New expense
+            </a>
+        </div>
+        <div class="col-md-8 text-right">
+            <form action="{% url 'expense_list' %}" method="get" class="form-inline" role="form">
+                {% bootstrap_form filter_form layout='inline' %}
+                {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "filter" %} Filter
+                </button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</p>
+
+<div class="panel panel-default">
+    <table class="table">
         <tr>
             <th></th>
             <th>Date</th>
@@ -31,19 +50,22 @@
             <td>{{ expense.account }}</td>
             <td>
             {% if expense.is_shared  %}
-                <span class="glyphicon glyphicon-ok"></span>
+                {% bootstrap_icon "ok" %}
             {% endif %}
             </td>
             <td>{{ expense.comment|max_length_string:35 }}</td>
         </tr>
         {% endfor %}
     </table>
-    {% if show_link_to_all_expenses %}
-    <p>
-        <a href="{% url 'expense_list' %}" class="btn btn-default">
-            <span class="glyphicon glyphicon-list"></span>
-            Show all expenses
-        </a>
-    </p>
-    {% endif %}
+    <div class="panel-footer">
+        <h3 class="panel-title">There are {{ expenses_count }} expenses with a sum of {{ expenses_sum }} &euro;</h3>
+    </div>
+</div>
+
+{% if show_link_to_all_expenses %}
+    <a href="{% url 'expense_list' %}" class="btn btn-default">
+        {% bootstrap_icon "list" %} Show all expenses
+    </a>
+{% endif %}
+
 {% endblock %}
