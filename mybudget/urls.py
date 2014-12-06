@@ -3,8 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from mybudget.views import DashboardView
-from mybudget.views import (ExpenseListView,
-                            ExpenseCreateView,
+from mybudget.views import (ExpenseCreateView,
                             ExpenseUpdateView,
                             ExpenseDeleteView,
                             FilteredExpenseListView,
@@ -36,6 +35,7 @@ urlpatterns = patterns(
 
     url(r'^categories/$', CategoryListView.as_view(), name='category_list'),
     url(r'^categories/add/$', CategoryCreateView.as_view(), name='category_add'),
+    url(r'^category/(?P<pk>[0-9]+)/$', CategoryUpdateView.as_view(), name='category_update'),
     url(r'^category/(?P<pk>[0-9]+)/details/$', CategoryUpdateView.as_view(), name='category_details'),
     url(r'^category/(?P<pk>[0-9]+)/delete/$', CategoryDeleteView.as_view(), name='category_delete'),
 )
