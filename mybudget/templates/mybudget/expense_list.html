@@ -45,7 +45,7 @@
                 <a href="{% url 'expense_delete' expense.pk %}">Delete</a>
             </td>
             <td>{{ expense.date }}</td>
-            <td>{{ expense.amount|currency }} &euro;</td>
+            <td>{{ expense.amount|floatformat:"2" }} &euro;</td>
             <td>{{ expense.category.name }}</td>
             <td>{{ expense.account }}</td>
             <td>

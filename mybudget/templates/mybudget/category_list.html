@@ -36,8 +36,8 @@
             <td>{{ category.name }}</td>
             <td>{{ category.description|max_length_string:35 }}</td>
             <td>{{ category.super_category }}</td>
-            <td>{{ category.get_expense_sum|currency }} &euro;</td>
-            <td>{{ category.get_total_expense_sum|currency }} &euro;</td>
+            <td>{{ category.get_expense_sum|floatformat:"0"}} &euro;</td>
+            <td>{{ category.get_total_expense_sum|floatformat:"0"}} &euro;</td>
         </tr>
         {% endfor %}
     </table>

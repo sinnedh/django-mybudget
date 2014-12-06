@@ -30,7 +30,7 @@
             <div class="panel panel-success dashboard-box">
                 <div class="panel-heading">
                     <h3 class="panel-title">Today</h3>
-                    <div class="value-sum text-center">{{ sum_today|currency }} &euro;</div>
+                    <div class="value-sum text-center">{{ sum_today|floatformat:"0" }} &euro;</div>
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
@@ -45,7 +45,7 @@
             <div class="panel panel-info dashboard-box">
                 <div class="panel-heading">
                     <h3 class="panel-title">Last 7 days</h3>
-                    <div class="value-sum text-center">{{ sum_7days|currency }} &euro;</div>
+                    <div class="value-sum text-center">{{ sum_7days|floatformat:"0" }} &euro;</div>
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
@@ -60,7 +60,7 @@
             <div class="panel panel-warning dashboard-box">
                 <div class="panel-heading">
                     <h3 class="panel-title">Last 30 days</h3>
-                    <div class="value-sum text-center">{{ sum_30days|currency }} &euro;</div>
+                    <div class="value-sum text-center">{{ sum_30days|floatformat:"0" }} &euro;</div>
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
@@ -89,7 +89,7 @@
                                 {{ exp.date|date:"d. M" }}
                             </td>
                             <td>
-                                {{ exp.amount|currency }} &euro;
+                                {{ exp.amount|floatformat:"2"}} &euro;
                             </td>
                             <td>{{ exp.category.name }}</td>
                             <td>{{ exp.account.user }}</td>
@@ -136,7 +136,7 @@
                         <tr>
                             <td>{{ line.date|date:"M. Y" }}</td>
                             <td>{{ line.count }}</td>
-                            <td>{{ line.sum|currency }} &euro;</td>
+                            <td>{{ line.sum|floatformat:"0"}} &euro;</td>
                         </tr>
                         {% endfor %}
                     </table>
