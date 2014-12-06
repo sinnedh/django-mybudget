@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load mybudget_extras %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<h2>{% bootstrap_icon "dashboard" %} Dashboard</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-success dashboard-box">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Today</h3>
+                    <div class="value-sum text-center">{{ sum_today|currency }} &euro;</div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-right">
+                        <a href=".">Show expenses {% bootstrap_icon "circle-arrow-right" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-info dashboard-box">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Last 7 days</h3>
+                    <div class="value-sum text-center">{{ sum_7days|currency }} &euro;</div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-right">
+                        <a href=".">Show expenses {% bootstrap_icon "circle-arrow-right" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-warning dashboard-box">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Last 30 days</h3>
+                    <div class="value-sum text-center">{{ sum_30days|currency }} &euro;</div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-right">
+                        <a href=".">Show expenses {% bootstrap_icon "circle-arrow-right" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3>Last 5 expenses</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            {% for exp in last_expenses %}
+                            <tr>
+                                <td>
+                                    {{ exp.date|date:"d. M" }}
+                                </td>
+                                <td>
+                                    {{ exp.amount|currency }} &euro;
+                                </td>
+                                <td>{{ exp.category.name }}</td>
+                                <td>{{ exp.account.user }}</td>
+                                <td>
+                                    <a href="{% url 'expense_details' exp.id %}">
+                                        {% bootstrap_icon "circle-arrow-right" %}
+                                    </a> 
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3>Top categories</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                        For which date period?
+                        </p>
+                        <table class="table">
+                            <tr>
+                                <td>amount</td>
+                                <td>comment</td>
+                            </tr>
+                            <tr>
+                                <td>amount</td>
+                                <td>comment</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+               <h3>Monthly summary</h3>
+               <p>
+               For which date period?
+               </p>
+               <table class="table">
+                   <tr>
+                       <td>January</td>
+                       <td>comment</td>
+                   </tr>
+                   <tr>
+                       <td>February</td>
+                       <td>comment</td>
+                   </tr>
+               </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -4,3 +4,12 @@ body {
     padding-bottom: 20px;
 }
 
+div.dashboard-box {
+}
+
+div.dashboard-box div.value-sum {
+    font-size: 400%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

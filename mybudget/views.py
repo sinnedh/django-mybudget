@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
@@ -27,12 +27,36 @@ def logout_view(request):
     return HttpResponseRedirect(redirect_to=reverse('login'))
 
 
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "mybudget/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['sum_today'] = self.request.user.account.organisation.get_latest_expenses(
+            days=1).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
+        context['sum_7days'] = self.request.user.account.organisation.get_latest_expenses(
+            days=7).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
+        context['sum_30days'] = self.request.user.account.organisation.get_latest_expenses(
+            days=30).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
+
+        if context['sum_today'] is None:
+            context['sum_today'] = 0
+        if context['sum_7days'] is None:
+            context['sum_7days'] = 0
+        if context['sum_30days'] is None:
+             context['sum_30days'] = 0
+        context['last_expenses'] = self.request.user.account.organisation.get_expenses().order_by(
+            '-date', '-created_at')[:5]
+        return context
+
+
 # TODO implement the filters from expenses !?!
 class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
 
     def get_queryset(self):
-        return self.request.user.account.organisation.category_set.all().order_by('super_category__name', 'name')
+        return self.request.user.account.organisation.category_set.all().order_by(
+            'super_category__name', 'name')
 
     def get_context_data(self, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
