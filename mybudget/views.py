@@ -57,7 +57,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         qs = organisation.get_expenses().extra({'month': truncate_date})
         month_report = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
 
-        context['month_report'] = [{'sum': m['amount__sum'], 'count': m['pk__count'], 'date': datetime.datetime.strptime(m['month'], '%Y-%m-%d')} for m in month_report]
+        context['month_report'] = [{'sum': m['amount__sum'], 'count': m['pk__count'], 'date': m['month']} for m in month_report]
 
         context['create_expense_form'] = ExpenseCreateInlineForm()
         context.update(csrf(self.request))
