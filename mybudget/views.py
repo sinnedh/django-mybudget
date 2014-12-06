@@ -56,8 +56,19 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         truncate_date = connection.ops.date_trunc_sql('month', 'date')
         qs = organisation.get_expenses().extra({'month': truncate_date})
         month_report = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
-
-        context['month_report'] = [{'sum': m['amount__sum'], 'count': m['pk__count'], 'date': datetime.datetime.strptime(m['month'], '%Y-%m-%d')} for m in month_report]
+        context['month_report'] = []
+        for m in month_report:
+            """
+            The database adaptors are behaving differently. For postgres a datetime object is returned, for sqlite a
+            string is returned.
+            """
+            if type(m['month']) in [str, unicode]:
+                date = datetime.datetime.strptime(m['month'], '%Y-%m-%d')
+            else:
+                date = m['month']
+            context['month_report'].append({'sum': m['amount__sum'],
+                                            'count': m['pk__count'],
+                                            'date': date})
 
         context['create_expense_form'] = ExpenseCreateInlineForm()
         context.update(csrf(self.request))
