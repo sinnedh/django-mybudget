@@ -22,3 +22,11 @@ class ExpenseFilterForm(forms.ModelForm):
     class Meta:
         model = Expense
         fields = ['category', 'account']
+
+
+class ExpenseCreateInlineForm(forms.ModelForm):
+    comment = forms.CharField()
+
+    class Meta:
+        model = Expense
+        fields = ['date', 'amount', 'category', 'comment', 'is_shared']

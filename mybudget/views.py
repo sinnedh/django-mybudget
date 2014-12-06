@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 from models import Expense, Category
-from forms import ExpenseFilterForm
+from forms import ExpenseFilterForm, ExpenseCreateInlineForm
 
 
 class LoginRequiredMixin(object):
@@ -33,12 +33,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "mybudget/dashboard.html"
 
     def get_context_data(self, **kwargs):
+        organisation = self.request.user.account.organisation
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context['sum_today'] = self.request.user.account.organisation.get_latest_expenses(
+        context['sum_today'] = organisation.get_latest_expenses(
             days=1).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_7days'] = self.request.user.account.organisation.get_latest_expenses(
+        context['sum_7days'] = organisation.get_latest_expenses(
             days=7).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_30days'] = self.request.user.account.organisation.get_latest_expenses(
+        context['sum_30days'] = organisation.get_latest_expenses(
             days=30).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
 
         if context['sum_today'] is None:
@@ -47,8 +48,12 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             context['sum_7days'] = 0
         if context['sum_30days'] is None:
             context['sum_30days'] = 0
-        context['last_expenses'] = self.request.user.account.organisation.get_expenses().order_by(
-            '-date', '-created_at')[:5]
+
+        context['last_expenses'] = organisation.get_expenses().order_by('-date', '-created_at')[:5]
+
+        context['create_expense_form'] = ExpenseCreateInlineForm()
+        from django.core.context_processors import csrf
+        context.update(csrf(self.request))
         return context
 
 
