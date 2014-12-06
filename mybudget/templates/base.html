@@ -37,12 +37,27 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{ user.username }} </strong><span class="glyphicon glyphicon-user"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        Logged in as <strong>{{ user.username }} </strong>
+                    </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Profile (TODO)</a></li>
-                    <li><a href="#">Change Passwort (TODO)</a></li>
+                    <li>
+                        <a href="#">
+                            {% bootstrap_icon "user" %}&nbsp;&nbsp;Profile (TODO)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            {% bootstrap_icon "cog" %}&nbsp;&nbsp;Settings (TODO)
+                        </a>
+                    </li>
                     <li class="divider"></li>
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            {% bootstrap_icon "log-out" %}&nbsp;&nbsp;Logout
+                        </a>
+                    </li>
                 </ul>
                 </li>
             </ul>
