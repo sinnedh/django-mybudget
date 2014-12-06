@@ -4,8 +4,10 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.db.models import Sum
+from django.db import connection
+from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
@@ -51,8 +53,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         context['last_expenses'] = organisation.get_expenses().order_by('-date', '-created_at')[:5]
 
+        truncate_date = connection.ops.date_trunc_sql('month', 'date')
+        qs = organisation.get_expenses().extra({'month': truncate_date})
+        month_report = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
+
+        context['month_report'] = [{'sum': m['amount__sum'], 'count': m['pk__count'], 'date': datetime.datetime.strptime(m['month'], '%Y-%m-%d')} for m in month_report]
+
         context['create_expense_form'] = ExpenseCreateInlineForm()
-        from django.core.context_processors import csrf
         context.update(csrf(self.request))
         return context
 

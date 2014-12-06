@@ -82,7 +82,6 @@
                     <h3>Recent expenses</h3>
                 </div>
                 <div class="panel-body">
-                    <p>Shown are the five latest expenses.</p>
                     <table class="table">
                         {% for exp in last_expenses %}
                         <tr>
@@ -106,15 +105,12 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel">
                 <div class="panel-heading">
                     <h3>TODO: Top categories</h3>
                 </div>
                 <div class="panel-body">
-                    <p>
-                    For which date period?
-                    </p>
                     <table class="table">
                         <tr>
                             <td>amount</td>
@@ -129,24 +125,20 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3>TODO Monthly summary</h3>
+                    <h3>Monthly summary</h3>
                 </div>
                 <div class="panel-body">
-                    <p>
-                    For which date period?
-                    </p>
                     <table class="table">
+                        {% for line in month_report %}
                         <tr>
-                            <td>January</td>
-                            <td>comment</td>
+                            <td>{{ line.date|date:"M. Y" }}</td>
+                            <td>{{ line.count }}</td>
+                            <td>{{ line.sum|currency }} &euro;</td>
                         </tr>
-                        <tr>
-                            <td>February</td>
-                            <td>comment</td>
-                        </tr>
+                        {% endfor %}
                     </table>
                 </div>
             </div>
