@@ -1,3 +1,5 @@
 *.pyc
 venv
 *.swp
+static
+db.sqlite3
