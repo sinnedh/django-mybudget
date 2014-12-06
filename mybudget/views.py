@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -44,7 +46,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         if context['sum_7days'] is None:
             context['sum_7days'] = 0
         if context['sum_30days'] is None:
-             context['sum_30days'] = 0
+            context['sum_30days'] = 0
         context['last_expenses'] = self.request.user.account.organisation.get_expenses().order_by(
             '-date', '-created_at')[:5]
         return context
@@ -113,15 +115,22 @@ class FilteredExpenseListView(ExpenseListView):
     def get_queryset(self):
         qs = super(FilteredExpenseListView, self).get_queryset()
 
-        # filter for account
-        filter_account = self.request.REQUEST.get('account', None)
-        if filter_account:
-            qs = qs.filter(account_id=int(filter_account))
+        # filter for age_in_days
+        filter_age_in_days = self.request.REQUEST.get('age_in_days', None)
+        if filter_age_in_days:
+            # TODO: include this filter in the model (or better in a manager)
+            min_date = datetime.date.today() - datetime.timedelta(days=int(filter_age_in_days))
+            qs = qs.filter(date__gt=min_date)
 
         # filter for category
         filter_category = self.request.REQUEST.get('category', None)
         if filter_category:
             qs = qs.filter(category_id=int(filter_category))
+
+        # filter for account
+        filter_account = self.request.REQUEST.get('account', None)
+        if filter_account:
+            qs = qs.filter(account_id=int(filter_account))
 
         return qs
 

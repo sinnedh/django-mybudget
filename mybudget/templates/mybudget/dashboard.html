@@ -16,7 +16,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
-                        <a href=".">Show expenses {% bootstrap_icon "circle-arrow-right" %}</a>
+                        <a href="{% url 'expense_list' %}?age_in_days=1">
+                            Show expenses {% bootstrap_icon "circle-arrow-right" %}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -29,7 +31,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
-                        <a href=".">Show expenses {% bootstrap_icon "circle-arrow-right" %}</a>
+                        <a href="{% url 'expense_list' %}?age_in_days=7">
+                            Show expenses {% bootstrap_icon "circle-arrow-right" %}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -42,7 +46,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
-                        <a href=".">Show expenses {% bootstrap_icon "circle-arrow-right" %}</a>
+                        <a href="{% url 'expense_list' %}?age_in_days=30">
+                            Show expenses {% bootstrap_icon "circle-arrow-right" %}
+                        </a>
                     </div>
                 </div>
             </div>
