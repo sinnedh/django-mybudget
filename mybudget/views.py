@@ -142,6 +142,8 @@ class ExpenseListView(LoginRequiredMixin, ListView):
         context['show_link_to_all_expenses'] = False
         context['expenses_count'] = self.get_queryset().count()
         context['filter_form'] = ExpenseFilterForm(self.request.GET)
+        context['filter_form'].fields['category'].queryset = Category.objects.for_organisation(
+            self.request.user.account.organisation)
 
         return context
 
