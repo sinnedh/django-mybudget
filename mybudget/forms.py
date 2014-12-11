@@ -4,15 +4,15 @@ from django import forms
 from models import Expense
 
 FILTER_AGE_CHOICES = (
-        ('', '---------'),
-        ('1', 'Today'),
-        ('3', 'Last 3 days'),
-        ('7', 'Last 7 days'),
-        ('14', 'Last 14 days'),
-        ('30', 'Last 30 days'),
-        ('90', 'Last 90 days'),
-        ('180', 'Last 180 days'),
-        ('360', 'Last 360days'),
+    ('', '---------'),
+    ('1', 'Today'),
+    ('3', 'Last 3 days'),
+    ('7', 'Last 7 days'),
+    ('14', 'Last 14 days'),
+    ('30', 'Last 30 days'),
+    ('90', 'Last 90 days'),
+    ('180', 'Last 180 days'),
+    ('360', 'Last 360days'),
 )
 
 

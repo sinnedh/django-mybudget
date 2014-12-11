@@ -6,8 +6,11 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+import manager
+
 
 class Organisation(models.Model):
+
     class Meta:
         verbose_name = _('Organisation')
         verbose_name_plural = _('Organisation')
@@ -31,11 +34,12 @@ class Organisation(models.Model):
 
 
 class Account(models.Model):
+
     class Meta:
         verbose_name = _('Account')
         verbose_name_plural = _('Accounts')
 
-    organisation = models.ForeignKey(Organisation)
+    organisation = models.ForeignKey('Organisation')
     user = models.OneToOneField(User)
     created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
@@ -45,12 +49,15 @@ class Account(models.Model):
 
 
 class Category(models.Model):
+
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
+    objects = manager.CategoryManager()
+
     super_category = models.ForeignKey('self', null=True, blank=True, default=None)
-    organisation = models.ForeignKey(Organisation)
+    organisation = models.ForeignKey('Organisation')
     name = models.CharField(_('name'), max_length=256)
     description = models.TextField(_('description'), blank=True)
     created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
@@ -84,14 +91,20 @@ class Category(models.Model):
             expense_sum += subcat.get_expense_sum()
         return expense_sum
 
+    def get_sub_categories(self):
+        return [c.id for c in self.category_set.all()]
+
 
 class Expense(models.Model):
+
     class Meta:
         verbose_name = _('Expense')
         verbose_name_plural = _('Expenses')
 
-    category = models.ForeignKey(Category)
-    account = models.ForeignKey(Account)
+    objects = manager.ExpenseManager()
+
+    category = models.ForeignKey('Category')
+    account = models.ForeignKey('Account')
 
     date = models.DateField(_('date'), default=datetime.date.today)
     amount = models.DecimalField(_('amount'), decimal_places=2, max_digits=10, default=0.00)

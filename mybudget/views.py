@@ -71,6 +71,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                             'date': date})
 
         context['create_expense_form'] = ExpenseCreateInlineForm()
+        context['create_expense_form'].fields['category'].queryset = Category.objects.for_organisation(
+            self.request.user.account.organisation)
         context.update(csrf(self.request))
         return context
 
@@ -80,8 +82,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
 
     def get_queryset(self):
-        return self.request.user.account.organisation.category_set.all().order_by(
-            'super_category__name', 'name')
+        return Category.objects.for_organisation(self.request.user.account.organisation)
 
     def get_context_data(self, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
@@ -99,6 +100,12 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         form.instance.organisation = self.request.user.account.organisation
         return super(CategoryCreateView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(CategoryCreateView, self).get_context_data(**kwargs)
+        context['form'].fields['super_category'].queryset = Category.objects.for_organisation(
+            self.request.user.account.organisation)
+        return context
+
 
 # TODO validations
 class CategoryUpdateView(LoginRequiredMixin, UpdateView):
@@ -110,6 +117,12 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.organisation = self.request.user.account.organisation
         return super(CategoryUpdateView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(CategoryUpdateView, self).get_context_data(**kwargs)
+        context['form'].fields['super_category'].queryset = Category.objects.for_organisation(
+            self.request.user.account.organisation).exclude(id=self.object.id)
+        return context
+
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Category
@@ -120,8 +133,7 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
 
     def get_queryset(self):
-        all_expenses = self.request.user.account.organisation.get_expenses()
-        return all_expenses.order_by('-date', '-created_at')
+        return Expense.objects.for_organisation(self.request.user.account.organisation)
 
     def get_context_data(self, **kwargs):
         context = super(ExpenseListView, self).get_context_data(**kwargs)
@@ -136,26 +148,9 @@ class ExpenseListView(LoginRequiredMixin, ListView):
 
 class FilteredExpenseListView(ExpenseListView):
     def get_queryset(self):
-        qs = super(FilteredExpenseListView, self).get_queryset()
-
-        # filter for age_in_days
-        filter_age_in_days = self.request.REQUEST.get('age_in_days', None)
-        if filter_age_in_days:
-            # TODO: include this filter in the model (or better in a manager)
-            min_date = datetime.date.today() - datetime.timedelta(days=int(filter_age_in_days))
-            qs = qs.filter(date__gt=min_date)
-
-        # filter for category
-        filter_category = self.request.REQUEST.get('category', None)
-        if filter_category:
-            qs = qs.filter(category_id=int(filter_category))
-
-        # filter for account
-        filter_account = self.request.REQUEST.get('account', None)
-        if filter_account:
-            qs = qs.filter(account_id=int(filter_account))
-
-        return qs
+        return Expense.objects.request_filter(
+            organisation=self.request.user.account.organisation,
+            request=self.request.REQUEST)
 
 
 # TODO: merge with  FilteredExpenseListVIew
@@ -182,6 +177,12 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
         form.instance.account = self.request.user.account
         return super(ExpenseCreateView, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(ExpenseCreateView, self).get_context_data(**kwargs)
+        context['form'].fields['category'].queryset = Category.objects.for_organisation(
+            self.request.user.account.organisation)
+        return context
+
 
 # TODO validations
 class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
@@ -192,6 +193,12 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.account = self.request.user.account
         return super(ExpenseUpdateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(ExpenseUpdateView, self).get_context_data(**kwargs)
+        context['form'].fields['category'].queryset = Category.objects.for_organisation(
+            self.request.user.account.organisation)
+        return context
 
 
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
