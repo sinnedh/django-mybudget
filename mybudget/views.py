@@ -51,7 +51,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         if context['sum_30days'] is None:
             context['sum_30days'] = 0
 
-        context['last_expenses'] = organisation.get_expenses().order_by('-date', '-created_at')[:5]
+        context['last_expenses'] = organisation.get_expenses().order_by('-date', '-created_at')[:10]
 
         truncate_date = connection.ops.date_trunc_sql('month', 'date')
         qs = organisation.get_expenses().extra({'month': truncate_date})
