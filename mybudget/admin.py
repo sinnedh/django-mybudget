@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from mybudget.models import Account, Organisation, Category, Expense
+from mybudget.models import Account, Category, Expense, Organisation, Tag
+
+
+class TagAdmin(admin.ModelAdmin):
+    pass
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -32,4 +36,5 @@ class OrganisationAdmin(admin.ModelAdmin):
 admin.site.register(Account, AccountAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TagAdmin)
 admin.site.register(Expense, ExpenseAdmin)

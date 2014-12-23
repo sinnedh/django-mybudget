@@ -26,8 +26,13 @@ urlpatterns = patterns(
     url(r'^expense/(?P<pk>[0-9]+)/delete/$', views.ExpenseDeleteView.as_view(), name='expense_delete'),
 
     url(r'^categories/$', views.CategoryListView.as_view(), name='category_list'),
-    url(r'^categories/add/$', views.CategoryCreateView.as_view(), name='category_add'),
+    url(r'^category/add/$', views.CategoryCreateView.as_view(), name='category_add'),
     url(r'^category/(?P<pk>[0-9]+)/$', views.CategoryUpdateView.as_view(), name='category_update'),
     url(r'^category/(?P<pk>[0-9]+)/details/$', views.CategoryUpdateView.as_view(), name='category_details'),
     url(r'^category/(?P<pk>[0-9]+)/delete/$', views.CategoryDeleteView.as_view(), name='category_delete'),
+
+    url(r'^tags/$', views.TagListView.as_view(), name='tag_list'),
+    url(r'^tag/add/$', views.TagCreateView.as_view(), name='tag_add'),
+    url(r'^tag/(?P<pk>[0-9]+)/$', views.TagUpdateView.as_view(), name='tag_update'),
+    url(r'^tag/(?P<pk>[0-9]+)/delete/$', views.TagDeleteView.as_view(), name='tag_delete'),
 )

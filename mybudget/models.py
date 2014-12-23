@@ -97,6 +97,25 @@ class Category(models.Model):
         return [c.id for c in self.category_set.all()]
 
 
+class Tag(models.Model):
+
+    class Meta:
+        verbose_name = _('Tag')
+        verbose_name_plural = _('Tags')
+
+    all_objects = managers.TagManager()
+    objects = managers.TagForOrganisationManager()
+
+    organisation = models.ForeignKey('Organisation')
+    name = models.CharField(_('name'), max_length=256)
+    description = models.TextField(_('description'), blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Expense(models.Model):
 
     class Meta:
@@ -106,6 +125,7 @@ class Expense(models.Model):
     all_objects = managers.ExpenseManager()
     objects = managers.ExpenseForOrganisationManager()
 
+    tags = models.ManyToManyField('Tag')
     category = models.ForeignKey('Category')
     account = models.ForeignKey('Account')
 

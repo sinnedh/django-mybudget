@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load mybudget_extras %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+<h2>Tags</h2>
+
+<p>
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <a href="{% url 'tag_add' %}" class="btn btn-success">
+                {% bootstrap_icon "plus" %} New Tag
+            </a>
+        </div>
+    </div>
+</p>
+
+<div class="panel panel-default">
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        {% for tag in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'tag_update' tag.pk %}">Edit</a> / 
+                <a href="{% url 'tag_delete' tag.pk %}">Delete</a>
+            </td>
+            <td>{{ tag.name }}</td>
+            <td>{{ tag.description|max_length_string:35 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="panel-footer">
+        <h3 class="panel-title">There are {{ tag_count }} tags.</h3>
+    </div>
+</div>
+
+{% endblock %}

@@ -5,19 +5,17 @@ from django.db import models
 
 
 class ExpenseManager(models.Manager):
-    pass
+    def get_queryset(self):
+        return super(ExpenseManager, self).get_queryset().order_by(
+            '-date', '-created_at')
 
 
-class ExpenseForOrganisationManager(models.Manager):
+class ExpenseForOrganisationManager(ExpenseManager):
 
     def for_organisation(self, organisation):
         queryset = self.get_queryset().filter(
             category__organisation=organisation)
         return queryset
-
-    def get_queryset(self):
-        return super(self.__class__, self).get_queryset().order_by(
-            '-date', '-created_at')
 
     def request_filter(self, organisation, request):
         queryset = self.for_organisation(organisation)
@@ -51,15 +49,28 @@ class ExpenseForOrganisationManager(models.Manager):
 
 
 class CategoryManager(models.Manager):
-    pass
+
+    def get_queryset(self):
+        return super(CategoryManager, self).get_queryset().order_by(
+            'super_category__name', 'name')
 
 
-class CategoryForOrganisationManager(models.Manager):
+class CategoryForOrganisationManager(CategoryManager):
 
     def for_organisation(self, organisation):
         queryset = self.get_queryset().filter(organisation=organisation)
         return queryset
 
+
+class TagManager(models.Manager):
+
     def get_queryset(self):
-        return super(self.__class__, self).get_queryset().order_by(
-            'super_category__name', 'name')
+        return super(TagManager, self).get_queryset().order_by('name')
+
+
+class TagForOrganisationManager(TagManager):
+
+    def for_organisation(self, organisation):
+        queryset = self.get_queryset().filter(
+            organisation=organisation)
+        return queryset

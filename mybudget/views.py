@@ -14,8 +14,8 @@ from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
-from models import Expense, Category
-from forms import ExpenseFilterForm, ExpenseCreateInlineForm
+from models import Category, Expense, Tag
+from forms import ExpenseFilterForm, ExpenseCreateInlineForm, ExpenseForm
 
 
 class LoginRequiredMixin(object):
@@ -73,6 +73,50 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['create_expense_form'] = ExpenseCreateInlineForm(organisation)
         context.update(csrf(self.request))
         return context
+
+
+# TODO implement the filters from expenses !?!
+class TagListView(LoginRequiredMixin, ListView):
+    model = Tag
+
+    def get_queryset(self):
+        return Tag.objects.for_organisation(self.request.user.account.organisation)
+
+    def get_context_data(self, **kwargs):
+        context = super(TagListView, self).get_context_data(**kwargs)
+        context['tag_count'] = self.get_queryset().count()
+        return context
+
+
+# TODO validations
+class TagCreateView(LoginRequiredMixin, CreateView):
+    model = Tag
+    fields = ['name', 'description', ]
+    success_url = reverse_lazy('tag_list')
+
+    def form_valid(self, form):
+        form.instance.organisation = self.request.user.account.organisation
+        return super(TagCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(TagCreateView, self).get_context_data(**kwargs)
+        return context
+
+
+# TODO validations
+class TagUpdateView(LoginRequiredMixin, UpdateView):
+    model = Tag
+    fields = ['name', 'description', ]
+    success_url = reverse_lazy('tag_list')
+
+    def form_valid(self, form):
+        form.instance.organisation = self.request.user.account.organisation
+        return super(self.__class__, self).form_valid(form)
+
+
+class TagDeleteView(LoginRequiredMixin, DeleteView):
+    model = Tag
+    success_url = reverse_lazy('tag_list')
 
 
 # TODO implement the filters from expenses !?!
@@ -168,7 +212,7 @@ class LatestExpenseListView(ExpenseListView):
 # TODO validations
 class ExpenseCreateView(LoginRequiredMixin, CreateView):
     model = Expense
-    fields = ['date', 'amount', 'category', 'is_shared', 'comment', ]
+    fields = ['date', 'amount', 'category', 'tags', 'is_shared', 'comment', ]
     success_url = reverse_lazy('expense_list')
 
     def form_valid(self, form):
@@ -179,11 +223,14 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
         context = super(ExpenseCreateView, self).get_context_data(**kwargs)
         return context
 
+    def get_form(self, form_class):
+        return ExpenseForm(self.request.user.account.organisation,
+                           **self.get_form_kwargs())
 
 # TODO validations
 class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     model = Expense
-    fields = ['date', 'amount', 'category', 'is_shared', 'comment', ]
+    fields = ['date', 'amount', 'category', 'tags', 'is_shared', 'comment', ]
     success_url = reverse_lazy('expense_list')
 
     def form_valid(self, form):
@@ -193,6 +240,10 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ExpenseUpdateView, self).get_context_data(**kwargs)
         return context
+
+    def get_form(self, form_class):
+        return ExpenseForm(self.request.user.account.organisation,
+                           **self.get_form_kwargs())
 
 
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
