@@ -35,6 +35,7 @@ def backup_db():
 def deploy(settings='mybudget.settings.production'):
     local('git push heroku master')
     local('heroku run python manage.py clean_pyc --settings={}'.format(settings))
+    local('heroku run python manage.py bower install--settings={}'.format(settings))
     local('heroku run python manage.py collectstatic --settings={}'.format(settings))
 #    local('heroku run python manage.py makemigrations --settings={}'.format(settings))
     local('heroku run python manage.py migrate --settings={}'.format(settings))
