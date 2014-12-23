@@ -37,12 +37,12 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         organisation = self.request.user.account.organisation
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context['sum_today'] = organisation.get_latest_expenses(
-            days=1).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_7days'] = organisation.get_latest_expenses(
-            days=7).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_30days'] = organisation.get_latest_expenses(
-            days=30).aggregate(expenses_sum=Sum('amount'))['expenses_sum']
+        context['sum_today'] = Expense.objects.get_latest(organisation, 1).aggregate(
+            expenses_sum=Sum('amount'))['expenses_sum']
+        context['sum_7days'] = Expense.objects.get_latest(organisation, 7).aggregate(
+            expenses_sum=Sum('amount'))['expenses_sum']
+        context['sum_30days'] = Expense.objects.get_latest(organisation, 30).aggregate(
+            expenses_sum=Sum('amount'))['expenses_sum']
 
         if context['sum_today'] is None:
             context['sum_today'] = 0
@@ -70,9 +70,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                             'count': m['pk__count'],
                                             'date': date})
 
-        context['create_expense_form'] = ExpenseCreateInlineForm()
-        context['create_expense_form'].fields['category'].queryset = Category.objects.for_organisation(
-            self.request.user.account.organisation)
+        context['create_expense_form'] = ExpenseCreateInlineForm(organisation)
         context.update(csrf(self.request))
         return context
 
@@ -102,8 +100,6 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryCreateView, self).get_context_data(**kwargs)
-        context['form'].fields['super_category'].queryset = Category.objects.for_organisation(
-            self.request.user.account.organisation)
         return context
 
 
@@ -119,8 +115,6 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryUpdateView, self).get_context_data(**kwargs)
-        context['form'].fields['super_category'].queryset = Category.objects.for_organisation(
-            self.request.user.account.organisation).exclude(id=self.object.id)
         return context
 
 
@@ -136,14 +130,16 @@ class ExpenseListView(LoginRequiredMixin, ListView):
         return Expense.objects.for_organisation(self.request.user.account.organisation)
 
     def get_context_data(self, **kwargs):
+        organisation = self.request.user.account.organisation
         context = super(ExpenseListView, self).get_context_data(**kwargs)
         context['expenses_sum'] = self.get_queryset().aggregate(
             expenses_sum=Sum('amount'))['expenses_sum']
         context['show_link_to_all_expenses'] = False
         context['expenses_count'] = self.get_queryset().count()
-        context['filter_form'] = ExpenseFilterForm(self.request.GET)
-        context['filter_form'].fields['category'].queryset = Category.objects.for_organisation(
-            self.request.user.account.organisation)
+        initial = {}
+        initial.update(self.request.REQUEST)
+        context['filter_form'] = ExpenseFilterForm(organisation=organisation,
+                                                   initial=initial)
 
         return context
 
@@ -181,8 +177,6 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExpenseCreateView, self).get_context_data(**kwargs)
-        context['form'].fields['category'].queryset = Category.objects.for_organisation(
-            self.request.user.account.organisation)
         return context
 
 
@@ -198,8 +192,6 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExpenseUpdateView, self).get_context_data(**kwargs)
-        context['form'].fields['category'].queryset = Category.objects.for_organisation(
-            self.request.user.account.organisation)
         return context
 
 

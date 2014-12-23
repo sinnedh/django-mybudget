@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
-import manager
+import managers
 
 
 class Organisation(models.Model):
@@ -21,13 +21,14 @@ class Organisation(models.Model):
     updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
 
     def get_expenses(self):
-        return Expense.objects.filter(account__in=self.account_set.all())
+        return Expense.objects.for_organisation(self)
 
+    """
     def get_latest_expenses(self, days=1):
         min_date = datetime.date.today() - datetime.timedelta(days=days)
-        return Expense.objects.filter(
-            account__in=self.account_set.all(),
+        return Expense.objects.all(self).filter(
             date__gt=min_date)
+    """
 
     def __unicode__(self):
         return self.name
@@ -54,7 +55,8 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
-    objects = manager.CategoryManager()
+    all_objects = managers.CategoryManager()
+    objects = managers.CategoryForOrganisationManager()
 
     super_category = models.ForeignKey('self', null=True, blank=True, default=None)
     organisation = models.ForeignKey('Organisation')
@@ -101,7 +103,8 @@ class Expense(models.Model):
         verbose_name = _('Expense')
         verbose_name_plural = _('Expenses')
 
-    objects = manager.ExpenseManager()
+    all_objects = managers.ExpenseManager()
+    objects = managers.ExpenseForOrganisationManager()
 
     category = models.ForeignKey('Category')
     account = models.ForeignKey('Account')

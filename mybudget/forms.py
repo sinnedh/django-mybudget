@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 
-from models import Expense
+from models import Expense, Category, Account
 
 FILTER_AGE_CHOICES = (
     ('', '---------'),
@@ -16,12 +16,19 @@ FILTER_AGE_CHOICES = (
 )
 
 
-class ExpenseFilterForm(forms.ModelForm):
-    age_in_days = forms.ChoiceField(choices=FILTER_AGE_CHOICES)  # free input e.g. by PositiveIntegerField
+class ExpenseFilterForm(forms.Form):
+    age_in_days = forms.ChoiceField(required=False, choices=FILTER_AGE_CHOICES)
+    account = forms.ModelChoiceField(queryset=Account.objects.none(), required=False)
+    category = forms.ModelChoiceField(queryset=Category.objects.none(), required=False)
 
     class Meta:
         model = Expense
         fields = ['category', 'account']
+
+    def __init__(self, organisation, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.fields['account'].queryset = Account.objects.filter(organisation=organisation)
+        self.fields['category'].queryset = Category.objects.for_organisation(organisation)
 
 
 class ExpenseCreateInlineForm(forms.ModelForm):
@@ -30,3 +37,7 @@ class ExpenseCreateInlineForm(forms.ModelForm):
     class Meta:
         model = Expense
         fields = ['date', 'amount', 'category', 'comment', 'is_shared']
+
+    def __init__(self, organisation, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.fields['category'].queryset = Category.objects.for_organisation(organisation)
