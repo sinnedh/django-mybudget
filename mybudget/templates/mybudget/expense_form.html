@@ -10,14 +10,14 @@
     <h2>Create Expense</h2>
 {% endif %}
 
-<form action="" method="post" role="form" class="form" >
+<form action="" method="post" role="form" class="form form-horizontal" >
     {% csrf_token %}
     <div class="panel panel-default">
         <div class="panel-heading">
             {% bootstrap_form_errors form %}
         </div>
         <div class="panel-body">
-            {% bootstrap_form form %}
+            {% bootstrap_form form layout='horizontal'%}
         </div>
         <div class="panel-footer">
             {% buttons %}

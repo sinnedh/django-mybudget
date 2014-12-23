@@ -5,13 +5,21 @@
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>{% block title %}{% endblock %}</title>
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
 {% bootstrap_css %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/style.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap-datepicker/css/datepicker.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap-select/dist/css/bootstrap-select.css">
+<script type="text/javascript" src="{{ STATIC_URL }}/jquery/dist/jquery.min.js"></script>
 {% bootstrap_javascript %}
+<script type="text/javascript" src="{{ STATIC_URL }}bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}bootstrap-select/dist/js/bootstrap-select.js"></script>
+<script type="text/javascript">
+$.fn.datepicker.defaults.todayBtn = "linked";
+$.fn.datepicker.defaults.format = "dd.mm.yyyy";
+</script>
 {% block extrahead %}
 {% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
-<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 <!-- Container -->
@@ -34,6 +42,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'expense_list' %}?age_in_days=30">Expenses</a></li>
                 <li><a href="{% url 'category_list' %}">Categories</a></li>
+                <li><a href="{% url 'tag_list' %}">Tags</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

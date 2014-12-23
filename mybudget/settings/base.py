@@ -38,8 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mybudget',
     'bootstrap3',
+    'djangobower',
     'django_extensions',
-    'jquery',
+#    'jquery',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -87,6 +88,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 #STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+)
+
+
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
@@ -97,3 +105,12 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_URL = 'login'
+
+
+BOWER_INSTALLED_APPS = (
+   'jquery',
+   'bootstrap-datepicker',
+   'bootstrap-select',
+)
+
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '../components/')
