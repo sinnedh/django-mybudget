@@ -17,3 +17,37 @@ div.dashboard-box div.value-sum {
 div.dashboard-box div.value-sum sup {
     font-size: 60%;
 }
+
+
+table.expense-list tr td {
+    padding-top: 3px;
+}
+
+table.expense-list tr td.currency {
+    padding-top: 15px;
+    height: 60px;
+}
+
+table.expense-list td.currency span {
+    font-weight: lighter;
+    font-size: 150%;
+    padding:  7px 10px;
+}
+
+table.expense-list td.currency span sup {
+    font-size: 60%;
+    margin-left: 3px;
+}
+
+table.expense-list tr td.main a {
+    font-size: 110%;
+}
+
+table.expense-list tr td.main span.account {
+    font-size: 90%;
+    color: #555;
+}
+
+table.expense-list tr td.main span.comment {
+    color: #888;
+}

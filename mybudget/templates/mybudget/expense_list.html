@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load mybudget_extras %}
 {% load bootstrap3 %}
-
+{% load humanize %}
 
 {% block content %}
 
@@ -27,33 +27,40 @@
     </div>
 </p>
 
+
 <div class="panel panel-default">
-    <table class="table">
+    <table class="table expense-list">
         <tr>
-            <th></th>
-            <th>Date</th>
             <th>Amount</th>
-            <th>Category</th>
-            <th>Account</th>
-            <th>Is shared?</th>
-            <th>Comment</th>
+            <th>Expense</th>
+            <th>Shared?</th>
+            <th>Date</th>
+            <th></th>
         </tr>
         {% for expense in object_list %}
         <tr>
-            <td>
-                <a href="{% url 'expense_update' expense.pk %}">Edit</a> / 
-                <a href="{% url 'expense_delete' expense.pk %}">Delete</a>
+            <td class="currency">
+                <span class="label label-primary">{{ expense.amount|currency|safe }}</span>
             </td>
-            <td>{{ expense.date }}</td>
-            <td>{{ expense.amount|floatformat:"2" }} &euro;</td>
-            <td>{{ expense.category.name }}</td>
-            <td>{{ expense.account }}</td>
+            <td class="main">
+                <a href="{% url 'expense_update' expense.pk %}"><strong>{{ expense.category.name }}:</strong></a> <span class="comment">{{ expense.comment|max_length_string:50 }}</span><br />
+                {% for tag in expense.tags.all %}
+                <span class="label label-default">{{ tag }}</span>
+                {% endfor %}
+                &mdash; <span class="account">{{ expense.account }}</span>
+            </td>
+
             <td>
             {% if expense.is_shared  %}
                 {% bootstrap_icon "ok" %}
             {% endif %}
             </td>
-            <td>{{ expense.comment|max_length_string:35 }}</td>
+            <td>
+                {{ expense.date|naturalday }}
+            </td>
+            <td>
+                <a href="{% url 'expense_delete' expense.pk %}">{% bootstrap_icon "remove" %} Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -61,6 +68,8 @@
         <h3 class="panel-title">There are {{ expenses_count }} expenses with a sum of {{ expenses_sum }} &euro;</h3>
     </div>
 </div>
+
+
 
 {% if show_link_to_all_expenses %}
     <a href="{% url 'expense_list' %}" class="btn btn-default">
