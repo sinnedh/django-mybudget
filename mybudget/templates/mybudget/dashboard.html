@@ -30,7 +30,9 @@
             <div class="panel panel-success dashboard-box">
                 <div class="panel-heading">
                     <h3 class="panel-title">Today</h3>
-                    <div class="value-sum text-center">{{ sum_today|floatformat:"0" }} &euro;</div>
+                    <div class="value-sum text-center">
+                        {{ sum_today|currency|safe }}
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
@@ -45,7 +47,9 @@
             <div class="panel panel-info dashboard-box">
                 <div class="panel-heading">
                     <h3 class="panel-title">Last 7 days</h3>
-                    <div class="value-sum text-center">{{ sum_7days|floatformat:"0" }} &euro;</div>
+                    <div class="value-sum text-center">
+                        {{ sum_7days|currency|safe }}
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
@@ -60,7 +64,9 @@
             <div class="panel panel-warning dashboard-box">
                 <div class="panel-heading">
                     <h3 class="panel-title">Last 30 days</h3>
-                    <div class="value-sum text-center">{{ sum_30days|floatformat:"0" }} &euro;</div>
+                    <div class="value-sum text-center">
+                        {{ sum_30days|currency|safe }}
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
