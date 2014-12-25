@@ -14,8 +14,8 @@ if [ -f bin/install_nodejs ]; then
     chmod +x bin/install_nodejs
     bin/install_nodejs
 
-
     npm install -g bower
+
 #    if [ -f bin/install_less ]; then
 #        echo "-----> Running install_lessc"
 #        chmod +x bin/install_less
