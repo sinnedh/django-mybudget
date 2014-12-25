@@ -25,11 +25,12 @@ fi
 
 mkdir -v -p /app/components
 mkdir -v -p /app/components/components
-echo ">>>>>>>>>>>>>>"
-#ls -al /app/static
-echo "=============="
-#rm /app/static/*
-echo "<<<<<<<<<<<<<<"
+
+
+heroku run python manage.py clean_pyc --settings=mybudget.settings.heroku
+heroku run python manage.py bower install --settings=mybudget.settings.heroku
+heroku run python manage.py collectstatic --settings=mybudget.settings.heroku
+heroku run python manage.py migrate --settings=mybudget.settings.heroku
 
 #if [ -f bin/run_collectstatic ]; then
 #    echo "-----> Running run_collectstatic"
