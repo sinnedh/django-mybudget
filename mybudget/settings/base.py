@@ -103,3 +103,24 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_URL = 'login'
+
+
+
+INSTALLED_APPS += (
+    'djangobower',
+)
+
+
+STATICFILES_FINDERS += (
+    'djangobower.finders.BowerFinder',
+)
+
+
+BOWER_INSTALLED_APPS = (
+   'fontawesome',
+   'jquery',
+   'bootstrap-datepicker',
+   'bootstrap-select',
+)
+
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '../components/')
