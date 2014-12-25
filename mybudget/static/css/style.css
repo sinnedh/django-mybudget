@@ -23,31 +23,49 @@ table.expense-list tr td {
     padding-top: 3px;
 }
 
-table.expense-list tr td.currency {
+table.expense-list tr td.currency-col {
     padding-top: 15px;
     height: 60px;
 }
 
-table.expense-list td.currency span {
+table.expense-list tr .currency-col {
+    width: 120px;
+    text-align: center;
+}
+
+table.expense-list tr .currency-col span {
     font-weight: lighter;
     font-size: 150%;
     padding:  7px 10px;
 }
 
-table.expense-list td.currency span sup {
+table.expense-list tr .currency-col span sup {
     font-size: 60%;
     margin-left: 3px;
 }
 
-table.expense-list tr td.main a {
+table.expense-list tr .icon-col {
+    padding-top: 10px;
+    width: 40px;
+    text-align: right;
+    color: #555;
+}
+
+table.expense-list tr .main-col a {
     font-size: 110%;
 }
 
-table.expense-list tr td.main span.account {
+table.expense-list tr .date-col {
+    text-align: center;
+    width: 150px;
+}
+
+table.expense-list tr .main-col span.account {
     font-size: 90%;
     color: #555;
 }
 
-table.expense-list tr td.main span.comment {
+table.expense-list tr td.main-col span.comment {
+    font-size: 90%;
     color: #888;
 }

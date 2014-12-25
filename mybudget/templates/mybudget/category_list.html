@@ -21,6 +21,7 @@
     <table class="table">
         <tr>
             <th></th>
+            <th></th>
             <th>Name</th>
             <th>Description</th>
             <th>Super Category</th>
@@ -30,6 +31,11 @@
             <td>
                 <a href="{% url 'category_update' category.pk %}">Edit</a> / 
                 <a href="{% url 'category_delete' category.pk %}">Delete</a>
+            </td>
+            <td>
+                {% if category.icon %}
+                {% fa_icon category.icon %}
+                {% endif %}
             </td>
             <td>{{ category.name }}</td>
             <td>{{ category.description|max_length_string:35 }}</td>

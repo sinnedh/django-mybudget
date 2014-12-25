@@ -108,6 +108,7 @@ LOGIN_URL = 'login'
 
 
 BOWER_INSTALLED_APPS = (
+   'fontawesome',
    'jquery',
    'bootstrap-datepicker',
    'bootstrap-select',

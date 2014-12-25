@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load mybudget_extras %}
 {% load bootstrap3 %}
+{% load humanize %}
 
 {% block content %}
 
@@ -31,7 +32,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Today</h3>
                     <div class="value-sum text-center">
-                        {{ sum_today|currency|safe }}
+                        {% currency sum_today %}
                     </div>
                 </div>
                 <div class="panel-body">
@@ -48,7 +49,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Last 7 days</h3>
                     <div class="value-sum text-center">
-                        {{ sum_7days|currency|safe }}
+                        {% currency sum_7days %}
                     </div>
                 </div>
                 <div class="panel-body">
@@ -65,7 +66,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Last 30 days</h3>
                     <div class="value-sum text-center">
-                        {{ sum_30days|currency|safe }}
+                        {% currency sum_30days %}
                     </div>
                 </div>
                 <div class="panel-body">
@@ -92,13 +93,20 @@
                         {% for exp in last_expenses %}
                         <tr>
                             <td>
-                                {{ exp.date|date:"d. M" }}
+                                {% if exp.category.icon %}
+                                {% fa_icon exp.category.icon "fa-1x" %}&nbsp;
+                                {% endif %}
                             </td>
                             <td>
-                                {{ exp.amount|floatformat:"2"}} &euro;
+                                {% currency exp.amount %}
                             </td>
-                            <td>{{ exp.category.name }}</td>
+                            <td>
+                                {{ exp.category.name }}
+                            </td>
                             <td>{{ exp.account.user }}</td>
+                            <td style="text-align: right">
+                                {{ exp.date|naturalday }}
+                            </td>
                             <td>
                                 <a href="{% url 'expense_details' exp.id %}">
                                     {% bootstrap_icon "circle-arrow-right" %}

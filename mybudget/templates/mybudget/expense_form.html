@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load mybudget_extras %}
 {% load bootstrap3 %}
 
 
@@ -21,13 +22,18 @@
         </div>
         <div class="panel-footer">
             {% buttons %}
-                <button type="submit" class="btn btn-primary">
                 {% if object %}
-                    {% bootstrap_icon "pencil" %} Update Expense
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "pencil" %} Update Expense
+                    </button>
+                    <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-danger">
+                        {% fa_icon "warning" %} Delete expense
+                    </a>
                 {% else %}
-                    {% bootstrap_icon "plus" %} Create Expense
+                    <button type="submit" class="btn btn-success">
+                        {% bootstrap_icon "plus" %} Create Expense
+                    </button>
                 {% endif %}
-                </button>
             {% endbuttons %}
         </div>
     </div>

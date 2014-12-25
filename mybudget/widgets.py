@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+from django import forms
+from django.utils.encoding import force_text
+from django.utils.safestring import mark_safe
+from django.utils.html import format_html
+
+
+class BootstrapDateWidget(forms.widgets.DateInput):
+
+    def render(self, name, value, attrs=None):
+        attrs['data-provide'] = 'datepicker'
+        html = ('<div class="input-group date">'
+                '{}'
+                '<span class="input-group-addon">'
+                '<i class="glyphicon glyphicon-calendar"></i>'
+                '</span>'
+                '</div>')
+        html = html.format(super(BootstrapDateWidget, self).render(name, value, attrs))
+        return mark_safe(html)
+
+
+class BootstrapCurrencyWidget(forms.widgets.TextInput):
+
+    def render(self, name, value, attrs=None):
+        html = ('<div class="input-group">'
+                '{}'
+                '<span class="input-group-addon">'
+                '<i class="glyphicon glyphicon-euro"></i>'
+                '</span>'
+                '</div>')
+        html = html.format(super(BootstrapCurrencyWidget, self).render(name, value, attrs))
+        return mark_safe(html)
+
+
+class IconSelectWidget(forms.widgets.Select):
+
+    def __init__(self, attrs=None, choices=()):
+        super(IconSelectWidget, self).__init__(attrs, choices)
+        self.attrs['class'] = 'selectpicker'
+
+    def get_data_icon(self, option_value):
+        return option_value
+
+    def render_option(self, selected_choices, option_value, option_label):
+        if option_value is None:
+            option_value = ''
+        option_value = force_text(option_value)
+        if option_value in selected_choices:
+            selected_html = mark_safe(' selected="selected"')
+            if not self.allow_multiple_selected:
+                # Only allow for a single selection.
+                selected_choices.remove(option_value)
+        else:
+            selected_html = ''
+        data_icon = self.get_data_icon(option_value)
+        return format_html(u'<option data-icon="fa-{0}" value="{1}"{2}>{3}</option>',
+                           data_icon,
+                           option_value,
+                           selected_html,
+                           force_text(option_label))
+
+
+from models import Category
+
+
+class CategorySelectWidget(IconSelectWidget):
+    def get_data_icon(self, option_value):
+        if option_value:
+            # TODO; can this be optimised? PERFORMANCE
+            return Category.objects.get(pk=int(option_value)).icon
+        return option_value

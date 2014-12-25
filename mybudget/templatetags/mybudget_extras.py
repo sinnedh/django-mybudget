@@ -8,13 +8,15 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 register = template.Library()
 
 
-@register.filter(name='currency')
+@register.simple_tag(name='fa_icon')
+def fa_icon(key, size=''):
+    return '<i class="fa fa-{} {}"></i>'.format(key, size)
+
+
+@register.simple_tag(name='currency')
 def currency(value, currency='&euro;'):
     cents, euros= modf(value)
     return "{}<sup>{:02}</sup> {}".format(int(euros), int(cents * 100), currency)
-
-    value = round(float(value), 2)
-    return "%s%s" % (intcomma(int(value)), ("%0.2f" % value)[-3:].replace('.', ','))
 
 
 @register.filter(name='max_length_string')

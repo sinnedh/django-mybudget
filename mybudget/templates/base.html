@@ -1,12 +1,14 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 {% load i18n  %}
+{% load mybudget_extras %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>{% block title %}{% endblock %}</title>
 {% bootstrap_css %}
 <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/style.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}fontawesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap-datepicker/css/datepicker.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap-select/dist/css/bootstrap-select.css">
 <script type="text/javascript" src="{{ STATIC_URL }}/jquery/dist/jquery.min.js"></script>
@@ -14,11 +16,13 @@
 <script type="text/javascript" src="{{ STATIC_URL }}bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}bootstrap-select/dist/js/bootstrap-select.js"></script>
 <script type="text/javascript">
-$.fn.datepicker.defaults.todayBtn = "linked";
-$.fn.datepicker.defaults.format = "dd.mm.yyyy";
+    jQuery(document).ready(function( $ ) {
+        $('.selectpicker').selectpicker({ iconBase: 'fa'});
+    });
+    $.fn.datepicker.defaults.todayBtn = "linked";
+    $.fn.datepicker.defaults.format = "dd.mm.yyyy";
 </script>
-{% block extrahead %}
-{% endblock %}
+{% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 </head>
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
@@ -47,13 +51,12 @@ $.fn.datepicker.defaults.format = "dd.mm.yyyy";
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                        Logged in as <strong>{{ user.username }} </strong>
+                         Logged in as <strong>{{ user.username }} </strong>
                     </a>
                 <ul class="dropdown-menu" role="menu">
                     <li>
                         <a href="#">
-                            {% bootstrap_icon "user" %}&nbsp;&nbsp;Profile (TODO)
+                            {% fa_icon "user" %}&nbsp;&nbsp;Profile (TODO)
                         </a>
                     </li>
                     <li>

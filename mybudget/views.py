@@ -15,7 +15,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 from models import Category, Expense, Tag
-from forms import ExpenseFilterForm, ExpenseCreateInlineForm, ExpenseForm
+from forms import ExpenseFilterForm, ExpenseCreateInlineForm, ExpenseForm, CategoryForm
 
 
 class LoginRequiredMixin(object):
@@ -135,7 +135,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
 # TODO validations
 class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
-    fields = ['name', 'description', 'super_category', ]
+    fields = ['name', 'description', 'super_category', 'icon']
     success_url = reverse_lazy('category_list')
 
     def form_valid(self, form):
@@ -146,11 +146,15 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         context = super(CategoryCreateView, self).get_context_data(**kwargs)
         return context
 
+    def get_form(self, form_class):
+        return CategoryForm(self.request.user.account.organisation,
+                           **self.get_form_kwargs())
+
 
 # TODO validations
 class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
-    fields = ['name', 'description', 'super_category', ]
+    fields = ['name', 'description', 'super_category', 'icon']
     success_url = reverse_lazy('category_list')
 
     def form_valid(self, form):
@@ -160,6 +164,10 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(CategoryUpdateView, self).get_context_data(**kwargs)
         return context
+
+    def get_form(self, form_class):
+        return CategoryForm(self.request.user.account.organisation,
+                           **self.get_form_kwargs())
 
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
@@ -226,6 +234,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     def get_form(self, form_class):
         return ExpenseForm(self.request.user.account.organisation,
                            **self.get_form_kwargs())
+
 
 # TODO validations
 class ExpenseUpdateView(LoginRequiredMixin, UpdateView):

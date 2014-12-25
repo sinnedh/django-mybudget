@@ -31,35 +31,43 @@
 <div class="panel panel-default">
     <table class="table expense-list">
         <tr>
-            <th>Amount</th>
-            <th>Expense</th>
+            <th class="currency-col"></th>
+            <th class="icon-col"></th>
+            <th class="main-col">Expense</th>
             <th>Shared?</th>
-            <th>Date</th>
-            <th></th>
+            <th class="date-col">Date</th>
+            <th class="tags-col">Tags</th>
         </tr>
         {% for expense in object_list %}
         <tr>
-            <td class="currency">
-                <span class="label label-primary">{{ expense.amount|currency|safe }}</span>
+            <td class="currency-col">
+                <span class="label label-primary">
+                    {% currency expense.amount %}
+                </span>
             </td>
-            <td class="main">
-                <a href="{% url 'expense_update' expense.pk %}"><strong>{{ expense.category.name }}:</strong></a> <span class="comment">{{ expense.comment|max_length_string:50 }}</span><br />
-                {% for tag in expense.tags.all %}
-                <span class="label label-default">{{ tag }}</span>
-                {% endfor %}
-                &mdash; <span class="account">{{ expense.account }}</span>
+            <td class="icon-col">
+                {% if expense.category.icon %}
+                    {% fa_icon expense.category.icon "fa-2x" %}
+                {% endif %}
             </td>
-
+            <td class="main-col">
+                <a href="{% url 'expense_update' expense.pk %}">
+                    <strong>{{ expense.category.name }}</strong>
+                </a> &mdash; <span class="account">{{ expense.account.name }}</span><br />
+                <span class="comment">{{ expense.comment|max_length_string:70 }}</span>
+            </td>
             <td>
-            {% if expense.is_shared  %}
-                {% bootstrap_icon "ok" %}
-            {% endif %}
+                {% if expense.is_shared  %}
+                    {% bootstrap_icon "ok" %}
+                {% endif %}
             </td>
-            <td>
+            <td class="date-col">
                 {{ expense.date|naturalday }}
             </td>
-            <td>
-                <a href="{% url 'expense_delete' expense.pk %}">{% bootstrap_icon "remove" %} Delete</a>
+            <td class="tags-col">
+                {% for tag in expense.tags.all %}
+                    <span class="label label-default">{{ tag }}</span>
+                {% endfor %}
             </td>
         </tr>
         {% endfor %}
