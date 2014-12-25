@@ -30,7 +30,7 @@ ls -al .
 echo "-------"
 ls -al .heroku
 echo "------- bin"
-ls -al .heroku/bin
+ls -al bin
 echo "------- python"
 ls -al .heroku/python
 echo "<<<<<<<<"
