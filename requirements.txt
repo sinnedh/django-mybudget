@@ -3,6 +3,7 @@ Fabric==1.10.0
 dj-database-url==0.3.0
 dj-static==0.0.6
 django-bootstrap3==4.11.0
+django-bower==5.0.1
 django-extensions==1.4.5
 django-jquery==1.9.1
 ecdsa==0.11
