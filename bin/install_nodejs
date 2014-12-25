@@ -29,14 +29,12 @@ echo "-------"
 ls -al .
 echo "-------"
 ls -al .heroku
+echo "------- bin"
+ls -al .heroku/bin
 echo "------- python"
 ls -al .heroku/python
-echo "------- bin"
-ls -al .heroku/python/bin
-echo "------- node"
-ls -al .heroku/python/bin/node
 echo "<<<<<<<<"
 
-ln -s -f ../../vendor/node/bin/node /app/.heroku/python/bin/node
-ln -s -f ../../vendor/node/bin/node-waf /app/.heroku/python/bin/node-waf
-ln -s -f ../../vendor/node/bin/npm /app/.heroku/python/bin/npm
+ln -s -f ../../vendor/node/bin/node .heroku/python/bin/node
+ln -s -f ../../vendor/node/bin/node-waf .heroku/python/bin/node-waf
+ln -s -f ../../vendor/node/bin/npm .heroku/python/bin/npm
