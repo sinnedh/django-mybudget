@@ -15,6 +15,7 @@ if [ -f bin/install_nodejs ]; then
     bin/install_nodejs
 
     mkdir -v -p /app/components
+    mkdir -v -p /app/components/components
     npm install -g bower
 
 #    if [ -f bin/install_less ]; then
