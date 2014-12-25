@@ -26,9 +26,9 @@ fi
 mkdir -v -p /app/components
 mkdir -v -p /app/components/components
 echo ">>>>>>>>>>>>>>"
-ls -al /app/static
+#ls -al /app/static
 echo "=============="
-rm /app/static/*
+#rm /app/static/*
 echo "<<<<<<<<<<<<<<"
 
 #if [ -f bin/run_collectstatic ]; then
