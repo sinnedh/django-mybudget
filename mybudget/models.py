@@ -9,65 +9,6 @@ from django.utils import timezone
 import managers
 
 
-ICONS_CHOICES = (
-    ('', '--------'),
-    ('anchor', _('Anchor')),
-    ('beer', _('Beer')),
-    ('bicycle', _('Bicycle')),
-    ('binoculars', _('Binoculars')),
-    ('book', _('Books')),
-    ('briefcase', _('Briefcase')),
-    ('calendar', _('Calendar')),
-    ('camera', _('Camera')),
-    ('car', _('Car')),
-    ('cloud', _('Cloud')),
-    ('coffee', _('Coffee')),
-    ('credit-card', _('Credit card')),
-    ('cutlery', _('Cutlery')),
-    ('envelope', _('Envelope')),
-    ('eye', _('Eye')),
-    ('film', _('Film')),
-    ('fire', _('Fire')),
-    ('flag', _('Flag')),
-    ('flash', _('Flash')),
-    ('gift', _('Gifts')),
-    ('glass', _('Glass')),
-    ('globe', _('Globe')),
-    ('headphones', _('Headphones')),
-    ('home', _('Home')),
-    ('key', _('Key')),
-    ('laptop', _('Laptop')),
-    ('leaf', _('Leaf')),
-    ('music', _('Music')),
-    ('newspaper-o', _('Newspaper')),
-    ('paperclip', _('Office')),
-    ('paint-brush', _('Paint brush')),
-    ('paw', _('Paw')),
-    ('pencil', _('Pencil')),
-    ('photo', _('Photo')),
-    ('phone', _('Phone')),
-    ('plane', _('Plane')),
-    ('print', _('Printer')),
-    ('road', _('Road')),
-    ('shopping-cart', _('Shopping')),
-    ('futbol-o', _('Soccer ball')),
-    ('spoon', _('Spoon')),
-    ('suitcase', _('Suitcase')),
-    ('support', _('Support')),
-    ('phone', _('Phone')),
-    ('tint', _('Tint')),
-    ('trash', _('Trash')),
-    ('tree', _('Tree')),
-    ('trophy', _('Trophy')),
-    ('truck', _('Truck')),
-    ('umbrella', _('Umbrella')),
-    ('university', _('University')),
-    ('video-camera', _('Video camera')),
-    ('wheelchair', _('Wheelchair')),
-    ('wrench', _('Wrench')),
-)
-
-
 class Organisation(models.Model):
 
     class Meta:
@@ -129,7 +70,7 @@ class Category(models.Model):
     organisation = models.ForeignKey('Organisation')
     name = models.CharField(_('name'), max_length=256)
     description = models.TextField(_('description'), blank=True)
-    icon = models.CharField(_('Icon'), choices=ICONS_CHOICES, max_length=32, null=True, blank=True, default=None)
+    icon = models.CharField(_('Icon'), max_length=32, null=True, blank=True, default=None)
 
     created_at = models.DateTimeField(auto_now_add=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True, default=timezone.now)
