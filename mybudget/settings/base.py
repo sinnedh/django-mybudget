@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mybudget',
     'bootstrap3',
-    'djangobower',
     'django_extensions',
 )
 
@@ -91,7 +90,6 @@ STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'djangobower.finders.BowerFinder',
 )
 
 
@@ -105,13 +103,3 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_URL = 'login'
-
-
-BOWER_INSTALLED_APPS = (
-   'fontawesome',
-   'jquery',
-   'bootstrap-datepicker',
-   'bootstrap-select',
-)
-
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '../components/')
