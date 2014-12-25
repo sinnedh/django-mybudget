@@ -31,6 +31,8 @@ echo "------- /"
 ls -al /
 echo "------- .heroku"
 ls -al .heroku
+echo "------- .heroku/vendor"
+ls -al .heroku/vendor
 echo "------- bin"
 ls -al bin
 echo "------- .heroku/python"
