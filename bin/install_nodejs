@@ -25,13 +25,15 @@ popd
 
 echo ">>>>>>>>"
 pwd
-echo "-------"
+echo "------- ."
 ls -al .
-echo "-------"
+echo "------- /"
+ls -al /
+echo "------- .heroku"
 ls -al .heroku
 echo "------- bin"
 ls -al bin
-echo "------- python"
+echo "------- .heroku/python"
 ls -al .heroku/python
 echo "<<<<<<<<"
 
