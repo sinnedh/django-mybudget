@@ -34,6 +34,11 @@
                     <div class="value-sum text-center">
                         {% currency sum_today %}
                     </div>
+                    {% if sum_all_today %}
+                    <p class="value-sum text-center">
+                    All accounts: <strong>{% currency sum_all_today %}</strong>
+                    </p>
+                    {% endif %}
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
@@ -51,6 +56,11 @@
                     <div class="value-sum text-center">
                         {% currency sum_7days %}
                     </div>
+                    {% if sum_all_7days %}
+                    <p class="value-sum text-center">
+                    All accounts: <strong>{% currency sum_all_7days %}</strong>
+                    </p>
+                    {% endif %}
                 </div>
                 <div class="panel-body">
                     <div class="text-right">
@@ -68,6 +78,11 @@
                     <div class="value-sum text-center">
                         {% currency sum_30days %}
                     </div>
+                    {% if sum_all_30days %}
+                    <p class="value-sum text-center">
+                    All accounts: <strong>{% currency sum_all_30days %}</strong>
+                    </p>
+                    {% endif %}
                 </div>
                 <div class="panel-body">
                     <div class="text-right">

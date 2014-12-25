@@ -35,14 +35,23 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "mybudget/dashboard.html"
 
     def get_context_data(self, **kwargs):
-        organisation = self.request.user.account.organisation
+        account = self.request.user.account
+        organisation = account.organisation
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context['sum_today'] = Expense.objects.get_latest(organisation, 1).aggregate(
+        context['sum_today'] = Expense.objects.get_latest(organisation, 1).filter(account=account).aggregate(
             expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_7days'] = Expense.objects.get_latest(organisation, 7).aggregate(
+        context['sum_7days'] = Expense.objects.get_latest(organisation, 7).filter(account=account).aggregate(
             expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_30days'] = Expense.objects.get_latest(organisation, 30).aggregate(
+        context['sum_30days'] = Expense.objects.get_latest(organisation, 30).filter(account=account).aggregate(
             expenses_sum=Sum('amount'))['expenses_sum']
+
+        if organisation.account_set.count() > 1:
+            context['sum_all_today'] = Expense.objects.get_latest(organisation, 1).aggregate(
+                expenses_sum=Sum('amount'))['expenses_sum']
+            context['sum_all_7days'] = Expense.objects.get_latest(organisation, 7).aggregate(
+                expenses_sum=Sum('amount'))['expenses_sum']
+            context['sum_all_30days'] = Expense.objects.get_latest(organisation, 30).aggregate(
+                expenses_sum=Sum('amount'))['expenses_sum']
 
         if context['sum_today'] is None:
             context['sum_today'] = 0
