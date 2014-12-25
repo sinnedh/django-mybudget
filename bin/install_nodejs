@@ -25,8 +25,16 @@ popd
 
 echo ">>>>>>>>"
 pwd
+echo "-------"
 ls -al .
+echo "-------"
 ls -al .heroku
+echo "------- python"
+ls -al .heroku/python
+echo "------- bin"
+ls -al .heroku/python/bin
+echo "------- node"
+ls -al .heroku/python/bin/node
 echo "<<<<<<<<"
 
 ln -s -f ../../vendor/node/bin/node /app/.heroku/python/bin/node
