@@ -27,10 +27,8 @@ mkdir -v -p /app/components
 mkdir -v -p /app/components/components
 
 
-python manage.py clean_pyc --settings=mybudget.settings.heroku
-python manage.py bower install --settings=mybudget.settings.heroku
-python manage.py collectstatic --noinput --settings=mybudget.settings.heroku
-python manage.py migrate --settings=mybudget.settings.heroku
+fab install_heroku
+
 
 #if [ -f bin/run_collectstatic ]; then
 #    echo "-----> Running run_collectstatic"

@@ -32,9 +32,12 @@ def backup_db():
     local('curl -o latest.dump `heroku pgbackups:url`')
 
 
-def deploy_heroku(settings='mybudget.settings.heroku'):
+def deploy():
     local('git push heroku master')
-    local('heroku run python manage.py clean_pyc --settings={}'.format(settings))
-    local('heroku run python manage.py bower install--settings={}'.format(settings))
-    local('heroku run python manage.py collectstatic --settings={}'.format(settings))
-    local('heroku run python manage.py migrate --settings={}'.format(settings))
+
+
+def install_heroku(settings='mybudget.settings.heroku'):
+    local('python manage.py clean_pyc --settings={}'.format(settings))
+    local('python manage.py bower install --settings={}'.format(settings))
+    local('python manage.py collectstatic --settings={}'.format(settings))
+    local('python manage.py migrate --settings={}'.format(settings))
