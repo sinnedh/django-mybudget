@@ -61,7 +61,7 @@ class ExpenseCreateInlineForm(ExpenseForm):
 
 
 class CategoryForm(forms.ModelForm):
-    icon = forms.TypedChoiceField(widget=widgets.IconSelectWidget, choices=models.ICONS_CHOICES)
+    icon = forms.TypedChoiceField(widget=widgets.IconSelectWidget, choices=widgets.ICONS_CHOICES)
 
     class Meta:
         model = models.Category
