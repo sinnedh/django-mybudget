@@ -14,8 +14,6 @@ if [ -f bin/install_nodejs ]; then
     chmod +x bin/install_nodejs
     bin/install_nodejs
 
-    mkdir -v -p /app/components
-    mkdir -v -p /app/components/components
     npm install -g bower
 
 #    if [ -f bin/install_less ]; then
@@ -24,6 +22,14 @@ if [ -f bin/install_nodejs ]; then
 #        bin/install_less
 #    fi
 fi
+
+mkdir -v -p /app/components
+mkdir -v -p /app/components/components
+echo ">>>>>>>>>>>>>>"
+ls -al /app/static
+echo "=============="
+rm /app/static/*
+echo "<<<<<<<<<<<<<<"
 
 #if [ -f bin/run_collectstatic ]; then
 #    echo "-----> Running run_collectstatic"

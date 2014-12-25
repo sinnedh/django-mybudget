@@ -23,22 +23,6 @@ rm -rf node
 mv $tempdir/$NODE_BASENAME node
 popd
 
-echo ">>>>>>>>"
-pwd
-echo "------- ."
-ls -al .
-echo "------- /"
-ls -al /
-echo "------- .heroku"
-ls -al .heroku
-echo "------- .heroku/vendor"
-ls -al .heroku/vendor
-echo "------- bin"
-ls -al bin
-echo "------- .heroku/python"
-ls -al .heroku/python
-echo "<<<<<<<<"
-
 ln -s -f ../../vendor/node/bin/node .heroku/python/bin/node
 ln -s -f ../../vendor/node/bin/node-waf .heroku/python/bin/node-waf
 ln -s -f ../../vendor/node/bin/npm .heroku/python/bin/npm
