@@ -137,38 +137,82 @@
         <div class="col-md-4">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3>TODO: Top categories</h3>
+                    <h3>Top categories</h3>
                 </div>
                 <div class="panel-body">
-                    <table class="table">
-                        <tr>
-                            <td>amount</td>
-                            <td>comment</td>
-                        </tr>
-                        <tr>
-                            <td>amount</td>
-                            <td>comment</td>
-                        </tr>
-                    </table>
+
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            {% for days, categories in top_categories.items %}
+                            <li role="presentation" class="{{ forloop.first|yesno:"active," }}">
+                                <a href="#top_categories_{{ days }}days" aria-controls="top_categories_{{ days }}days" role="tab" data-toggle="tab">
+                                    {{ days }} days
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            {% for days, categories in top_categories.items %}
+                            <div role="tabpanel" class="tab-pane {{ forloop.first|yesno:"active," }}" id="top_categories_{{ days }}days">
+                                <table class="table">
+                                    {% for c in categories %}
+                                    <tr>
+                                        <td>{{ c.category__name}}</td>
+                                        <td>{{ c.amount_sum }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
 
+
+
+
         <div class="col-md-3">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3>Monthly summary</h3>
+                    <h3>Summary</h3>
                 </div>
                 <div class="panel-body">
-                    <table class="table">
-                        {% for line in month_report %}
-                        <tr>
-                            <td>{{ line.date|date:"M. Y" }}</td>
-                            <td>{{ line.count }}</td>
-                            <td>{{ line.sum|floatformat:"0"}} &euro;</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+
+                    <div role="tabpanel">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation"><a href="#summary_weekly" aria-controls="summary_weekly" role="tab" data-toggle="tab">Weekly</a></li>
+                            <li role="presentation" class="active"><a href="#summary_monthly" aria-controls="summary_monthly" role="tab" data-toggle="tab">Monthly</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane" id="summary_weekly">
+                                TODO
+                            </div>
+                            <div role="tabpanel" class="tab-pane active" id="summary_monthly">
+                                <table class="table">
+                                    {% for line in month_report %}
+                                    <tr>
+                                        <td>{{ line.date|date:"M. Y" }}</td>
+                                        <td>{{ line.sum_me|floatformat:"0"}} &euro;</td>
+                                        <td>{{ line.sum_all|floatformat:"0"}} &euro;</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>

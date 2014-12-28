@@ -35,49 +35,57 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "mybudget/dashboard.html"
 
     def get_context_data(self, **kwargs):
+        today = datetime.date.today()
+        last_days = lambda days: [today - datetime.timedelta(days=days), today]
         account = self.request.user.account
         organisation = account.organisation
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context['sum_today'] = Expense.objects.get_latest(organisation, 1).filter(account=account).aggregate(
-            expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_7days'] = Expense.objects.get_latest(organisation, 7).filter(account=account).aggregate(
-            expenses_sum=Sum('amount'))['expenses_sum']
-        context['sum_30days'] = Expense.objects.get_latest(organisation, 30).filter(account=account).aggregate(
-            expenses_sum=Sum('amount'))['expenses_sum']
+        context['sum_today'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                              account=account,
+                                                              days=1) or 0
+        context['sum_7days'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                              account=account,
+                                                              days=7) or 0
+        context['sum_30days'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                               account=account,
+                                                               days=30) or 0
 
         if organisation.account_set.count() > 1:
-            context['sum_all_today'] = Expense.objects.get_latest(organisation, 1).aggregate(
-                expenses_sum=Sum('amount'))['expenses_sum']
-            context['sum_all_7days'] = Expense.objects.get_latest(organisation, 7).aggregate(
-                expenses_sum=Sum('amount'))['expenses_sum']
-            context['sum_all_30days'] = Expense.objects.get_latest(organisation, 30).aggregate(
-                expenses_sum=Sum('amount'))['expenses_sum']
-
-        if context['sum_today'] is None:
-            context['sum_today'] = 0
-        if context['sum_7days'] is None:
-            context['sum_7days'] = 0
-        if context['sum_30days'] is None:
-            context['sum_30days'] = 0
+            context['sum_all_today'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                                      days=1) or 0
+            context['sum_all_7days'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                                      days=7) or 0
+            context['sum_all_30days'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                                       days=30) or 0
 
         context['last_expenses'] = organisation.get_expenses().order_by('-date', '-created_at')[:10]
 
         truncate_date = connection.ops.date_trunc_sql('month', 'date')
         qs = organisation.get_expenses().extra({'month': truncate_date})
-        month_report = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
+        month_report = qs.filter(account=account).values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
+        month_report_all = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
         context['month_report'] = []
-        for m in month_report:
+        for i, m_all in enumerate(month_report_all):
             """
             The database adaptors are behaving differently. For postgres a datetime object is returned, for sqlite a
             string is returned.
             """
-            if type(m['month']) in [str, unicode]:
-                date = datetime.datetime.strptime(m['month'], '%Y-%m-%d')
-            else:
-                date = m['month']
-            context['month_report'].append({'sum': m['amount__sum'],
-                                            'count': m['pk__count'],
-                                            'date': date})
+            date = m_all['month']
+            if type(m_all['month']) in [str, unicode]:
+                date = datetime.datetime.strptime(m_all['month'], '%Y-%m-%d')
+            m_me = month_report[i]
+            context['month_report'].append({'date': date,
+                                            'sum_me': m_me['amount__sum'],
+                                            'count_me': m_me['pk__count'],
+                                            'sum_all': m_all['amount__sum'],
+                                            'count_all': m_all['pk__count'],})
+
+        context['top_categories'] = {}
+        for days in (7, 30, 90):
+            context['top_categories'][days] = Expense.objects.summed_by_category(
+                organisation=organisation,
+                account=account,
+                last_days=days)
 
         context['create_expense_form'] = ExpenseCreateInlineForm(organisation)
         context.update(csrf(self.request))
@@ -98,7 +106,7 @@ class TagListView(LoginRequiredMixin, ListView):
 
 
 # TODO validations
-class TagCreateView(LoginRequiredMixin, CreateView):
+class TagFormView(LoginRequiredMixin, CreateView):
     model = Tag
     fields = ['name', 'description', ]
     success_url = reverse_lazy('tag_list')
@@ -107,20 +115,13 @@ class TagCreateView(LoginRequiredMixin, CreateView):
         form.instance.organisation = self.request.user.account.organisation
         return super(TagCreateView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(TagCreateView, self).get_context_data(**kwargs)
-        return context
+
+class TagCreateView(TagFormView):
+    pass
 
 
-# TODO validations
 class TagUpdateView(LoginRequiredMixin, UpdateView):
-    model = Tag
-    fields = ['name', 'description', ]
-    success_url = reverse_lazy('tag_list')
-
-    def form_valid(self, form):
-        form.instance.organisation = self.request.user.account.organisation
-        return super(self.__class__, self).form_valid(form)
+    pass
 
 
 class TagDeleteView(LoginRequiredMixin, DeleteView):
@@ -141,42 +142,31 @@ class CategoryListView(LoginRequiredMixin, ListView):
         return context
 
 
+class CategoryFormView(LoginRequiredMixin, CreateView):
 # TODO validations
-class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['name', 'description', 'super_category', 'icon']
     success_url = reverse_lazy('category_list')
 
     def form_valid(self, form):
         form.instance.organisation = self.request.user.account.organisation
-        return super(CategoryCreateView, self).form_valid(form)
+        return super(CategoryFormView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(CategoryCreateView, self).get_context_data(**kwargs)
+        context = super(CategoryFormView, self).get_context_data(**kwargs)
         return context
 
     def get_form(self, form_class):
         return CategoryForm(self.request.user.account.organisation,
-                           **self.get_form_kwargs())
+                            **self.get_form_kwargs())
 
 
-# TODO validations
-class CategoryUpdateView(LoginRequiredMixin, UpdateView):
-    model = Category
-    fields = ['name', 'description', 'super_category', 'icon']
-    success_url = reverse_lazy('category_list')
+class CategoryCreateView(CategoryFormView):
+    pass
 
-    def form_valid(self, form):
-        form.instance.organisation = self.request.user.account.organisation
-        return super(CategoryUpdateView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(CategoryUpdateView, self).get_context_data(**kwargs)
-        return context
-
-    def get_form(self, form_class):
-        return CategoryForm(self.request.user.account.organisation,
-                           **self.get_form_kwargs())
+class CategoryUpdateView(CategoryFormView):
+    pass
 
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
