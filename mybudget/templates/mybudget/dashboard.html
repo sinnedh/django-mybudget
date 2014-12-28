@@ -203,8 +203,8 @@
                                     {% for line in month_report %}
                                     <tr>
                                         <td>{{ line.date|date:"M. Y" }}</td>
-                                        <td>{{ line.sum_me|floatformat:"0"}} &euro;</td>
-                                        <td>{{ line.sum_all|floatformat:"0"}} &euro;</td>
+                                        <td>{{ line.count }}</td>
+                                        <td>{% currency line.amount_sum %}</td>
                                     </tr>
                                     {% endfor %}
                                 </table>

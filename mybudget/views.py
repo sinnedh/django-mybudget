@@ -62,7 +62,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         truncate_date = connection.ops.date_trunc_sql('month', 'date')
         qs = organisation.get_expenses().extra({'month': truncate_date})
-        month_report = qs.filter(account=account).values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
+        #month_report = qs.filter(account=account).values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
         month_report_all = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
         context['month_report'] = []
         for i, m_all in enumerate(month_report_all):
@@ -73,12 +73,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             date = m_all['month']
             if type(m_all['month']) in [str, unicode]:
                 date = datetime.datetime.strptime(m_all['month'], '%Y-%m-%d')
-            m_me = month_report[i]
             context['month_report'].append({'date': date,
-                                            'sum_me': m_me['amount__sum'],
-                                            'count_me': m_me['pk__count'],
-                                            'sum_all': m_all['amount__sum'],
-                                            'count_all': m_all['pk__count'],})
+                                            'amount_sum': m_all['amount__sum'],
+                                            'count': m_all['pk__count'],})
 
         context['top_categories'] = {}
         for days in (7, 30, 90):
