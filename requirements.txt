@@ -1,5 +1,6 @@
 Django==1.7.1
 Fabric==1.10.0
+Minidetector==0.1
 dj-database-url==0.3.0
 dj-static==0.0.6
 django-bootstrap3==4.11.0
@@ -11,6 +12,7 @@ gunicorn==19.1.1
 paramiko==1.15.1
 psycopg2==2.5.4
 pycrypto==2.6.1
+raven==5.1.1
 six==1.8.0
 static3==0.5.1
 whitenoise==1.0.3

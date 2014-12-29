@@ -86,8 +86,7 @@ class ExpenseForOrganisationManager(ExpenseManager):
         return queryset
 
     def get_latest(self, days=1, **kwargs):
-        return self._prefiltered_queryset(last_days=days,
-                                          **kwargs)
+        return self._prefiltered_queryset(last_days=days, **kwargs)
 
     def get_latest_sum(self, organisation, account=None, days=1):
         # TODO: test!
