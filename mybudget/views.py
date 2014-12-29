@@ -35,8 +35,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "mybudget/dashboard.html"
 
     def get_context_data(self, **kwargs):
-        today = datetime.date.today()
-        last_days = lambda days: [today - datetime.timedelta(days=days), today]
         account = self.request.user.account
         organisation = account.organisation
         context = super(DashboardView, self).get_context_data(**kwargs)
@@ -62,7 +60,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         truncate_date = connection.ops.date_trunc_sql('month', 'date')
         qs = organisation.get_expenses().extra({'month': truncate_date})
-        #month_report = qs.filter(account=account).values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
+        # month_report = qs.filter(account=account).values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
         month_report_all = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
         context['month_report'] = []
         for i, m_all in enumerate(month_report_all):
@@ -75,14 +73,14 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 date = datetime.datetime.strptime(m_all['month'], '%Y-%m-%d')
             context['month_report'].append({'date': date,
                                             'amount_sum': m_all['amount__sum'],
-                                            'count': m_all['pk__count'],})
+                                            'count': m_all['pk__count']})
 
         context['top_categories'] = {}
         for days in (7, 30, 90):
             context['top_categories'][days] = Expense.objects.summed_by_category(
                 organisation=organisation,
                 account=account,
-                last_days=days)
+                last_days=days)[:10]
 
         context['create_expense_form'] = ExpenseCreateInlineForm(organisation)
         context.update(csrf(self.request))
@@ -139,8 +137,8 @@ class CategoryListView(LoginRequiredMixin, ListView):
         return context
 
 
-class CategoryFormView(LoginRequiredMixin, CreateView):
 # TODO validations
+class CategoryFormView(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['name', 'description', 'super_category', 'icon']
     success_url = reverse_lazy('category_list')
