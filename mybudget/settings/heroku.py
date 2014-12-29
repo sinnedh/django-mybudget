@@ -7,10 +7,16 @@ import dj_database_url
 DATABASES['default'] = dj_database_url.config()
 
 RAVEN_CONFIG = {
-        'dsn': os.environ.get('SENTRY_URL', None),
+    'dsn': os.environ.get('SENTRY_URL', None),
 }
 
 INSTALLED_APPS = INSTALLED_APPS + (
-        'raven.contrib.django.raven_compat',
+    'raven.contrib.django.raven_compat',
 )
 
+LOGGING['handlers']['sentry'] = {
+    'level': 'WARNING',
+    'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+}
+
+LOGGING['root']['handlers'].append('sentry')

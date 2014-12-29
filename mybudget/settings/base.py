@@ -63,7 +63,6 @@ WSGI_APPLICATION = 'mybudget.wsgi.application'
 DATABASES = {}
 
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -82,10 +81,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, "static"),
+    # os.path.join(BASE_DIR, "static"),
 )
 STATIC_ROOT = os.path.join(BASE_DIR, '../static')
-#STATIC_ROOT = 'staticfiles'
+# STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_FINDERS = (
@@ -106,7 +105,6 @@ TEMPLATE_DIRS = (
 LOGIN_URL = 'login'
 
 
-
 INSTALLED_APPS += (
     'djangobower',
 )
@@ -118,10 +116,29 @@ STATICFILES_FINDERS += (
 
 
 BOWER_INSTALLED_APPS = (
-   'fontawesome',
-   'jquery',
-   'bootstrap-datepicker',
-   'bootstrap-select',
+    'fontawesome',
+    'jquery',
+    'bootstrap-datepicker',
+    'bootstrap-select',
 )
 
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '../components/')
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'django': {},
+    },
+    'root': {
+        'handlers': ['console', ],
+        'level': 'INFO'
+    },
+}
