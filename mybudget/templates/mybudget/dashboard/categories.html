@@ -20,7 +20,8 @@
                 <table class="table">
                     {% for c in categories %}
                     <tr>
-                        <td>{{ c.category__name}}</td>
+                        <td>{{ forloop.counter }}.</td>
+                        <td>{{ c.category__name }}</td>
                         <td>{% currency c.amount_sum %}</td>
                     </tr>
                     {% endfor %}
