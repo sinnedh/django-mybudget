@@ -108,7 +108,7 @@ class TagFormView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.organisation = self.request.user.account.organisation
-        return super(TagCreateView, self).form_valid(form)
+        return super(TagFormView, self).form_valid(form)
 
 
 class TagCreateView(TagFormView):
