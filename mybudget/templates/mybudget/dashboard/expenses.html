@@ -1,0 +1,40 @@
+{% load mybudget_extras %}
+{% load humanize %}
+
+<div class="panel">
+
+    <div class="panel-heading">
+        <h3>Recent expenses</h3>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table">
+            {% for exp in last_expenses %}
+            <tr>
+                <td>
+                    {% if exp.category.icon %}
+                    {% fa_icon exp.category.icon "fa-1x" %}&nbsp;
+                    {% endif %}
+                </td>
+                <td>
+                    {% currency exp.amount %}
+                </td>
+                <td>
+                    {{ exp.category.name }}
+                </td>
+                <td>{{ exp.account.user }}</td>
+                <td style="text-align: right">
+                    {{ exp.date|naturalday }}
+                </td>
+                <td>
+                    <a href="{% url 'expense_details' exp.id %}">
+                        {% fa_icon "chevron-circle-right" "fa-lg" %}
+                    </a> 
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>

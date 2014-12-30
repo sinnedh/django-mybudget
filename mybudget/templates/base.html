@@ -18,6 +18,9 @@
 <script type="text/javascript">
     jQuery(document).ready(function( $ ) {
         $('.selectpicker').selectpicker({ iconBase: 'fa'});
+        $('.radio-tab label.btn').click(function () {
+            $(this).find('input').tab('show');
+        });
     });
     $.fn.datepicker.defaults.todayBtn = "linked";
     $.fn.datepicker.defaults.format = "dd.mm.yyyy";

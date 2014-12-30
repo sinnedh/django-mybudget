@@ -47,6 +47,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['sum_30days'] = Expense.objects.get_latest_sum(organisation=organisation,
                                                                account=account,
                                                                days=30) or 0
+        context['sum_90days'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                               account=account,
+                                                               days=90) or 0
 
         if organisation.account_set.count() > 1:
             context['sum_all_today'] = Expense.objects.get_latest_sum(organisation=organisation,
@@ -55,15 +58,18 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                                                       days=7) or 0
             context['sum_all_30days'] = Expense.objects.get_latest_sum(organisation=organisation,
                                                                        days=30) or 0
+            context['sum_all_90days'] = Expense.objects.get_latest_sum(organisation=organisation,
+                                                                       days=90) or 0
 
         context['last_expenses'] = organisation.get_expenses().order_by('-date', '-created_at')[:10]
 
         truncate_date = connection.ops.date_trunc_sql('month', 'date')
         qs = organisation.get_expenses().extra({'month': truncate_date})
-        # month_report = qs.filter(account=account).values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
-        month_report_all = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
-        context['month_report'] = []
-        for i, m_all in enumerate(month_report_all):
+        month_summary_all = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
+        context['day_summary'] = []
+        context['week_summary'] = []
+        context['month_summary'] = []
+        for i, m_all in enumerate(month_summary_all):
             """
             The database adaptors are behaving differently. For postgres a datetime object is returned, for sqlite a
             string is returned.
@@ -71,7 +77,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             date = m_all['month']
             if type(m_all['month']) in [str, unicode]:
                 date = datetime.datetime.strptime(m_all['month'], '%Y-%m-%d')
-            context['month_report'].append({'date': date,
+            context['month_summary'].append({'date': date,
                                             'amount_sum': m_all['amount__sum'],
                                             'count': m_all['pk__count']})
 

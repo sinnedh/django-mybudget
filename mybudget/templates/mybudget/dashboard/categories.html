@@ -1,0 +1,33 @@
+{% load mybudget_extras %}
+
+<div class="panel">
+
+    <div class="panel-heading">
+        <h3>Top categories</h3>
+        <div class="btn-group radio-tab" data-toggle="buttons">
+            {% for days, categories in categories.items %}
+            <label class="btn btn-default{{ forloop.first|yesno:" active," }}" for="optCategories{{ days }}days">{{ days }} days
+                <input id="optCategories{{ days }}days" type="radio" data-target="#top_categories_{{ days }}days" autocomplete="off">
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="tab-content">
+            {% for days, categories in categories.items %}
+            <div role="tabpanel" class="tab-pane {{ forloop.first|yesno:"active," }}" id="top_categories_{{ days }}days">
+                <table class="table">
+                    {% for c in categories %}
+                    <tr>
+                        <td>{{ c.category__name}}</td>
+                        <td>{% currency c.amount_sum %}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>

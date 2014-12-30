@@ -1,0 +1,15 @@
+{% load bootstrap3 %}
+
+<div class="panel">
+    <div class="panel-body">
+        <form action="{% url 'expense_add' %}" method="post" role="form" class="form-inline" >
+            {% csrf_token %}
+            {% bootstrap_form create_expense_form layout='inline' %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "plus" %} Create Expense
+            </button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
