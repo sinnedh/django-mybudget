@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import datetime
+
+
 from django import forms
 
 import models
@@ -34,8 +37,8 @@ class ExpenseFilterForm(forms.Form):
 
 
 class ExpenseForm(forms.ModelForm):
-    date = forms.DateField(widget=widgets.BootstrapDateWidget)
-    amount = forms.CharField(widget=widgets.BootstrapCurrencyWidget)
+    date = forms.DateField(widget=widgets.BootstrapDateWidget, initial=datetime.date.today)
+    amount = forms.CharField(widget=widgets.BootstrapCurrencyWidget, initial='0.00')
     comment = forms.CharField()
 
     class Meta:
