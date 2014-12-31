@@ -6,8 +6,8 @@
         <h3>Top categories</h3>
         <div class="btn-group radio-tab" data-toggle="buttons">
             {% for days, categories in categories.items %}
-            <label class="btn btn-default{{ forloop.first|yesno:" active," }}" for="optCategories{{ days }}days">{{ days }} days
-                <input id="optCategories{{ days }}days" type="radio" data-target="#top_categories_{{ days }}days" autocomplete="off">
+            <label class="btn btn-default{{ forloop.first|yesno:" active," }}" for="{{ prefix }}_optCategories{{ days }}days">{{ days }} days
+                <input id="{{ prefix }}_optCategories{{ days }}days" type="radio" data-target="#{{ prefix }}_top_categories_{{ days }}days" autocomplete="off">
             </label>
             {% endfor %}
         </div>
@@ -16,7 +16,7 @@
     <div class="panel-body">
         <div class="tab-content">
             {% for days, categories in categories.items %}
-            <div role="tabpanel" class="tab-pane {{ forloop.first|yesno:"active," }}" id="top_categories_{{ days }}days">
+            <div role="tabpanel" class="tab-pane {{ forloop.first|yesno:"active," }}" id="{{ prefix }}_top_categories_{{ days }}days">
                 <table class="table">
                     {% for c in categories %}
                     <tr>

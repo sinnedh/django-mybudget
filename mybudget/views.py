@@ -35,61 +35,83 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "mybudget/dashboard.html"
 
     def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+
         account = self.request.user.account
         organisation = account.organisation
-        context = super(DashboardView, self).get_context_data(**kwargs)
-        context['sum_today'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                              account=account,
-                                                              days=1) or 0
-        context['sum_7days'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                              account=account,
-                                                              days=7) or 0
-        context['sum_30days'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                               account=account,
-                                                               days=30) or 0
-        context['sum_90days'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                               account=account,
-                                                               days=90) or 0
 
-        if organisation.account_set.count() > 1:
-            context['sum_all_today'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                                      days=1) or 0
-            context['sum_all_7days'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                                      days=7) or 0
-            context['sum_all_30days'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                                       days=30) or 0
-            context['sum_all_90days'] = Expense.objects.get_latest_sum(organisation=organisation,
-                                                                       days=90) or 0
+        context['data'] = []
 
-        context['last_expenses'] = organisation.get_expenses().order_by('-date', '-created_at')[:10]
-
-        truncate_date = connection.ops.date_trunc_sql('month', 'date')
-        qs = organisation.get_expenses().extra({'month': truncate_date})
-        month_summary_all = qs.values('month').annotate(Sum('amount'), Count('pk')).order_by('-month')
-        context['day_summary'] = []
-        context['week_summary'] = []
-        context['month_summary'] = []
-        for i, m_all in enumerate(month_summary_all):
-            """
-            The database adaptors are behaving differently. For postgres a datetime object is returned, for sqlite a
-            string is returned.
-            """
-            date = m_all['month']
-            if type(m_all['month']) in [str, unicode]:
-                date = datetime.datetime.strptime(m_all['month'], '%Y-%m-%d')
-            context['month_summary'].append({'date': date,
-                                            'amount_sum': m_all['amount__sum'],
-                                            'count': m_all['pk__count']})
-
-        context['top_categories'] = {}
+        data = {'key': 'all', 'title': 'All accounts', 'active': True}
+        data['sum'] = {}
+        for days in [1, 7, 30, 90]:
+            data['sum'][days] = Expense.objects.get_latest_sum(
+                organisation=organisation, days=days) or 0
+        data['last_expenses'] = Expense.objects.for_organisation(
+            organisation=organisation)[:10]
+        data['top_categories'] = {}
         for days in (7, 30, 90):
-            context['top_categories'][days] = Expense.objects.summed_by_category(
-                organisation=organisation,
-                account=account,
-                last_days=days)[:10]
+            data['top_categories'][days] = Expense.objects.summed_by_category(
+                organisation=organisation, last_days=days)[:10]
+        data['day_summary'] = []
+        data['week_summary'] = []
+        data['month_summary'] = []
+        truncate_date = connection.ops.date_trunc_sql('month', 'date')
+        qs = Expense.objects.for_organisation(
+            organisation=organisation).extra({'month': truncate_date})
+        month_summary = qs.values('month').annotate(Sum('amount'), Count('pk'))
+        for i, m in enumerate(month_summary.order_by('-month')):
+            """
+            The database adaptors are behaving differently. For postgres a
+            datetime object is returned, for sqlite a string is returned.
+            """
+            date = m['month']
+            if type(m['month']) in [str, unicode]:
+                date = datetime.datetime.strptime(m['month'], '%Y-%m-%d')
+            data['month_summary'].append({'date': date,
+                                          'amount_sum': m['amount__sum'],
+                                          'count': m['pk__count']})
+        context['data'].append(data)
+        context['all_data'] = data
+
+        for a in organisation.account_set.all():
+            data = []
+            data = {'key': 'user{}'.format(a.id), 'title': a.name, 'active': False}
+            data['sum'] = {}
+            for days in [1, 7, 30, 90]:
+                data['sum'][days] = Expense.objects.get_latest_sum(
+                    organisation=organisation, account=a, days=days) or 0
+            data['last_expenses'] = Expense.objects.for_organisation(
+                organisation=organisation, account=a)[:10]
+            data['top_categories'] = {}
+            for days in (7, 30, 90):
+                data['top_categories'][days] = Expense.objects.summed_by_category(
+                    organisation=organisation, account=a, last_days=days)[:10]
+            data['day_summary'] = []
+            data['week_summary'] = []
+            data['month_summary'] = []
+            truncate_date = connection.ops.date_trunc_sql('month', 'date')
+            qs = Expense.objects.for_organisation(
+                organisation=organisation, account=a).extra({'month': truncate_date})
+            month_summary = qs.values('month').annotate(Sum('amount'), Count('pk'))
+            for i, m in enumerate(month_summary.order_by('-month')):
+                """
+                The database adaptors are behaving differently. For postgres a
+                datetime object is returned, for sqlite a string is returned.
+                """
+                date = m['month']
+                if type(m['month']) in [str, unicode]:
+                    date = datetime.datetime.strptime(m['month'], '%Y-%m-%d')
+                data['month_summary'].append({'date': date,
+                                              'amount_sum': m['amount__sum'],
+                                              'count': m['pk__count']})
+            if a.id == self.request.user.account.id:
+                context['my_data'] = data
+            context['data'].append(data)
 
         context['create_expense_form'] = ExpenseCreateInlineForm(organisation)
         context.update(csrf(self.request))
+
         return context
 
 

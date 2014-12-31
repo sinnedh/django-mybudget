@@ -55,13 +55,11 @@ class ExpenseForOrganisationManager(ExpenseManager):
             account=account)
         return queryset
 
-    def for_organisation(self, organisation):
-        queryset = self.get_queryset().filter(
-            category__organisation=organisation)
-        return queryset
+    def for_organisation(self, organisation, **kwargs):
+        return self._prefiltered_queryset(organisation=organisation, **kwargs)
 
     def request_filter(self, organisation, request):
-        queryset = self.for_organisation(organisation)
+        queryset = self.for_organisation(organisation=organisation)
 
         # filter for age_in_days
         filter_age_in_days = request.get('age_in_days', None)
@@ -122,7 +120,6 @@ class ExpenseForOrganisationManager(ExpenseManager):
         return super(ExpenseForOrganisationManager, self)._prefiltered_queryset(organisation=organisation, **kwargs)
 
 
-
 class CategoryManager(models.Manager):
 
     def get_queryset(self):
@@ -135,7 +132,6 @@ class CategoryForOrganisationManager(CategoryManager):
     def for_organisation(self, organisation):
         queryset = self.get_queryset().filter(organisation=organisation)
         return queryset
-
 
 
 class TagManager(models.Manager):

@@ -5,21 +5,21 @@
     <div class="panel-heading">
         <h3>Summary</h3>
         <div class="btn-group radio-tab" data-toggle="buttons">
-            <label class="btn btn-default" for="optDaily">Daily
-                <input id="optDaily" type="radio" data-target="#summary_daily" autocomplete="off">
+            <label class="btn btn-default" for="{{ prefix }}_optDaily">Daily
+                <input id="{{ prefix }}_optDaily" type="radio" data-target="#{{ prefix }}_summary_daily" autocomplete="off">
             </label>
-            <label class="btn btn-default" for="optWeekly">Weekly
-                <input id="optWeekly" type="radio" data-target="#summary_weekly" autocomplete="off">
+            <label class="btn btn-default" for="{{ prefix }}_optWeekly">Weekly
+                <input id="{{ prefix }}_optWeekly" type="radio" data-target="#{{ prefix }}_summary_weekly" autocomplete="off">
             </label>
-            <label class="btn btn-default active" for="optMonthly">Monthly
-                <input id="optMonthly" type="radio" data-target="#summary_monthly" autocomplete="off">
+            <label class="btn btn-default active" for="{{ prefix }}_optMonthly">Monthly
+                <input id="{{ prefix }}_optMonthly" type="radio" data-target="#{{ prefix }}_summary_monthly" autocomplete="off">
             </label>
         </div>
     </div>
 
     <div class="panel-body">
         <div class="tab-content">
-            <div id="summary_daily" class="tab-pane" >
+            <div id="{{ prefix }}_summary_daily" class="tab-pane" >
                 TODO
                 <table class="table">
                     {% for line in days %}
@@ -31,7 +31,7 @@
                     {% endfor %}
                 </table>
             </div>
-            <div id="summary_weekly" class="tab-pane" >
+            <div id="{{ prefix }}_summary_weekly" class="tab-pane" >
                 TODO
                 <table class="table">
                     {% for line in weeks %}
@@ -43,7 +43,7 @@
                     {% endfor %}
                 </table>
             </div>
-            <div id="summary_monthly" class="tab-pane active" >
+            <div id="{{ prefix }}_summary_monthly" class="tab-pane active" >
                 <table class="table">
                     {% for line in months %}
                     <tr>

@@ -12,37 +12,55 @@
     </div>
 </div>
 
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
-            {% include 'mybudget/dashboard/box.html' with sum=sum_today sum_all=sum_all_today days=1 title="Today" color="success" %}
+            {% include 'mybudget/dashboard/box.html' with sum=my_data.sum.1 sum_all=all_data.sum.1 days=1 title="Today" color="success" %}
         </div>
         <div class="col-md-3">
-            {% include 'mybudget/dashboard/box.html' with sum=sum_7days sum_all=sum_all_7days days=7 title="Last 7 days" color="info" %}
+            {% include 'mybudget/dashboard/box.html' with sum=my_data.sum.7 sum_all=all_data.sum.7 days=7 title="Last 7 days" color="info" %}
         </div>
         <div class="col-md-3">
-            {% include 'mybudget/dashboard/box.html' with sum=sum_30days sum_all=sum_all_30days days=30 title="Last 30 days" color="warning" %}
+            {% include 'mybudget/dashboard/box.html' with sum=my_data.sum.30 sum_all=all_data.sum.30 days=30 title="Last 30 days" color="warning" %}
         </div>
         <div class="col-md-3">
-            {% include 'mybudget/dashboard/box.html' with sum=sum_90days sum_all=sum_all_90days days=90 title="Last 90 days" color="danger" %}
+            {% include 'mybudget/dashboard/box.html' with sum=my_data.sum.90 sum_all=all_data.sum.90 days=90 title="Last 90 days" color="danger" %}
         </div>
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-5">
-            {% include 'mybudget/dashboard/expenses.html' with expenses=last_expenses %}
-        </div>
 
-        <div class="col-md-4">
-            {% include 'mybudget/dashboard/categories.html' with categories=top_categories %}
+<div role="tabpanel">
+    <ul class="nav nav-tabs " role="tablist">
+        {% for values in data %}
+        <li role="presentation" class="{{ values.active|yesno:" active," }}">
+            <a href="#tab_{{ values.key }}" aria-controls="{{ values.key }}" role="tab" data-toggle="tab">{{ values.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    
+    <div class="tab-content">
+ 
+        {% for values in data %}
+        <div role="tabpanel" class="tab-pane {{ values.active|yesno:" active," }}" id="tab_{{ values.key }}">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5">
+                        {% include 'mybudget/dashboard/expenses.html' with last_expenses=values.last_expenses prefix=values.key %}
+                    </div>
+                    <div class="col-md-4">
+                        {% include 'mybudget/dashboard/categories.html' with categories=values.top_categories prefix=values.key %}
+                    </div>
+                    <div class="col-md-3">
+                        {% include 'mybudget/dashboard/summary.html' with months=values.month_summary weeks=values.week_summary days=values.day_summary prefix=values.key %}
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-md-3">
-            {% include 'mybudget/dashboard/summary.html' with months=month_summary weeks=week_summary days=day_summary %}
-        </div>
-
+        {% endfor %}
+ 
     </div>
 </div>
 
