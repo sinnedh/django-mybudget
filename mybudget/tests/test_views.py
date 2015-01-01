@@ -10,6 +10,13 @@ class BaseViewTests(BaseTests):
     pass
 
 
+class DashboardViewTests(BaseViewTests):
+    def test_empty_dashboard(self):
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('dashboard'))
+        self.assertEqual(response.status_code, 200)
+
+
 class CategoryViewTests(BaseViewTests):
     def test_login_required_list(self):
         response = self.client.get(reverse('category_list'))
@@ -33,6 +40,11 @@ class CategoryViewTests(BaseViewTests):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/login?next=/category/1/delete/')
 
+    def test_list_empty(self):
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('category_list'))
+        self.assertEqual(response.status_code, 200)
+
     def test_list(self):
         Category.objects.create(name='Test category', organisation=self.o1)
         Category.objects.create(name='Another test category', organisation=self.o1)
@@ -42,3 +54,48 @@ class CategoryViewTests(BaseViewTests):
 
         self.assertContains(response, '<td>Test category</td>')
         self.assertContains(response, '<td>Another test category</td>')
+
+    def test_add(self):
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('category_add'))
+        self.assertEqual(response.status_code, 200)
+
+
+class ExpenseViewTests(BaseViewTests):
+    def test_list_empty(self):
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('expense_list'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_list(self):
+        c = Category.objects.create(name='Test category', organisation=self.o1)
+        Expense.objects.create(comment='Test expense', account=self.a1, category=c)
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('expense_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Test expense')
+        self.assertContains(response, '<strong>Test category</strong>')
+
+    def test_add(self):
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('expense_add'))
+        self.assertEqual(response.status_code, 200)
+
+
+class TagViewTests(BaseViewTests):
+    def test_list_empty(self):
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('tag_list'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_list(self):
+        Tag.objects.create(name='Test tag', organisation=self.o1)
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('tag_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<td>Test tag</td>')
+
+    def test_add(self):
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('tag_add'))
+        self.assertEqual(response.status_code, 200)
