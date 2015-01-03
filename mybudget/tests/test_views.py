@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 
 from mybudget.models import Category, Expense, Tag
 from mybudget.tests.base import BaseTests
@@ -59,6 +60,14 @@ class CategoryViewTests(BaseViewTests):
         self.client.login(username=self.u1.username, password='password1')
         response = self.client.get(reverse('category_add'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<h2>Create Category</h2>')
+
+    def test_update(self):
+        c = Category.objects.create(name='Test category', organisation=self.o1)
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('category_update', args=(c.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<h2>Update Category</h2>')
 
 
 class ExpenseViewTests(BaseViewTests):
@@ -80,6 +89,15 @@ class ExpenseViewTests(BaseViewTests):
         self.client.login(username=self.u1.username, password='password1')
         response = self.client.get(reverse('expense_add'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<h2>Create Expense</h2>')
+
+    def test_update(self):
+        c = Category.objects.create(name='Test category', organisation=self.o1)
+        e = Expense.objects.create(comment='Test expense', account=self.a1, category=c)
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('expense_update', args=(e.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<h2>Update Expense</h2>')
 
 
 class TagViewTests(BaseViewTests):
@@ -99,3 +117,11 @@ class TagViewTests(BaseViewTests):
         self.client.login(username=self.u1.username, password='password1')
         response = self.client.get(reverse('tag_add'))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<h2>Create Tag</h2>')
+
+    def test_update(self):
+        t = Tag.objects.create(name='Test tag', organisation=self.o1)
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.get(reverse('tag_update', args=(t.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<h2>Update Tag</h2>')
