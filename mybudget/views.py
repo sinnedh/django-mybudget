@@ -129,21 +129,21 @@ class TagListView(LoginRequiredMixin, ListView):
 
 
 # TODO validations
-class TagFormView(LoginRequiredMixin, CreateView):
+class TagFormViewMixin(LoginRequiredMixin):
     model = Tag
     fields = ['name', 'description', ]
     success_url = reverse_lazy('tag_list')
 
     def form_valid(self, form):
         form.instance.organisation = self.request.user.account.organisation
-        return super(TagFormView, self).form_valid(form)
+        return super(TagFormViewMixin, self).form_valid(form)
 
 
-class TagCreateView(TagFormView):
+class TagCreateView(TagFormViewMixin, CreateView):
     pass
 
 
-class TagUpdateView(LoginRequiredMixin, UpdateView):
+class TagUpdateView(TagFormViewMixin, UpdateView):
     pass
 
 
@@ -166,17 +166,17 @@ class CategoryListView(LoginRequiredMixin, ListView):
 
 
 # TODO validations
-class CategoryFormView(LoginRequiredMixin, CreateView):
+class CategoryFormViewMixin(LoginRequiredMixin):
     model = Category
     fields = ['name', 'description', 'super_category', 'icon']
     success_url = reverse_lazy('category_list')
 
     def form_valid(self, form):
         form.instance.organisation = self.request.user.account.organisation
-        return super(CategoryFormView, self).form_valid(form)
+        return super(CategoryFormViewMixin, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(CategoryFormView, self).get_context_data(**kwargs)
+        context = super(CategoryFormViewMixin, self).get_context_data(**kwargs)
         return context
 
     def get_form(self, form_class):
@@ -184,11 +184,11 @@ class CategoryFormView(LoginRequiredMixin, CreateView):
                             **self.get_form_kwargs())
 
 
-class CategoryCreateView(CategoryFormView):
+class CategoryCreateView(CategoryFormViewMixin, CreateView):
     pass
 
 
-class CategoryUpdateView(CategoryFormView):
+class CategoryUpdateView(CategoryFormViewMixin, UpdateView):
     pass
 
 
