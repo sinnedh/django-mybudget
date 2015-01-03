@@ -41,3 +41,5 @@ def install_heroku(settings='mybudget.settings.heroku'):
     local('python manage.py bower install --settings={}'.format(settings))
     local('python manage.py collectstatic --noinput  --settings={}'.format(settings))
     local('python manage.py migrate --settings={}'.format(settings))
+    local('python manage.py makemessages -l de --settings={}'.format(settings))
+    local('python manage.py compilemessages -l de --settings={}'.format(settings))
