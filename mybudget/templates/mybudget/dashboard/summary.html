@@ -1,17 +1,18 @@
+{% load i18n %}
 {% load mybudget_extras %}
 
 <div class="panel">
 
     <div class="panel-heading">
-        <h3>Summary</h3>
+        <h3>{% trans "Summary" %}</h3>
         <div class="btn-group radio-tab" data-toggle="buttons">
-            <label class="btn btn-default" for="{{ prefix }}_optDaily">Daily
+            <label class="btn btn-default" for="{{ prefix }}_optDaily">{% trans "Daily" %}
                 <input id="{{ prefix }}_optDaily" type="radio" data-target="#{{ prefix }}_summary_daily" autocomplete="off">
             </label>
-            <label class="btn btn-default" for="{{ prefix }}_optWeekly">Weekly
+            <label class="btn btn-default" for="{{ prefix }}_optWeekly">{% trans "Weekly" %}
                 <input id="{{ prefix }}_optWeekly" type="radio" data-target="#{{ prefix }}_summary_weekly" autocomplete="off">
             </label>
-            <label class="btn btn-default active" for="{{ prefix }}_optMonthly">Monthly
+            <label class="btn btn-default active" for="{{ prefix }}_optMonthly">{% trans "Monthly" %}
                 <input id="{{ prefix }}_optMonthly" type="radio" data-target="#{{ prefix }}_summary_monthly" autocomplete="off">
             </label>
         </div>

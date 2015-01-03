@@ -73,7 +73,7 @@ body {
     <div class="container">
         <form action="" method="post" class="form-signin" role="form">
             {% csrf_token %}
-            <h2 class="form-signin-heading">Please sign in</h2>
+            <h2 class="form-signin-heading">{% trans "Please sign in" %}</h2>
             {{ form.username.errors }}
             <input type="username" name="username" class="form-control" placeholder="Username" required autofocus>
             {{ form.password.errors }}
@@ -82,9 +82,9 @@ body {
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
   <div class="password-reset-link">
-    <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+    <a href="{{ password_reset_url }}">{% trans "Forgotten your password or username?" %}</a>
   </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans 'Log in' %}</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Log in" %}</button>
         </form>
     </div>
 

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% load bootstrap3 %}
+{% load bootstrap3 i18n %}
 
 {% block content %}
 {% if object %}
-    <h2>Update Tag</h2>
+    <h2>{% trans "Update Tag" %}</h2>
 {% else %}
-    <h2>Create Tag</h2>
+    <h2>{% trans "Create Tag" %}</h2>
 {% endif %}
 
 <form action="" method="post" role="form" class="form form-horizontal" >
@@ -21,9 +21,9 @@
             {% buttons %}
                 <button type="submit" class="btn btn-primary">
                 {% if object %}
-                    {% bootstrap_icon "pencil" %} Update Tag
+                    {% bootstrap_icon "pencil" %} {% trans "Update Tag" %}
                 {% else %}
-                    {% bootstrap_icon "plus" %} Create Tag
+                    {% bootstrap_icon "plus" %} {% trans "Create Tag" %}
                 {% endif %}
                 </button>
             {% endbuttons %}

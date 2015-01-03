@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% load bootstrap3 %}
+{% load bootstrap3 i18n  %}
 
 {% block content %}
 {% if object %}
-    <h2>Update Category</h2>
+    <h2>{% trans "Update Category" %}</h2>
 {% else %}
-    <h2>Create Category</h2>
+    <h2>{% trans "Create Category" %}</h2>
 {% endif %}
 
 <form action="" method="post" role="form" class="form form-horizontal" >
@@ -15,15 +15,15 @@
             {% bootstrap_form_errors form %}
         </div>
         <div class="panel-body">
-            {% bootstrap_form form layout='horizontal'%}
+            {% bootstrap_form form layout='horizontal' %}
         </div>
         <div class="panel-footer">
             {% buttons %}
                 <button type="submit" class="btn btn-primary">
                 {% if object %}
-                    {% bootstrap_icon "pencil" %} Update Category
+                    {% bootstrap_icon "pencil" %} {% trans "Update Category" %}
                 {% else %}
-                    {% bootstrap_icon "plus" %} Create Category
+                    {% bootstrap_icon "plus" %} {% trans "Create Category" %}
                 {% endif %}
                 </button>
             {% endbuttons %}

@@ -1,20 +1,20 @@
 {% extends "base.html" %}
-{% load bootstrap3 %}
+{% load bootstrap3 i18n %}
 
 
 {% block content %}
-<h2>Confirmation</h2>
+<h2>{% trans "Confirmation" %}</h2>
 
-<p>Really delete expense "{{ object }}"?</p>
+<p>{% blocktrans %}Really delete expense "{{ object }}"?{% endblocktrans %}</p>
 
 <form class="wide" action="." method="post">
     {% csrf_token %}
     {% buttons %}
         <button type="submit" class="btn btn-danger">
-            {% bootstrap_icon "trash" %} Yes, delete the expense!
+            {% bootstrap_icon "trash" %} {% trans "Yes, delete the expense!" %}
         </button>
         <button type="cancel" class="btn btn-link">
-            No, better not.
+            {% trans "No, better not." %}
         </button>
     {% endbuttons %}
 </form>

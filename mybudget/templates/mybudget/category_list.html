@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load mybudget_extras %}
-{% load bootstrap3 %}
+{% load bootstrap3 i18n %}
 
 
 {% block content %}
@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-4 text-left">
             <a href="{% url 'category_add' %}" class="btn btn-success">
-                {% bootstrap_icon "plus" %} New category
+                {% bootstrap_icon "plus" %} {% trans "New category" %}
             </a>
         </div>
     </div>
@@ -22,9 +22,9 @@
         <tr>
             <th></th>
             <th></th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Super Category</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Description" %}</th>
+            <th>{% trans "Super Category" %}</th>
         </tr>
         {% for category in object_list %}
         <tr>
@@ -44,7 +44,9 @@
         {% endfor %}
     </table>
     <div class="panel-footer">
-        <h3 class="panel-title">There are {{ category_count }} categories.</h3>
+        <h3 class="panel-title">
+            {% blocktrans %}There are {{ category_count }} categories.{% endblocktrans %}
+        </h3>
     </div>
 </div>
 

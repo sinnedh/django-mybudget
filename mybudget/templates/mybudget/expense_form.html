@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load mybudget_extras %}
-{% load bootstrap3 %}
+{% load bootstrap3 i18n %}
 
 
 {% block content %}
 
 {% if object %}
-    <h2>Update Expense</h2>
+    <h2>{% trans "Update Expense" %}</h2>
 {% else %}
-    <h2>Create Expense</h2>
+    <h2>{% trans "Create Expense" %}</h2>
 {% endif %}
 
 <form action="" method="post" role="form" class="form form-horizontal" >
@@ -24,14 +24,14 @@
             {% buttons %}
                 {% if object %}
                     <button type="submit" class="btn btn-primary">
-                        {% bootstrap_icon "pencil" %} Update Expense
+                        {% bootstrap_icon "pencil" %} {% trans "Update Expense" %}
                     </button>
                     <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-danger">
-                        {% fa_icon "warning" %} Delete expense
+                        {% fa_icon "warning" %} {% trans "Delete expense" %}
                     </a>
                 {% else %}
                     <button type="submit" class="btn btn-success">
-                        {% bootstrap_icon "plus" %} Create Expense
+                        {% bootstrap_icon "plus" %} {% trans "Create Expense" %}
                     </button>
                 {% endif %}
             {% endbuttons %}

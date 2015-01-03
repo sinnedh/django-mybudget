@@ -1,21 +1,22 @@
+{% load i18n %}
 {% load mybudget_extras %}
 
 <div class="panel panel-{{ color }} dashboard-box">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ title }}</h3>
+        <h3 class="panel-title">{% trans title %}</h3>
         <div class="value-sum text-center">
             {% currency_simple sum %}
         </div>
         {% if sum_all %}
         <p class="value-sum text-center">
-        All accounts: <strong>{% currency_simple sum_all %}</strong>
+        {% trans "All accounts:" %} <strong>{% currency_simple sum_all %}</strong>
         </p>
         {% endif %}
     </div>
     <div class="panel-body">
         <div class="text-right">
             <a href="{% url 'expense_list' %}?age_in_days={{ days }}">
-                Show expenses {% fa_icon "chevron-circle-right" "fa-lg" %}
+                {% trans "Show expenses" %} {% fa_icon "chevron-circle-right" "fa-lg" %}
             </a>
         </div>
     </div>

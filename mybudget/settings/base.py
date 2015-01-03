@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -66,7 +67,7 @@ DATABASES = {}
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'de-de'
+LANGUAGE_CODE = 'de'
 
 TIME_ZONE = 'UTC'
 
@@ -96,6 +97,10 @@ STATICFILES_FINDERS = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, '../locale'),
+)
 
 
 TEMPLATE_DIRS = (

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% load mybudget_extras %}
-{% load bootstrap3 %}
+{% load bootstrap3 i18n %}
 
 
 {% block content %}
 
-<h2>Tags</h2>
+<h2>{% trans "Tags" %}</h2>
 
 <p>
     <div class="row">
         <div class="col-md-4 text-left">
             <a href="{% url 'tag_add' %}" class="btn btn-success">
-                {% bootstrap_icon "plus" %} New Tag
+                {% bootstrap_icon "plus" %} {% trans "New Tag" %}
             </a>
         </div>
     </div>
@@ -21,14 +21,14 @@
     <table class="table">
         <tr>
             <th></th>
-            <th>Name</th>
-            <th>Description</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Description" %}</th>
         </tr>
         {% for tag in object_list %}
         <tr>
             <td>
-                <a href="{% url 'tag_update' tag.pk %}">Edit</a> / 
-                <a href="{% url 'tag_delete' tag.pk %}">Delete</a>
+                <a href="{% url 'tag_update' tag.pk %}">{% trans "Edit" %}</a> / 
+                <a href="{% url 'tag_delete' tag.pk %}">{% trans "Delete" %}</a>
             </td>
             <td>{{ tag.name }}</td>
             <td>{{ tag.description|max_length_string:35 }}</td>
@@ -36,7 +36,9 @@
         {% endfor %}
     </table>
     <div class="panel-footer">
-        <h3 class="panel-title">There are {{ tag_count }} tags.</h3>
+        <h3 class="panel-title">
+            {% blocktrans %}There are {{ tag_count }} tags.{% endblocktrans %}
+        </h3>
     </div>
 </div>
 

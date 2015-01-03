@@ -1,12 +1,14 @@
+{% load i18n %}
 {% load mybudget_extras %}
 
 <div class="panel">
 
     <div class="panel-heading">
-        <h3>Top categories</h3>
+        <h3>{% trans "Top categories" %}</h3>
         <div class="btn-group radio-tab" data-toggle="buttons">
             {% for days, categories in categories.items %}
-            <label class="btn btn-default{{ forloop.first|yesno:" active," }}" for="{{ prefix }}_optCategories{{ days }}days">{{ days }} days
+            <label class="btn btn-default{{ forloop.first|yesno:" active," }}" for="{{ prefix }}_optCategories{{ days }}days">
+                {% blocktrans %}{{ days }} days{% endblocktrans %}
                 <input id="{{ prefix }}_optCategories{{ days }}days" type="radio" data-target="#{{ prefix }}_top_categories_{{ days }}days" autocomplete="off">
             </label>
             {% endfor %}

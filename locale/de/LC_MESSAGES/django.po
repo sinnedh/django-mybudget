@@ -1,0 +1,572 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-03 21:42+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: mybudget/models.py:15 mybudget/models.py:16
+msgid "Organisation"
+msgstr "Organisation"
+
+#: mybudget/models.py:18 mybudget/models.py:71 mybudget/models.py:120
+msgid "name"
+msgstr "Name"
+
+#: mybudget/models.py:19 mybudget/models.py:72 mybudget/models.py:121
+msgid "description"
+msgstr "Beschreibung"
+
+#: mybudget/models.py:40
+msgid "Account"
+msgstr "Konto"
+
+#: mybudget/models.py:41
+msgid "Accounts"
+msgstr "Konten"
+
+#: mybudget/models.py:45
+msgid "Color"
+msgstr "Farbe"
+
+#: mybudget/models.py:63
+msgid "Category"
+msgstr "Kategorie"
+
+#: mybudget/models.py:64 mybudget/templates/base.html:56
+msgid "Categories"
+msgstr "Kategorien"
+
+#: mybudget/models.py:73
+msgid "Icon"
+msgstr "Symbol"
+
+#: mybudget/models.py:113
+msgid "Tag"
+msgstr "Schlagwort"
+
+#: mybudget/models.py:114 mybudget/templates/base.html:57
+#: mybudget/templates/mybudget/expense_list.html:38
+#: mybudget/templates/mybudget/tag_list.html:8
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#: mybudget/models.py:132 mybudget/templates/mybudget/expense_list.html:35
+msgid "Expense"
+msgstr "Ausgabe"
+
+#: mybudget/models.py:133 mybudget/templates/base.html:55
+#: mybudget/templates/mybudget/expense_list.html:7
+msgid "Expenses"
+msgstr "Ausgaben"
+
+#: mybudget/models.py:142
+msgid "date"
+msgstr "Datum"
+
+#: mybudget/models.py:143
+msgid "amount"
+msgstr "Betrag"
+
+#: mybudget/models.py:144
+msgid "comment"
+msgstr "Kommentar"
+
+#: mybudget/models.py:145
+msgid "Is shared"
+msgstr "Geteilt"
+
+#: mybudget/templates/base.html:67
+msgid "Profile"
+msgstr "Profil"
+
+#: mybudget/templates/base.html:72
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: mybudget/templates/base.html:78
+msgid "Logout"
+msgstr "Anmelden"
+
+#: mybudget/templates/login.html:60
+msgid "Please correct the error below."
+msgstr "Bitte korrigiere den folgenden Fehler."
+
+#: mybudget/templates/login.html:60
+msgid "Please correct the errors below."
+msgstr "Bitte korrigiere die folgenden Fehler"
+
+#: mybudget/templates/login.html:76
+msgid "Please sign in"
+msgstr "Bitte anmelden"
+
+#: mybudget/templates/login.html:85
+msgid "Forgotten your password or username?"
+msgstr "Hast Du Deinen Benutzernamen oder Passwort vergessen?"
+
+#: mybudget/templates/login.html:87
+msgid "Log in"
+msgstr "Anmelden"
+
+#: mybudget/templates/mybudget/category_confirm_delete.html:6
+#: mybudget/templates/mybudget/expense_confirm_delete.html:6
+#: mybudget/templates/mybudget/tag_confirm_delete.html:6
+msgid "Confirmation"
+msgstr "Bestätigung"
+
+#: mybudget/templates/mybudget/category_confirm_delete.html:8
+#, python-format
+msgid "Really delete category \"%(object)s\"?"
+msgstr "Soll die Kategorie \"%(object)s\" wirklich gelöscht werden?"
+
+#: mybudget/templates/mybudget/category_confirm_delete.html:14
+msgid "Yes, delete the category!"
+msgstr "Ja, Kategorie löschen"
+
+#: mybudget/templates/mybudget/category_confirm_delete.html:17
+#: mybudget/templates/mybudget/expense_confirm_delete.html:17
+#: mybudget/templates/mybudget/tag_confirm_delete.html:17
+msgid "No, better not."
+msgstr "Nein, besser nicht."
+
+#: mybudget/templates/mybudget/category_form.html:6
+#: mybudget/templates/mybudget/category_form.html:24
+msgid "Update Category"
+msgstr "Kategorie aktualisieren"
+
+#: mybudget/templates/mybudget/category_form.html:8
+#: mybudget/templates/mybudget/category_form.html:26
+msgid "Create Category"
+msgstr "Kategorie anlegen"
+
+#: mybudget/templates/mybudget/category_list.html:14
+msgid "New category"
+msgstr "Neue Kategorie"
+
+#: mybudget/templates/mybudget/category_list.html:25
+#: mybudget/templates/mybudget/tag_list.html:24
+msgid "Name"
+msgstr "Name"
+
+#: mybudget/templates/mybudget/category_list.html:26
+#: mybudget/templates/mybudget/tag_list.html:25
+msgid "Description"
+msgstr "Beschreibung"
+
+#: mybudget/templates/mybudget/category_list.html:27
+msgid "Super Category"
+msgstr "Übergeordnete Kategorie"
+
+#: mybudget/templates/mybudget/category_list.html:48
+#, python-format
+msgid "There are %(category_count)s categories."
+msgstr "Es gibt %(category_count)s Kategorien."
+
+#: mybudget/templates/mybudget/dashboard/box.html:12
+msgid "All accounts:"
+msgstr "Alle Konten"
+
+#: mybudget/templates/mybudget/dashboard/box.html:19
+msgid "Show expenses"
+msgstr "Ausgaben zeigen"
+
+#: mybudget/templates/mybudget/dashboard/categories.html:7
+msgid "Top categories"
+msgstr "Top Kategorien"
+
+#: mybudget/templates/mybudget/dashboard/categories.html:11
+#, python-format
+msgid "%(days)s days"
+msgstr "%(days)s Tage"
+
+#: mybudget/templates/mybudget/dashboard/expenses.html:7
+msgid "Recent expenses"
+msgstr "Letzte Ausgaben"
+
+#: mybudget/templates/mybudget/dashboard/form.html:10
+#: mybudget/templates/mybudget/expense_form.html:11
+#: mybudget/templates/mybudget/expense_form.html:34
+msgid "Create Expense"
+msgstr "Ausgabe anlegen"
+
+#: mybudget/templates/mybudget/dashboard/summary.html:7
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: mybudget/templates/mybudget/dashboard/summary.html:9
+msgid "Daily"
+msgstr "Tag"
+
+#: mybudget/templates/mybudget/dashboard/summary.html:12
+msgid "Weekly"
+msgstr "Woche"
+
+#: mybudget/templates/mybudget/dashboard/summary.html:15
+msgid "Monthly"
+msgstr "Monat"
+
+#: mybudget/templates/mybudget/expense_confirm_delete.html:8
+#, python-format
+msgid "Really delete expense \"%(object)s\"?"
+msgstr "Soll die Ausgabe \"%(object)s\" wirklich gelöscht werden?"
+
+#: mybudget/templates/mybudget/expense_confirm_delete.html:14
+msgid "Yes, delete the expense!"
+msgstr "Ja, Ausgabe löschen"
+
+#: mybudget/templates/mybudget/expense_form.html:9
+#: mybudget/templates/mybudget/expense_form.html:27
+msgid "Update Expense"
+msgstr "Ausgabe aktualisieren"
+
+#: mybudget/templates/mybudget/expense_form.html:30
+msgid "Delete expense"
+msgstr "Ausgabe löschen"
+
+#: mybudget/templates/mybudget/expense_list.html:13
+msgid "New expense"
+msgstr "Neue Ausgabe"
+
+#: mybudget/templates/mybudget/expense_list.html:21
+msgid "Filter"
+msgstr "Filter"
+
+#: mybudget/templates/mybudget/expense_list.html:36
+msgid "Shared?"
+msgstr "Geteilt?"
+
+#: mybudget/templates/mybudget/expense_list.html:37
+msgid "Date"
+msgstr "Datum"
+
+#: mybudget/templates/mybudget/expense_list.html:76
+#, python-format
+msgid ""
+"There are %(expenses_count)s expenses with a sum of %(expenses_sum)s &euro;"
+msgstr ""
+"Es gibt %(expenses_count)s Ausgaben mit einer Summe von %(expenses_sum)s &euro;"
+
+#: mybudget/templates/mybudget/expense_list.html:85
+msgid "Show all expenses"
+msgstr "Alle Ausgaben zeigen"
+
+#: mybudget/templates/mybudget/tag_confirm_delete.html:8
+#, python-format
+msgid "Really delete tag \"%(object)s\"?"
+msgstr "Soll das Tag \"%(object)s\" wirklich gelöscht werden?"
+
+#: mybudget/templates/mybudget/tag_confirm_delete.html:14
+msgid "Yes, delete the tag!"
+msgstr "Ja, Tag löschen"
+
+#: mybudget/templates/mybudget/tag_form.html:6
+#: mybudget/templates/mybudget/tag_form.html:24
+msgid "Update Tag"
+msgstr "Tag aktualisieren"
+
+#: mybudget/templates/mybudget/tag_form.html:8
+#: mybudget/templates/mybudget/tag_form.html:26
+msgid "Create Tag"
+msgstr "Tag anlegen"
+
+#: mybudget/templates/mybudget/tag_list.html:14
+msgid "New Tag"
+msgstr "Neues Tag"
+
+#: mybudget/templates/mybudget/tag_list.html:30
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: mybudget/templates/mybudget/tag_list.html:31
+msgid "Delete"
+msgstr ""
+
+#: mybudget/templates/mybudget/tag_list.html:40
+#, python-format
+msgid "There are %(tag_count)s tags."
+msgstr "Es gibt %(tag_count)s Tags."
+
+#: mybudget/views.py:30
+msgid "You have been logged out succesfully!"
+msgstr "Du wurdest erfolgreich abgemeldet!"
+
+#: mybudget/widgets.py:11
+msgid "Ambulance"
+msgstr "Ambulanz"
+
+#: mybudget/widgets.py:12
+msgid "Anchor"
+msgstr "Anker"
+
+#: mybudget/widgets.py:13
+msgid "Beer"
+msgstr "Bier"
+
+#: mybudget/widgets.py:14
+msgid "Bicycle"
+msgstr "Fahrrad"
+
+#: mybudget/widgets.py:15
+msgid "Binoculars"
+msgstr "Fernglas"
+
+#: mybudget/widgets.py:16
+msgid "Books"
+msgstr "Buch"
+
+#: mybudget/widgets.py:17
+msgid "Briefcase"
+msgstr "Brieftasche"
+
+#: mybudget/widgets.py:18
+msgid "Building"
+msgstr "Gebäude"
+
+#: mybudget/widgets.py:19
+msgid "Bus"
+msgstr "Bus"
+
+#: mybudget/widgets.py:20
+msgid "Calendar"
+msgstr "Kalendar"
+
+#: mybudget/widgets.py:21
+msgid "Camera"
+msgstr "Kamera"
+
+#: mybudget/widgets.py:22
+msgid "Car"
+msgstr "Auto"
+
+#: mybudget/widgets.py:23
+msgid "Child"
+msgstr "Kind"
+
+#: mybudget/widgets.py:24
+msgid "Cloud"
+msgstr "Wolke"
+
+#: mybudget/widgets.py:25
+msgid "Coffee"
+msgstr "Kaffee"
+
+#: mybudget/widgets.py:26
+msgid "Credit card"
+msgstr "Kreditkarte"
+
+#: mybudget/widgets.py:27
+msgid "Cutlery"
+msgstr "Besteck"
+
+#: mybudget/widgets.py:28
+msgid "Envelope"
+msgstr "Umschlag"
+
+#: mybudget/widgets.py:29
+msgid "Eye"
+msgstr "Auge"
+
+#: mybudget/widgets.py:30
+msgid "Film"
+msgstr "Film"
+
+#: mybudget/widgets.py:31
+msgid "Fire"
+msgstr "Feuer"
+
+#: mybudget/widgets.py:32
+msgid "Flag"
+msgstr "Flagge"
+
+#: mybudget/widgets.py:33
+msgid "Flash"
+msgstr "Blitz"
+
+#: mybudget/widgets.py:34
+msgid "Gamepad"
+msgstr "Gamepad"
+
+#: mybudget/widgets.py:35
+msgid "Gifts"
+msgstr "Geschenke"
+
+#: mybudget/widgets.py:36
+msgid "Glass"
+msgstr "Glas"
+
+#: mybudget/widgets.py:37
+msgid "Globe"
+msgstr "Globus"
+
+#: mybudget/widgets.py:38
+msgid "Headphones"
+msgstr "Kopfhörer"
+
+#: mybudget/widgets.py:39
+msgid "Home"
+msgstr "Haus"
+
+#: mybudget/widgets.py:40
+msgid "Key"
+msgstr "Schlüssel"
+
+#: mybudget/widgets.py:41
+msgid "Laptop"
+msgstr "Laptop"
+
+#: mybudget/widgets.py:42
+msgid "Leaf"
+msgstr "Blatt"
+
+#: mybudget/widgets.py:43
+msgid "Medkit"
+msgstr "Medizinkit"
+
+#: mybudget/widgets.py:44
+msgid "Microphone"
+msgstr "Mikrofon"
+
+#: mybudget/widgets.py:45
+msgid "Mobile"
+msgstr "Handy"
+
+#: mybudget/widgets.py:46
+msgid "Music"
+msgstr "Musik"
+
+#: mybudget/widgets.py:47
+msgid "Newspaper"
+msgstr "Zeitung"
+
+#: mybudget/widgets.py:48
+msgid "Office"
+msgstr "Büro"
+
+#: mybudget/widgets.py:49
+msgid "Paint brush"
+msgstr "Pinsel"
+
+#: mybudget/widgets.py:50
+msgid "Paw"
+msgstr "Pfote"
+
+#: mybudget/widgets.py:51
+msgid "Pencil"
+msgstr "Stift"
+
+#: mybudget/widgets.py:52
+msgid "Photo"
+msgstr "Foto"
+
+#: mybudget/widgets.py:53
+msgid "Phone"
+msgstr "Telefon"
+
+#: mybudget/widgets.py:54
+msgid "Plane"
+msgstr "Flugzeug"
+
+#: mybudget/widgets.py:55
+msgid "Plug"
+msgstr "Stecker"
+
+#: mybudget/widgets.py:56
+msgid "Printer"
+msgstr "Drucker"
+
+#: mybudget/widgets.py:57
+msgid "Road"
+msgstr "Strasse"
+
+#: mybudget/widgets.py:58
+msgid "Scissors"
+msgstr "Schere"
+
+#: mybudget/widgets.py:59
+msgid "Shopping"
+msgstr "Einkaufen"
+
+#: mybudget/widgets.py:60
+msgid "Soccer ball"
+msgstr "Fussball"
+
+#: mybudget/widgets.py:61
+msgid "Spoon"
+msgstr "Löffel"
+
+#: mybudget/widgets.py:62
+msgid "Stethoscope"
+msgstr "Stethoskop"
+
+#: mybudget/widgets.py:63
+msgid "Suitcase"
+msgstr "Koffer"
+
+#: mybudget/widgets.py:64
+msgid "Support"
+msgstr "Rettungsring"
+
+#: mybudget/widgets.py:65
+msgid "Sun"
+msgstr "Sonne"
+
+#: mybudget/widgets.py:66
+msgid "Taxi"
+msgstr "Taxi"
+
+#: mybudget/widgets.py:67
+msgid "Tint"
+msgstr "Tropfen"
+
+#: mybudget/widgets.py:68
+msgid "Trash"
+msgstr "Müll"
+
+#: mybudget/widgets.py:69
+msgid "Tree"
+msgstr "Baum"
+
+#: mybudget/widgets.py:70
+msgid "Trophy"
+msgstr "Trophäe"
+
+#: mybudget/widgets.py:71
+msgid "Truck"
+msgstr "LKW"
+
+#: mybudget/widgets.py:72
+msgid "Umbrella"
+msgstr "Regenschirm"
+
+#: mybudget/widgets.py:73
+msgid "University"
+msgstr "Universität"
+
+#: mybudget/widgets.py:74
+msgid "Video camera"
+msgstr "Video Kamera"
+
+#: mybudget/widgets.py:75
+msgid "Wifi"
+msgstr "WLAN"
+
+#: mybudget/widgets.py:76
+msgid "Wheelchair"
+msgstr "Rollstuhl"
+
+#: mybudget/widgets.py:77
+msgid "Wrench"
+msgstr "Werkzeug"

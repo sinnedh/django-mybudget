@@ -52,9 +52,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'expense_list' %}?age_in_days=30">Expenses</a></li>
-                <li><a href="{% url 'category_list' %}">Categories</a></li>
-                <li><a href="{% url 'tag_list' %}">Tags</a></li>
+                <li><a href="{% url 'expense_list' %}?age_in_days=30">{% trans "Expenses" %}</a></li>
+                <li><a href="{% url 'category_list' %}">{% trans "Categories" %}</a></li>
+                <li><a href="{% url 'tag_list' %}">{% trans "Tags" %}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -64,19 +64,18 @@
                 <ul class="dropdown-menu" role="menu">
                     <li>
                         <a href="#">
-                            {% fa_icon "user" %}&nbsp;&nbsp;Profile (TODO)
+                            {% fa_icon "user" %}&nbsp;&nbsp;{% trans "Profile" %} (TODO)
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            {% bootstrap_icon "cog" %}&nbsp;&nbsp;Settings (TODO)
+                            {% bootstrap_icon "cog" %}&nbsp;&nbsp;{% trans "Settings" %} (TODO)
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
                         <a href="{% url 'logout' %}">
-                            {% bootstrap_icon "log-out" %}&nbsp;&nbsp;Logout
-                        </a>
+                            {% bootstrap_icon "log-out" %}&nbsp;&nbsp;{% trans "Logout" %}</a>
                     </li>
                 </ul>
                 </li>
