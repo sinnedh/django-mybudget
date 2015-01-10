@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
 
 from mybudget.models import Category, Expense, Tag
 from mybudget.tests.base import BaseTests
@@ -118,6 +117,14 @@ class TagViewTests(BaseViewTests):
         response = self.client.get(reverse('tag_add'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<h2>Create Tag</h2>')
+
+    def test_create(self):
+        self.assertEqual(Tag.objects.all().count(), 0)
+        self.client.login(username=self.u1.username, password='password1')
+        response = self.client.post(reverse('tag_add'), data={'name': 'New tag'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Tag.objects.all().count(), 1)
+        self.assertEqual(Tag.objects.first().name, 'New tag')
 
     def test_update(self):
         t = Tag.objects.create(name='Test tag', organisation=self.o1)
