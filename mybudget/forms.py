@@ -64,7 +64,8 @@ class ExpenseCreateInlineForm(ExpenseForm):
 
 
 class CategoryForm(forms.ModelForm):
-    icon = forms.TypedChoiceField(widget=widgets.IconSelectWidget, choices=widgets.ICONS_CHOICES)
+    icon = forms.TypedChoiceField(widget=widgets.IconSelectWidget,
+                                  choices=sorted(widgets.ICONS_CHOICES, key=lambda x: x[1]))
 
     class Meta:
         model = models.Category
@@ -73,7 +74,4 @@ class CategoryForm(forms.ModelForm):
     def __init__(self, organisation, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
         self.fields['super_category'].queryset = models.Category.objects.for_organisation(organisation)
-        #import pdb; pdb.set_trace()  # XXX BREAKPOINT
-        #self.fields['icon'].widget= widgets.IconListWidget()
-
-
+        # self.fields['icon'].widget= widgets.IconListWidget()
