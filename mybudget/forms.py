@@ -25,6 +25,7 @@ class ExpenseFilterForm(forms.Form):
     age_in_days = forms.ChoiceField(required=False, choices=FILTER_AGE_CHOICES)
     account = forms.ModelChoiceField(queryset=models.Account.objects.none(), required=False)
     category = forms.ModelChoiceField(queryset=models.Category.objects.none(), required=False)
+    tag = forms.ModelChoiceField(queryset=models.Tag.objects.none(), required=False)
 
     class Meta:
         model = models.Expense
@@ -34,6 +35,7 @@ class ExpenseFilterForm(forms.Form):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.fields['account'].queryset = models.Account.objects.filter(organisation=organisation)
         self.fields['category'].queryset = models.Category.objects.for_organisation(organisation)
+        self.fields['tag'].queryset = models.Tag.objects.for_organisation(organisation)
 
 
 class ExpenseForm(forms.ModelForm):

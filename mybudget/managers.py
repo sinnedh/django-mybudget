@@ -27,6 +27,10 @@ class ExpenseManager(models.Manager):
         if category is not None:
             queryset = queryset.filter(category=category)
 
+        tag = kwargs.get('tag', None)
+        if tag is not None:
+            queryset = queryset.filter(tag=tag)
+
         is_shared = kwargs.get('is_shared', None)
         if is_shared is not None:
             queryset = queryset.filter(is_shared=is_shared)
@@ -66,6 +70,11 @@ class ExpenseForOrganisationManager(ExpenseManager):
         if filter_age_in_days:
             min_date = datetime.date.today() - datetime.timedelta(days=int(filter_age_in_days))
             queryset = queryset.filter(date__gt=min_date)
+
+        # filter for tag
+        filter_tag_id = request.get('tag', None)
+        if filter_tag_id:
+            queryset = queryset.filter(tags=filter_tag_id)
 
         # filter for category
         filter_category_id = request.get('category', None)
