@@ -11,8 +11,8 @@ from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
 
 from models import Category, Expense, Tag
 from forms import ExpenseFilterForm, ExpenseCreateInlineForm, ExpenseForm, CategoryForm
@@ -190,6 +190,18 @@ class CategoryCreateView(CategoryFormViewMixin, CreateView):
 
 class CategoryUpdateView(CategoryFormViewMixin, UpdateView):
     pass
+
+
+class CategoryDetailView(LoginRequiredMixin, DetailView):
+    model = Category
+
+    def get_context_data(self, **kwargs):
+        organisation = self.request.user.account.organisation
+        expenses = Expense.objects.for_organisation(organisation, category=self.object)
+        context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        context['expenses_sum'] = expenses.amount_sum()
+        context['expenses_count'] = expenses.count()
+        return context
 
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):

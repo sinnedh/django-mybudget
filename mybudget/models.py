@@ -104,7 +104,7 @@ class Category(models.Model):
         return expense_sum
 
     def get_sub_categories(self):
-        return [c.id for c in self.category_set.all()]
+        return [c for c in self.category_set.all()]
 
 
 class Tag(models.Model):

@@ -6,9 +6,16 @@ from django.db import models
 from django.db.models import Sum
 
 
+class ExpenseQuerySet(models.QuerySet):
+
+    def amount_sum(self):
+        return self.aggregate(Sum('amount'))['amount__sum']
+
+
 class ExpenseManager(models.Manager):
 
     def get_queryset(self):
+        return ExpenseQuerySet(self.model, using=self._db)
         return super(ExpenseManager, self).get_queryset().order_by(
             '-date', '-created_at')
 

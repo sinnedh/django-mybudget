@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-03 22:15+0000\n"
+"POT-Creation-Date: 2015-01-10 17:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,10 +143,47 @@ msgstr "Ja, Kategorie löschen"
 msgid "No, better not."
 msgstr "Nein, besser nicht."
 
+#: mybudget/templates/mybudget/category_detail.html:6
+msgid "Category Details"
+msgstr "Kategoriedetails"
+
+#: mybudget/templates/mybudget/category_detail.html:13
+#: mybudget/templates/mybudget/category_list.html:27
+msgid "Super Category"
+msgstr "Überkategorie"
+
+#: mybudget/templates/mybudget/category_detail.html:19
+msgid "Sub Categories"
+msgstr "Unterkategorien"
+
+#: mybudget/templates/mybudget/category_detail.html:27
+#: mybudget/templates/mybudget/category_list.html:26
+#: mybudget/templates/mybudget/tag_list.html:25
+msgid "Description"
+msgstr "Beschreibung"
+
+#: mybudget/templates/mybudget/category_detail.html:33
+msgid "Number of Expenses"
+msgstr "Anzahl der Ausgaben"
+
+#: mybudget/templates/mybudget/category_detail.html:39
+msgid "Sum of Expenses"
+msgstr "Summe der Ausgaben"
+
+#: mybudget/templates/mybudget/category_detail.html:47
+#: mybudget/templates/mybudget/dashboard/box.html:19
+msgid "Show expenses"
+msgstr "Ausgaben zeigen"
+
+#: mybudget/templates/mybudget/category_detail.html:53
 #: mybudget/templates/mybudget/category_form.html:6
 #: mybudget/templates/mybudget/category_form.html:24
 msgid "Update Category"
 msgstr "Kategorie bearbeiten"
+
+#: mybudget/templates/mybudget/category_detail.html:56
+msgid "Delete Category"
+msgstr "Kategorie löschen"
 
 #: mybudget/templates/mybudget/category_form.html:8
 #: mybudget/templates/mybudget/category_form.html:26
@@ -162,26 +199,11 @@ msgstr "Neue Kategorie"
 msgid "Name"
 msgstr "Name"
 
-#: mybudget/templates/mybudget/category_list.html:26
-#: mybudget/templates/mybudget/tag_list.html:25
-msgid "Description"
-msgstr "Beschreibung"
-
-#: mybudget/templates/mybudget/category_list.html:27
-msgid "Super Category"
-msgstr "Übergeordnete Kategorie"
-
 #: mybudget/templates/mybudget/category_list.html:32
-#: mybudget/templates/mybudget/tag_list.html:30
-msgid "Edit"
-msgstr "Bearbeiten"
+msgid "Details"
+msgstr "Details"
 
-#: mybudget/templates/mybudget/category_list.html:33
-#: mybudget/templates/mybudget/tag_list.html:31
-msgid "Delete"
-msgstr "Löschen"
-
-#: mybudget/templates/mybudget/category_list.html:48
+#: mybudget/templates/mybudget/category_list.html:47
 #, python-format
 msgid "There are %(category_count)s categories."
 msgstr "Es gibt %(category_count)s Kategorien."
@@ -189,10 +211,6 @@ msgstr "Es gibt %(category_count)s Kategorien."
 #: mybudget/templates/mybudget/dashboard/box.html:12
 msgid "All accounts:"
 msgstr "Alle Konten"
-
-#: mybudget/templates/mybudget/dashboard/box.html:19
-msgid "Show expenses"
-msgstr "Ausgaben zeigen"
 
 #: mybudget/templates/mybudget/dashboard/categories.html:7
 msgid "Top categories"
@@ -297,6 +315,14 @@ msgstr "Schlagwort anlegen"
 #: mybudget/templates/mybudget/tag_list.html:14
 msgid "New Tag"
 msgstr "Neues Schlagwort"
+
+#: mybudget/templates/mybudget/tag_list.html:30
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: mybudget/templates/mybudget/tag_list.html:31
+msgid "Delete"
+msgstr "Löschen"
 
 #: mybudget/templates/mybudget/tag_list.html:40
 #, python-format

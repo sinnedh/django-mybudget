@@ -29,8 +29,7 @@
         {% for category in object_list %}
         <tr>
             <td>
-                <a href="{% url 'category_update' category.pk %}">{% trans "Edit" %}</a> / 
-                <a href="{% url 'category_delete' category.pk %}">{% trans "Delete" %}</a>
+                <a href="{% url 'category_details' category.pk %}">{% trans "Details" %}</a> 
             </td>
             <td>
                 {% if category.icon %}

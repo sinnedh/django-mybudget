@@ -69,3 +69,8 @@ table.expense-list tr td.main-col span.comment {
     font-size: 90%;
     color: #888;
 }
+
+div.detail-label {
+    text-align: right;
+    font-weight: bold;
+}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n  %}
+{% load mybudget_extras %}
+
+{% block content %}
+<h2>{% trans "Category Details" %}</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{% fa_icon object.icon "fa-lg" %} {{ object.name }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4 detail-label">{% trans "Super Category" %}:</div>
+                <div class="col-md-7">
+                    {{ object.super_category }}
+               </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 detail-label">{% trans "Sub Categories" %}:</div>
+                <div class="col-md-7">
+                    {% for c in object.get_sub_categories %}
+                    {{ c.name }}<br />
+                    {% endfor %}
+               </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 detail-label">{% trans "Description" %}:</div>
+                <div class="col-md-7">
+                    {{ object.description }}
+               </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 detail-label">{% trans "Number of Expenses" %}:</div>
+                <div class="col-md-7">
+                    {{ expenses_count }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 detail-label">{% trans "Sum of Expenses" %}:</div>
+                <div class="col-md-7">
+                    {% currency expenses_sum %}
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a href="{% url 'expense_list' %}?category={{ object.id }}">
+                {% trans "Show expenses" %} {% fa_icon "chevron-circle-right" "fa-lg" %}
+            </a>
+        </div>
+    </div>
+    {% buttons %}
+        <a class="btn btn-primary" href="{% url "category_update" object.pk %}">
+            {% bootstrap_icon "pencil" %} {% trans "Update Category" %}
+        </a>
+        <a class="btn btn-danger" href="{% url "category_delete" object.pk %}">
+            {% bootstrap_icon "trash" %} {% trans "Delete Category" %}
+        </a>
+    {% endbuttons %}
+{% endblock %}

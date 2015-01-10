@@ -2,7 +2,6 @@
 from math import modf
 
 from django import template
-from django.contrib.humanize.templatetags.humanize import intcomma
 
 
 register = template.Library()
@@ -15,13 +14,16 @@ def fa_icon(key, size=''):
 
 @register.simple_tag(name='currency')
 def currency(value, currency='&euro;'):
-    cents, euros= modf(value)
+    if value is None:
+        cents, euros = 0, 0
+    else:
+        cents, euros = modf(value)
     return "{}<sup>{:02}</sup> {}".format(int(euros), int(cents * 100), currency)
 
 
 @register.simple_tag(name='currency_simple')
 def currency_simple(value, currency='&euro;'):
-    euros= round(value)
+    euros = round(value)
     return "{} {}".format(int(euros), currency)
 
 
