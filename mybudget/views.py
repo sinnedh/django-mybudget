@@ -225,6 +225,7 @@ class FilteredExpenseListView(ExpenseListView):
             request=self.request.REQUEST)
 
 
+
 # TODO: merge with  FilteredExpenseListVIew
 class LatestExpenseListView(ExpenseListView):
     model = Expense

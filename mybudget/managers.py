@@ -38,7 +38,8 @@ class ExpenseManager(models.Manager):
         last_days = kwargs.get('last_days', None)
         if last_days is not None:
             enddate = datetime.date.today()
-            startdate = enddate - datetime.timedelta(days=last_days)
+            # subtract one day because today is counted:
+            startdate = enddate - datetime.timedelta(days=last_days-1)
         else:
             startdate = kwargs.get('startdate', None)
             enddate = kwargs.get('enddate', None)
