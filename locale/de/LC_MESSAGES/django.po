@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-03 21:42+0000\n"
+"POT-Creation-Date: 2015-01-03 22:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,6 +47,7 @@ msgid "Category"
 msgstr "Kategorie"
 
 #: mybudget/models.py:64 mybudget/templates/base.html:56
+#: mybudget/templates/mybudget/category_list.html:8
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -145,7 +146,7 @@ msgstr "Nein, besser nicht."
 #: mybudget/templates/mybudget/category_form.html:6
 #: mybudget/templates/mybudget/category_form.html:24
 msgid "Update Category"
-msgstr "Kategorie aktualisieren"
+msgstr "Kategorie bearbeiten"
 
 #: mybudget/templates/mybudget/category_form.html:8
 #: mybudget/templates/mybudget/category_form.html:26
@@ -169,6 +170,16 @@ msgstr "Beschreibung"
 #: mybudget/templates/mybudget/category_list.html:27
 msgid "Super Category"
 msgstr "Übergeordnete Kategorie"
+
+#: mybudget/templates/mybudget/category_list.html:32
+#: mybudget/templates/mybudget/tag_list.html:30
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: mybudget/templates/mybudget/category_list.html:33
+#: mybudget/templates/mybudget/tag_list.html:31
+msgid "Delete"
+msgstr "Löschen"
 
 #: mybudget/templates/mybudget/category_list.html:48
 #, python-format
@@ -230,7 +241,7 @@ msgstr "Ja, Ausgabe löschen"
 #: mybudget/templates/mybudget/expense_form.html:9
 #: mybudget/templates/mybudget/expense_form.html:27
 msgid "Update Expense"
-msgstr "Ausgabe aktualisieren"
+msgstr "Ausgabe bearbeiten"
 
 #: mybudget/templates/mybudget/expense_form.html:30
 msgid "Delete expense"
@@ -257,7 +268,8 @@ msgstr "Datum"
 msgid ""
 "There are %(expenses_count)s expenses with a sum of %(expenses_sum)s &euro;"
 msgstr ""
-"Es gibt %(expenses_count)s Ausgaben mit einer Summe von %(expenses_sum)s &euro;"
+"Es gibt %(expenses_count)s Ausgaben mit einer Summe von %(expenses_sum)s "
+"&euro;"
 
 #: mybudget/templates/mybudget/expense_list.html:85
 msgid "Show all expenses"
@@ -266,38 +278,30 @@ msgstr "Alle Ausgaben zeigen"
 #: mybudget/templates/mybudget/tag_confirm_delete.html:8
 #, python-format
 msgid "Really delete tag \"%(object)s\"?"
-msgstr "Soll das Tag \"%(object)s\" wirklich gelöscht werden?"
+msgstr "Soll das Schlagwort \"%(object)s\" wirklich gelöscht werden?"
 
 #: mybudget/templates/mybudget/tag_confirm_delete.html:14
 msgid "Yes, delete the tag!"
-msgstr "Ja, Tag löschen"
+msgstr "Ja, Schlagwort löschen"
 
 #: mybudget/templates/mybudget/tag_form.html:6
 #: mybudget/templates/mybudget/tag_form.html:24
 msgid "Update Tag"
-msgstr "Tag aktualisieren"
+msgstr "Schlagwort bearbeiten"
 
 #: mybudget/templates/mybudget/tag_form.html:8
 #: mybudget/templates/mybudget/tag_form.html:26
 msgid "Create Tag"
-msgstr "Tag anlegen"
+msgstr "Schlagwort anlegen"
 
 #: mybudget/templates/mybudget/tag_list.html:14
 msgid "New Tag"
-msgstr "Neues Tag"
-
-#: mybudget/templates/mybudget/tag_list.html:30
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: mybudget/templates/mybudget/tag_list.html:31
-msgid "Delete"
-msgstr ""
+msgstr "Neues Schlagwort"
 
 #: mybudget/templates/mybudget/tag_list.html:40
 #, python-format
 msgid "There are %(tag_count)s tags."
-msgstr "Es gibt %(tag_count)s Tags."
+msgstr "Es gibt %(tag_count)s Schlagwörter."
 
 #: mybudget/views.py:30
 msgid "You have been logged out succesfully!"

@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h2>Categories</h2>
+<h2>{% trans "Categories" %}</h2>
 
 <p>
     <div class="row">
@@ -29,8 +29,8 @@
         {% for category in object_list %}
         <tr>
             <td>
-                <a href="{% url 'category_update' category.pk %}">Edit</a> / 
-                <a href="{% url 'category_delete' category.pk %}">Delete</a>
+                <a href="{% url 'category_update' category.pk %}">{% trans "Edit" %}</a> / 
+                <a href="{% url 'category_delete' category.pk %}">{% trans "Delete" %}</a>
             </td>
             <td>
                 {% if category.icon %}
