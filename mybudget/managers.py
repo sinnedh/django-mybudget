@@ -15,8 +15,7 @@ class ExpenseQuerySet(models.QuerySet):
 class ExpenseManager(models.Manager):
 
     def get_queryset(self):
-        return ExpenseQuerySet(self.model, using=self._db)
-        return super(ExpenseManager, self).get_queryset().order_by(
+        return ExpenseQuerySet(self.model, using=self._db).order_by(
             '-date', '-created_at')
 
     def _prefiltered_queryset(self, **kwargs):
