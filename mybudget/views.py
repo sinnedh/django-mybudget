@@ -28,7 +28,7 @@ class LoginRequiredMixin(object):
 def logout_view(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, _('You have been logged out succesfully!'))
-    return HttpResponseRedirect(redirect_to=reverse('login'))
+    return HttpResponseRedirect(redirect_to=reverse('start'))
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
