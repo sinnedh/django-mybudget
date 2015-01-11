@@ -100,7 +100,7 @@ msgstr "Einstellungen"
 
 #: mybudget/templates/base.html:78
 msgid "Logout"
-msgstr "Anmelden"
+msgstr "Abmelden"
 
 #: mybudget/templates/login.html:60
 msgid "Please correct the error below."
