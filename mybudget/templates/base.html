@@ -17,7 +17,7 @@
 <script type="text/javascript" src="{{ STATIC_URL }}bootstrap-select/dist/js/bootstrap-select.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function( $ ) {
-        $('.selectpicker').selectpicker({ iconBase: 'fa'});
+        $('.selectpicker').selectpicker({ iconBase: 'fa', tickIcon: 'fa-check-square' });
         $('.radio-tab label.btn').click(function () {
             $(this).find('input').tab('show');
         });
