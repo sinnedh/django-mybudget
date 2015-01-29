@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load bootstrap3 i18n %}
+{% load mybudget_extras %}
 
 
 {% block content %}
@@ -11,7 +12,7 @@
     {% csrf_token %}
     {% buttons %}
         <button type="submit" class="btn btn-danger">
-            {% bootstrap_icon "trash" %} {% trans "Yes, delete the expense!" %}
+            {% fa_icon "trash" %} {% trans "Yes, delete the expense!" %}
         </button>
         <button type="cancel" class="btn btn-link">
             {% trans "No, better not." %}

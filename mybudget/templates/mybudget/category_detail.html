@@ -50,10 +50,10 @@
     </div>
     {% buttons %}
         <a class="btn btn-primary" href="{% url "category_update" object.pk %}">
-            {% bootstrap_icon "pencil" %} {% trans "Update Category" %}
+            {% fa_icon "pencil" %} {% trans "Update Category" %}
         </a>
         <a class="btn btn-danger" href="{% url "category_delete" object.pk %}">
-            {% bootstrap_icon "trash" %} {% trans "Delete Category" %}
+            {% fa_icon "trash" %} {% trans "Delete Category" %}
         </a>
     {% endbuttons %}
 {% endblock %}

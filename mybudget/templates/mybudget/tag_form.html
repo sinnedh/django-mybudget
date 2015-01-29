@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load mybudget_extras %}
 {% load bootstrap3 i18n %}
 
 {% block content %}
@@ -21,9 +22,9 @@
             {% buttons %}
                 <button type="submit" class="btn btn-primary">
                 {% if object %}
-                    {% bootstrap_icon "pencil" %} {% trans "Update Tag" %}
+                    {% fa_icon "pencil" %} {% trans "Update Tag" %}
                 {% else %}
-                    {% bootstrap_icon "plus" %} {% trans "Create Tag" %}
+                    {% fa_icon "plus" %} {% trans "Create Tag" %}
                 {% endif %}
                 </button>
             {% endbuttons %}

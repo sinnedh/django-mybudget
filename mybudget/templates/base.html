@@ -46,7 +46,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'start' %}">MyBudget</a>
+            <a class="navbar-brand" href="{% url 'start' %}">
+                {% fa_icon "dashboard" %} MyBudget
+            </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -69,13 +71,13 @@
                     </li>
                     <li>
                         <a href="#">
-                            {% bootstrap_icon "cog" %}&nbsp;&nbsp;{% trans "Settings" %} (TODO)
+                            {% fa_icon "cog" %}&nbsp;&nbsp;{% trans "Settings" %} (TODO)
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
                         <a href="{% url 'logout' %}">
-                            {% bootstrap_icon "log-out" %}&nbsp;&nbsp;{% trans "Logout" %}</a>
+                            {% fa_icon "sign-out" %}&nbsp;&nbsp;{% trans "Logout" %}</a>
                     </li>
                 </ul>
                 </li>

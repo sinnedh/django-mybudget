@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-4 text-left">
             <a href="{% url 'expense_add' %}" class="btn btn-success">
-                {% bootstrap_icon "plus" %} {% trans "New expense" %}
+                {% fa_icon "plus" %} {% trans "New expense" %}
             </a>
         </div>
         <div class="col-md-8 text-right">
@@ -18,7 +18,7 @@
                 {% bootstrap_form filter_form layout='inline' %}
                 {% buttons %}
                 <button type="submit" class="btn btn-primary">
-                    {% bootstrap_icon "filter" %} {% trans "Filter" %}
+                    {% fa_icon "filter" %} {% trans "Filter" %}
                 </button>
                 {% endbuttons %}
             </form>
@@ -57,7 +57,7 @@
             </td>
             <td>
                 {% if expense.is_shared  %}
-                    {% bootstrap_icon "ok" %}
+                    {% fa_icon "check" %}
                 {% endif %}
             </td>
             <td class="date-col">
@@ -82,7 +82,7 @@
 
 {% if show_link_to_all_expenses %}
     <a href="{% url 'expense_list' %}" class="btn btn-default">
-        {% bootstrap_icon "list" %} {% trans "Show all expenses" %}
+        {% fa_icon "list" %} {% trans "Show all expenses" %}
     </a>
 {% endif %}
 

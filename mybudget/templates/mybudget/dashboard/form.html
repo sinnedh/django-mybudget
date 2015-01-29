@@ -1,3 +1,4 @@
+{% load mybudget_extras %}
 {% load bootstrap3 i18n %}
 
 <div class="panel">
@@ -7,7 +8,7 @@
             {% bootstrap_form create_expense_form layout='inline' %}
             {% buttons %}
             <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "plus" %} {% trans "Create Expense" %}
+                {% fa_icon "plus" %} {% trans "Create Expense" %}
             </button>
             {% endbuttons %}
         </form>

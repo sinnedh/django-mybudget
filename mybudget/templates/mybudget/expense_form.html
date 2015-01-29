@@ -24,14 +24,14 @@
             {% buttons %}
                 {% if object %}
                     <button type="submit" class="btn btn-primary">
-                        {% bootstrap_icon "pencil" %} {% trans "Update Expense" %}
+                        {% fa_icon "pencil" %} {% trans "Update Expense" %}
                     </button>
                     <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-danger">
                         {% fa_icon "warning" %} {% trans "Delete expense" %}
                     </a>
                 {% else %}
                     <button type="submit" class="btn btn-success">
-                        {% bootstrap_icon "plus" %} {% trans "Create Expense" %}
+                        {% fa_icon "plus" %} {% trans "Create Expense" %}
                     </button>
                 {% endif %}
             {% endbuttons %}
