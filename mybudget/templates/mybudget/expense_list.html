@@ -78,12 +78,11 @@
     </div>
 </div>
 
-
-
-{% if show_link_to_all_expenses %}
-    <a href="{% url 'expense_list' %}" class="btn btn-default">
-        {% fa_icon "list" %} {% trans "Show all expenses" %}
-    </a>
+{% if is_paginated %}
+    <div class="text-center">
+        {% load bootstrap_pagination %}
+        {% bootstrap_paginate page_obj range=15 show_first_last="true" %}
+    </div>
 {% endif %}
 
 {% endblock %}

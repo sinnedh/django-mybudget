@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mybudget',
     'bootstrap3',
+    'bootstrap_pagination',
     'django_extensions',
 )
 
@@ -53,6 +54,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'minidetector.Middleware',
 )
+
+
+import django.conf.global_settings as DEFAULT_SETTINGS
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request",
+)
+
 
 ROOT_URLCONF = 'mybudget.urls'
 

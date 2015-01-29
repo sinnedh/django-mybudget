@@ -211,6 +211,7 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
 
 class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
+    paginate_by = 20
 
     def get_queryset(self):
         return Expense.objects.for_organisation(self.request.user.account.organisation)
