@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-10 17:33+0000\n"
+"POT-Creation-Date: 2015-01-29 19:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -329,7 +329,7 @@ msgstr "Löschen"
 msgid "There are %(tag_count)s tags."
 msgstr "Es gibt %(tag_count)s Schlagwörter."
 
-#: mybudget/views.py:30
+#: mybudget/views.py:31
 msgid "You have been logged out succesfully!"
 msgstr "Du wurdest erfolgreich abgemeldet!"
 
@@ -342,261 +342,297 @@ msgid "Anchor"
 msgstr "Anker"
 
 #: mybudget/widgets.py:13
+msgid "Bed"
+msgstr "Bett"
+
+#: mybudget/widgets.py:14
 msgid "Beer"
 msgstr "Bier"
 
-#: mybudget/widgets.py:14
+#: mybudget/widgets.py:15
 msgid "Bicycle"
 msgstr "Fahrrad"
 
-#: mybudget/widgets.py:15
+#: mybudget/widgets.py:16
 msgid "Binoculars"
 msgstr "Fernglas"
 
-#: mybudget/widgets.py:16
+#: mybudget/widgets.py:17
 msgid "Books"
 msgstr "Buch"
 
-#: mybudget/widgets.py:17
+#: mybudget/widgets.py:18
 msgid "Briefcase"
 msgstr "Brieftasche"
 
-#: mybudget/widgets.py:18
+#: mybudget/widgets.py:19
 msgid "Building"
 msgstr "Gebäude"
 
-#: mybudget/widgets.py:19
+#: mybudget/widgets.py:20
 msgid "Bus"
 msgstr "Bus"
 
-#: mybudget/widgets.py:20
+#: mybudget/widgets.py:21
 msgid "Calendar"
 msgstr "Kalendar"
 
-#: mybudget/widgets.py:21
+#: mybudget/widgets.py:22
 msgid "Camera"
 msgstr "Kamera"
 
-#: mybudget/widgets.py:22
+#: mybudget/widgets.py:23
 msgid "Car"
 msgstr "Auto"
 
-#: mybudget/widgets.py:23
+#: mybudget/widgets.py:24
 msgid "Child"
 msgstr "Kind"
 
-#: mybudget/widgets.py:24
+#: mybudget/widgets.py:25
 msgid "Cloud"
 msgstr "Wolke"
 
-#: mybudget/widgets.py:25
+#: mybudget/widgets.py:26
 msgid "Coffee"
 msgstr "Kaffee"
 
-#: mybudget/widgets.py:26
+#: mybudget/widgets.py:27
 msgid "Credit card"
 msgstr "Kreditkarte"
 
-#: mybudget/widgets.py:27
+#: mybudget/widgets.py:28
 msgid "Cutlery"
 msgstr "Besteck"
 
-#: mybudget/widgets.py:28
+#: mybudget/widgets.py:29
+msgid "Diamond"
+msgstr "Diamant"
+
+#: mybudget/widgets.py:30
 msgid "Envelope"
 msgstr "Umschlag"
 
-#: mybudget/widgets.py:29
+#: mybudget/widgets.py:31
 msgid "Eye"
 msgstr "Auge"
 
-#: mybudget/widgets.py:30
+#: mybudget/widgets.py:32
 msgid "Film"
 msgstr "Film"
 
-#: mybudget/widgets.py:31
+#: mybudget/widgets.py:33
 msgid "Fire"
 msgstr "Feuer"
 
-#: mybudget/widgets.py:32
+#: mybudget/widgets.py:34
 msgid "Flag"
 msgstr "Flagge"
 
-#: mybudget/widgets.py:33
+#: mybudget/widgets.py:35
 msgid "Flash"
 msgstr "Blitz"
 
-#: mybudget/widgets.py:34
+#: mybudget/widgets.py:36
 msgid "Gamepad"
 msgstr "Gamepad"
 
-#: mybudget/widgets.py:35
+#: mybudget/widgets.py:37
 msgid "Gifts"
 msgstr "Geschenke"
 
-#: mybudget/widgets.py:36
+#: mybudget/widgets.py:38
 msgid "Glass"
 msgstr "Glas"
 
-#: mybudget/widgets.py:37
+#: mybudget/widgets.py:39
 msgid "Globe"
 msgstr "Globus"
 
-#: mybudget/widgets.py:38
+#: mybudget/widgets.py:40
 msgid "Headphones"
 msgstr "Kopfhörer"
 
-#: mybudget/widgets.py:39
+#: mybudget/widgets.py:41
+msgid "Heartbeat"
+msgstr "Herzschlag"
+
+#: mybudget/widgets.py:42
 msgid "Home"
 msgstr "Haus"
 
-#: mybudget/widgets.py:40
+#: mybudget/widgets.py:43
 msgid "Key"
 msgstr "Schlüssel"
 
-#: mybudget/widgets.py:41
+#: mybudget/widgets.py:44
 msgid "Laptop"
 msgstr "Laptop"
 
-#: mybudget/widgets.py:42
+#: mybudget/widgets.py:45
 msgid "Leaf"
 msgstr "Blatt"
 
-#: mybudget/widgets.py:43
+#: mybudget/widgets.py:46
+msgid "Mars"
+msgstr "Mann"
+
+#: mybudget/widgets.py:47
 msgid "Medkit"
 msgstr "Medizinkit"
 
-#: mybudget/widgets.py:44
+#: mybudget/widgets.py:48
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: mybudget/widgets.py:45
+#: mybudget/widgets.py:49
 msgid "Mobile"
 msgstr "Handy"
 
-#: mybudget/widgets.py:46
+#: mybudget/widgets.py:50
+msgid "Motorcycle"
+msgstr "Motorrad"
+
+#: mybudget/widgets.py:51
 msgid "Music"
 msgstr "Musik"
 
-#: mybudget/widgets.py:47
+#: mybudget/widgets.py:52
 msgid "Newspaper"
 msgstr "Zeitung"
 
-#: mybudget/widgets.py:48
+#: mybudget/widgets.py:53
 msgid "Office"
 msgstr "Büro"
 
-#: mybudget/widgets.py:49
+#: mybudget/widgets.py:54
 msgid "Paint brush"
 msgstr "Pinsel"
 
-#: mybudget/widgets.py:50
+#: mybudget/widgets.py:55
 msgid "Paw"
 msgstr "Pfote"
 
-#: mybudget/widgets.py:51
+#: mybudget/widgets.py:56
 msgid "Pencil"
 msgstr "Stift"
 
-#: mybudget/widgets.py:52
+#: mybudget/widgets.py:57
 msgid "Photo"
 msgstr "Foto"
 
-#: mybudget/widgets.py:53
+#: mybudget/widgets.py:58
 msgid "Phone"
 msgstr "Telefon"
 
-#: mybudget/widgets.py:54
+#: mybudget/widgets.py:59
 msgid "Plane"
 msgstr "Flugzeug"
 
-#: mybudget/widgets.py:55
+#: mybudget/widgets.py:60
 msgid "Plug"
 msgstr "Stecker"
 
-#: mybudget/widgets.py:56
+#: mybudget/widgets.py:61
 msgid "Printer"
 msgstr "Drucker"
 
-#: mybudget/widgets.py:57
+#: mybudget/widgets.py:62
 msgid "Road"
 msgstr "Strasse"
 
-#: mybudget/widgets.py:58
+#: mybudget/widgets.py:63
 msgid "Scissors"
 msgstr "Schere"
 
-#: mybudget/widgets.py:59
+#: mybudget/widgets.py:64
 msgid "Shopping"
 msgstr "Einkaufen"
 
-#: mybudget/widgets.py:60
+#: mybudget/widgets.py:65
+msgid "Subway"
+msgstr "U-Bahn"
+
+#: mybudget/widgets.py:66
 msgid "Soccer ball"
 msgstr "Fussball"
 
-#: mybudget/widgets.py:61
+#: mybudget/widgets.py:67
+msgid "Ship"
+msgstr "Schiff"
+
+#: mybudget/widgets.py:68
 msgid "Spoon"
 msgstr "Löffel"
 
-#: mybudget/widgets.py:62
+#: mybudget/widgets.py:69
 msgid "Stethoscope"
 msgstr "Stethoskop"
 
-#: mybudget/widgets.py:63
+#: mybudget/widgets.py:70
 msgid "Suitcase"
 msgstr "Koffer"
 
-#: mybudget/widgets.py:64
+#: mybudget/widgets.py:71
 msgid "Support"
 msgstr "Rettungsring"
 
-#: mybudget/widgets.py:65
+#: mybudget/widgets.py:72
 msgid "Sun"
 msgstr "Sonne"
 
-#: mybudget/widgets.py:66
+#: mybudget/widgets.py:73
 msgid "Taxi"
 msgstr "Taxi"
 
-#: mybudget/widgets.py:67
+#: mybudget/widgets.py:74
 msgid "Tint"
 msgstr "Tropfen"
 
-#: mybudget/widgets.py:68
+#: mybudget/widgets.py:75
 msgid "Trash"
 msgstr "Müll"
 
-#: mybudget/widgets.py:69
+#: mybudget/widgets.py:76
+msgid "Train"
+msgstr "Zug"
+
+#: mybudget/widgets.py:77
 msgid "Tree"
 msgstr "Baum"
 
-#: mybudget/widgets.py:70
+#: mybudget/widgets.py:78
 msgid "Trophy"
 msgstr "Trophäe"
 
-#: mybudget/widgets.py:71
+#: mybudget/widgets.py:79
 msgid "Truck"
 msgstr "LKW"
 
-#: mybudget/widgets.py:72
+#: mybudget/widgets.py:80
 msgid "Umbrella"
 msgstr "Regenschirm"
 
-#: mybudget/widgets.py:73
+#: mybudget/widgets.py:81
 msgid "University"
 msgstr "Universität"
 
-#: mybudget/widgets.py:74
+#: mybudget/widgets.py:82
+msgid "Venus"
+msgstr "Frau"
+
+#: mybudget/widgets.py:83
 msgid "Video camera"
 msgstr "Video Kamera"
 
-#: mybudget/widgets.py:75
+#: mybudget/widgets.py:84
 msgid "Wifi"
 msgstr "WLAN"
 
-#: mybudget/widgets.py:76
+#: mybudget/widgets.py:85
 msgid "Wheelchair"
 msgstr "Rollstuhl"
 
-#: mybudget/widgets.py:77
+#: mybudget/widgets.py:86
 msgid "Wrench"
 msgstr "Werkzeug"
