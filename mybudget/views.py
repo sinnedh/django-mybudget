@@ -11,6 +11,7 @@ from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
+from django.views.generic.dates import WeekArchiveView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -39,6 +40,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         account = self.request.user.account
         organisation = account.organisation
+        context['today'] = datetime.date.today()
 
         context['data'] = []
 
@@ -238,7 +240,6 @@ class FilteredExpenseListView(ExpenseListView):
             request=self.request.REQUEST)
 
 
-
 # TODO: merge with  FilteredExpenseListVIew
 class LatestExpenseListView(ExpenseListView):
     model = Expense
@@ -294,3 +295,14 @@ class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Expense
     success_url = reverse_lazy('expense_list')
+
+
+class ExpenseWeekArchiveView(LoginRequiredMixin, WeekArchiveView):
+    #queryset = Expense.objects.all()
+    date_field = 'date'
+    make_object_list = True
+    allow_future = True
+    allow_empty = True
+
+    def get_queryset(self):
+        return Expense.objects.for_organisation(self.request.user.account.organisation)

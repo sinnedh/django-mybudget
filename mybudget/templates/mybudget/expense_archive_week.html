@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load mybudget_extras %}
+{% load bootstrap3 humanize i18n %}
+
+{% block content %}
+
+<h2>{% trans "Expenses for week" %} {{ week|date:"W / Y" }}</h1>
+
+<nav>
+    <ul class="pager">
+        <li class="previous">
+            <a href="{% url "expense_archive_week" year=previous_week.year week=previous_week|date:"W" %}">
+                <span aria-hidden="true">&larr;</span> Previous week
+            </a>
+        </li>
+        <li class="next">
+            <a href="{% url "expense_archive_week" year=next_week.year week=next_week|date:"W" %}">
+                Next week <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+{% include 'mybudget/_list_expenses.html' with expenses_list=object_list %}
+
+{% endblock %}

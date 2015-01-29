@@ -1,0 +1,45 @@
+{% load mybudget_extras i18n humanize %}
+
+<table class="table expense-list">
+    <tr>
+        <th class="currency-col"></th>
+        <th class="icon-col"></th>
+        <th class="main-col">{% trans "Expense" %}</th>
+        <th>{% trans "Shared?" %}</th>
+        <th class="date-col">{% trans "Date" %}</th>
+        <th class="tags-col">{% trans "Tags" %}</th>
+    </tr>
+    {% for expense in expense_list %}
+    <tr>
+        <td class="currency-col">
+            <span class="label label-primary">
+                {% currency expense.amount %}
+            </span>
+        </td>
+        <td class="icon-col">
+            {% if expense.category.icon %}
+                {% fa_icon expense.category.icon "fa-2x" %}
+            {% endif %}
+        </td>
+        <td class="main-col">
+            <a href="{% url 'expense_update' expense.pk %}">
+                <strong>{{ expense.category.name }}</strong>
+            </a> &mdash; <span class="account">{{ expense.account.name }}</span><br />
+            <span class="comment">{{ expense.comment|max_length_string:70 }}</span>
+        </td>
+        <td>
+            {% if expense.is_shared  %}
+                {% fa_icon "check" %}
+            {% endif %}
+        </td>
+        <td class="date-col">
+            {{ expense.date|naturalday }}
+        </td>
+        <td class="tags-col">
+            {% for tag in expense.tags.all %}
+                <span class="label label-default">{{ tag }}</span>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
