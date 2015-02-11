@@ -51,6 +51,11 @@
                         <td>{{ line.date|date:"M. Y" }}</td>
                         <td>{{ line.count }}</td>
                         <td>{% currency_simple line.amount_sum %}</td>
+                        <td>
+                            <a href="{% url "expense_archive_month" year=line.date|date:"Y" month=line.date|date:"m" %}">
+                                {% fa_icon "chevron-circle-right" "fa-lg" %}
+                            </a> 
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>

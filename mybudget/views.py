@@ -11,7 +11,7 @@ from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
-from django.views.generic.dates import WeekArchiveView
+from django.views.generic.dates import WeekArchiveView, MonthArchiveView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -298,11 +298,22 @@ class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class ExpenseWeekArchiveView(LoginRequiredMixin, WeekArchiveView):
-    #queryset = Expense.objects.all()
+    # queryset = Expense.objects.all()
     date_field = 'date'
     make_object_list = True
     allow_future = True
     allow_empty = True
+
+    def get_queryset(self):
+        return Expense.objects.for_organisation(self.request.user.account.organisation)
+
+
+class ExpenseMonthArchiveView(LoginRequiredMixin, MonthArchiveView):
+    date_field = 'date'
+    make_object_list = True
+    allow_future = True
+    allow_empty = True
+    month_format = '%m'
 
     def get_queryset(self):
         return Expense.objects.for_organisation(self.request.user.account.organisation)
