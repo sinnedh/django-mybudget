@@ -1,7 +1,7 @@
 import os
 from mybudget.settings.base import *
 
-ALLOWED_HOSTS = [".herokuapp.com"]
+ALLOWED_HOSTS = ['django-mybudget.herokuapp.com']
 
 BOWER_COMPONENTS_ROOT = '/app/components/'
 
