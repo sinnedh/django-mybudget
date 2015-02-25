@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from calendar import monthrange
 import datetime
 
 from django.contrib import messages
@@ -15,8 +16,9 @@ from django.views.generic.dates import WeekArchiveView, MonthArchiveView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from models import Category, Expense, Tag
 from forms import ExpenseFilterForm, ExpenseCreateInlineForm, ExpenseForm, CategoryForm
+from models import Category, Expense, Tag
+from services import DashboardCachingService
 
 
 class LoginRequiredMixin(object):
@@ -38,6 +40,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
 
+        cache = DashboardCachingService()
+
         account = self.request.user.account
         organisation = account.organisation
         context['today'] = datetime.date.today()
@@ -47,8 +51,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         data = {'key': 'all', 'title': 'All accounts', 'active': True}
         data['sum'] = {}
         for days in [1, 7, 30, 90]:
-            data['sum'][days] = Expense.objects.get_latest_sum(
-                organisation=organisation, days=days) or 0
+            data['sum'][days] = cache.expenses_sum(days, organisation)
         data['last_expenses'] = Expense.objects.for_organisation(
             organisation=organisation)[:10]
         data['top_categories'] = {}
@@ -70,6 +73,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             date = m['month']
             if type(m['month']) in [str, unicode]:
                 date = datetime.datetime.strptime(m['month'], '%Y-%m-%d')
+                # HEREIAM: use month summary cache here (and netxt make plots)
             data['month_summary'].append({'date': date,
                                           'amount_sum': m['amount__sum'],
                                           'count': m['pk__count']})
@@ -81,8 +85,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             data = {'key': 'user{}'.format(a.id), 'title': a.name, 'active': False}
             data['sum'] = {}
             for days in [1, 7, 30, 90]:
-                data['sum'][days] = Expense.objects.get_latest_sum(
-                    organisation=organisation, account=a, days=days) or 0
+                data['sum'][days] = cache.expenses_sum(days, organisation, account=a)
+#                data['sum'][days] = Expense.objects.get_latest_sum(
+#                    organisation=organisation, account=a, days=days) or 0
             data['last_expenses'] = Expense.objects.for_organisation(
                 organisation=organisation, account=a)[:10]
             data['top_categories'] = {}
@@ -317,3 +322,27 @@ class ExpenseMonthArchiveView(LoginRequiredMixin, MonthArchiveView):
 
     def get_queryset(self):
         return Expense.objects.for_organisation(self.request.user.account.organisation)
+
+    def get_context_data(self, **kwargs):
+        context = super(ExpenseMonthArchiveView, self).get_context_data(**kwargs)
+        organisation = self.request.user.account.organisation
+        accounts = organisation.account_set.all()
+        cache = DashboardCachingService()
+        context['chart_labels'] = [account.name for account in accounts]
+        context['chart_accounts'] = [account.user.username for account in accounts]
+        context['chart_data'] = []
+
+        list_date = datetime.date(int(self.get_year()), int(self.get_month()), 1)
+
+        dates = [list_date]
+        for i in range(9):
+            new_date = (dates[i] - datetime.timedelta(days=2)).replace(day=1)
+            dates.append(new_date)
+        dates = reversed(dates)
+
+        for date in dates:
+            accounts_dict = {}
+            for account in accounts:
+                accounts_dict[account.user.username] = cache.month_summary(date.year, date.month, organisation, account)
+            context['chart_data'].append({'date': date, 'accounts': accounts_dict})
+        return context

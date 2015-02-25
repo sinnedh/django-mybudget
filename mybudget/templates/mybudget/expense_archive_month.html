@@ -11,37 +11,30 @@
 <script type="text/javascript">
     jQuery(document).ready(function( $ ) {
         new Morris.Bar({
-            // ID of the element in which to draw the chart.
             element: 'graph',
-            // Chart data records -- each entry in this array corresponds to a point on
-            // the chart.
             data: [
-                { year: '2008-01-01', value1: 20, value2: 2 },
-                { year: '2009-01-01', value1: 10, value2: 10 },
-                { year: '2010-01-01', value1: 5, value2: 5 },
-                { year: '2011-01-01', value1: 5, value2: 5 },
-                { year: '2012-01-01', value1: 20, value2: 20 }
+            {% for data in chart_data %}
+            { 
+                month: '{{ data.date|date:'M Y' }}',
+                {% for name, value in data.accounts.items %}
+                {{ name }}: {{ value }},
+                {% endfor %}
+            },
+            {% endfor %}
             ],
-           
             //xLabelFormat: function(d) {
             //    return d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear(); 
             //},
-           
+            // events: [ '2014-01-01' ],
+            // eventStrokeWidth: 10.0,
             postUnits: ' €',
-           
-            events: [ '2009-01-01' ],
-            eventStrokeWidth: 10.0,
             eventLineColors: ['#005a04', '#ccffbb', '#3a5f0b', '#005502'],
-           
             barColors: ['#428bca', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f'],
             stacked: true,
             // The name of the data record attribute that contains x-values.
-            xkey: 'year',
-            // A list of names of data record attributes that contain y-values.
-            ykeys: ['value1', 'value2'],
-            // Labels for the ykeys -- will be displayed when you hover over the
-            // chart.
-            labels: ['Judith', 'Dennis']
+            xkey: 'month',
+            ykeys: [{% for name in chart_accounts %}'{{ name }}', {% endfor %}],
+            labels: [{% for name in chart_labels %}'{{ name }}', {% endfor %}],
         }).on('click', function(i, row){
             console.log(i, row);
         });
