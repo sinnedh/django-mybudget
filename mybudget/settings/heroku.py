@@ -1,6 +1,8 @@
 import os
 from mybudget.settings.base import *
 
+ALLOWED_HOSTS = [".herokuapp.com"]
+
 BOWER_COMPONENTS_ROOT = '/app/components/'
 
 import dj_database_url
