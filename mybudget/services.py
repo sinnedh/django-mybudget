@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 import redis
+import urlparse
 
 from django.db.models import Sum, Count
+from django.conf import settings
 
 from models import Expense
-
 
 class CachingService(object):
 
     def __init__(self):
         # self.redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+        url = urlparse.urlparse(settings.REDIS_URL)
         self.redis = None
+        if url:
+            self.redis = redis.Redis(host=url.hostname, port=url.port, password=url.password)
 
     def clear_for_organisation(self, organisation):
         if self.redis is None:

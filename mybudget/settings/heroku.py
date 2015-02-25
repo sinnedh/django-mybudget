@@ -29,3 +29,5 @@ CACHES = {
         'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS', None)
     }
 }
+
+REDIS_URL = os.environ.get('REDISCLOUD_URL', None)
