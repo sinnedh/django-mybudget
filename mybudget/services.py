@@ -9,7 +9,7 @@ from models import Expense
 class CachingService(object):
 
     def __init__(self):
-        self.redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+        # self.redis = redis.StrictRedis(host='localhost', port=6379, db=0)
         self.redis = None
 
     def clear_for_organisation(self, organisation):
