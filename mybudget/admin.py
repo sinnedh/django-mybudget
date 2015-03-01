@@ -12,7 +12,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ExpenseAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('account__organisation', 'account')
+    list_display = ('date', 'category', 'amount', 'account', 'comment')
 
 
 class AccountAdmin(admin.ModelAdmin):
@@ -27,6 +28,16 @@ class CategoryInline(admin.TabularInline):
 class AccountInline(admin.TabularInline):
     model = Account
     extra = 0
+
+    def expenses_count(self, instance):
+        # assuming get_full_address() returns a list of strings
+        # for each line of the address and you want to separate each
+        # line by a linebreak
+        return 3
+            # instance.e
+            # mark_safe('<br/>'),
+            # '{0}',
+            #((line,) for line in instance.get_full_address()),
 
 
 class OrganisationAdmin(admin.ModelAdmin):
