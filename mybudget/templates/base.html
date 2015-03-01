@@ -59,8 +59,8 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{% url 'expense_list' %}">{% trans "List" %}</a></li>
-                        <li><a href="{% url "expense_archive_week" year=2015 week=1 %}">{% trans "Weekly summary" %}</a></li>
-                        <li><a href="{% url "expense_archive_month" year=2015 month=1 %}">{% trans "Monthly summary" %}</a></li>
+                        <li><a href="{% url "expense_archive_week" %}">{% trans "Weekly summary" %}</a></li>
+                        <li><a href="{% url "expense_archive_month" %}">{% trans "Monthly summary" %}</a></li>
                     </ul>
                 </li>
                 <li><a href="{% url 'category_list' %}">{% trans "Categories" %}</a></li>

@@ -313,6 +313,11 @@ class ExpenseWeekArchiveView(LoginRequiredMixin, WeekArchiveView):
         return Expense.objects.for_organisation(self.request.user.account.organisation)
 
 
+class ExpenseCurrentWeekArchiveView(ExpenseWeekArchiveView):
+    year = str(datetime.date.today().year)
+    week = str(datetime.date.today().isocalendar()[1])
+
+
 class ExpenseMonthArchiveView(LoginRequiredMixin, MonthArchiveView):
     date_field = 'date'
     make_object_list = True
@@ -346,3 +351,8 @@ class ExpenseMonthArchiveView(LoginRequiredMixin, MonthArchiveView):
                 accounts_dict[account.user.username] = cache.month_summary(date.year, date.month, organisation, account)
             context['chart_data'].append({'date': date, 'accounts': accounts_dict})
         return context
+
+
+class ExpenseCurrentMonthArchiveView(ExpenseMonthArchiveView):
+    year = str(datetime.date.today().year)
+    month = str(datetime.date.today().month)

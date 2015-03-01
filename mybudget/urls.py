@@ -20,8 +20,9 @@ urlpatterns = patterns(
 
     url(r'^expenses/latest/$', views.LatestExpenseListView.as_view(), name='latest_expense_list'),
     url(r'^expenses/$', views.FilteredExpenseListView.as_view(), name='expense_list'),
-    url(r'^expenses/week/$', views.ExpenseWeekArchiveView.as_view(), name="expense_archive_week"),
+    url(r'^expenses/week/$', views.ExpenseCurrentWeekArchiveView.as_view(), name="expense_archive_week"),
     url(r'^expenses/week/(?P<year>\d{4})/(?P<week>\d+)/$', views.ExpenseWeekArchiveView.as_view(), name="expense_archive_week"),
+    url(r'^expenses/month/$', views.ExpenseCurrentMonthArchiveView.as_view(), name="expense_archive_month"),
     url(r'^expenses/month/(?P<year>\d{4})/(?P<month>\d+)/$', views.ExpenseMonthArchiveView.as_view(), name="expense_archive_month"),
 
     url(r'^expense/add/$', views.ExpenseCreateView.as_view(), name='expense_add'),
