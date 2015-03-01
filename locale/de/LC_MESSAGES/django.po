@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-29 19:18+0000\n"
+"POT-Creation-Date: 2015-03-01 22:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgstr "Farbe"
 msgid "Category"
 msgstr "Kategorie"
 
-#: mybudget/models.py:64 mybudget/templates/base.html:56
+#: mybudget/models.py:64 mybudget/templates/base.html:66
 #: mybudget/templates/mybudget/category_list.html:8
 msgid "Categories"
 msgstr "Kategorien"
@@ -59,17 +59,17 @@ msgstr "Symbol"
 msgid "Tag"
 msgstr "Schlagwort"
 
-#: mybudget/models.py:114 mybudget/templates/base.html:57
-#: mybudget/templates/mybudget/expense_list.html:38
+#: mybudget/models.py:114 mybudget/templates/base.html:67
+#: mybudget/templates/mybudget/_list_expenses.html:10
 #: mybudget/templates/mybudget/tag_list.html:8
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: mybudget/models.py:132 mybudget/templates/mybudget/expense_list.html:35
+#: mybudget/models.py:132 mybudget/templates/mybudget/_list_expenses.html:7
 msgid "Expense"
 msgstr "Ausgabe"
 
-#: mybudget/models.py:133 mybudget/templates/base.html:55
+#: mybudget/models.py:133 mybudget/templates/base.html:58
 #: mybudget/templates/mybudget/expense_list.html:7
 msgid "Expenses"
 msgstr "Ausgaben"
@@ -90,15 +90,27 @@ msgstr "Kommentar"
 msgid "Is shared"
 msgstr "Geteilt"
 
-#: mybudget/templates/base.html:67
+#: mybudget/templates/base.html:61
+msgid "List"
+msgstr "Auflistung"
+
+#: mybudget/templates/base.html:62
+msgid "Weekly summary"
+msgstr "Wochenübersicht"
+
+#: mybudget/templates/base.html:63
+msgid "Monthly summary"
+msgstr "Monatsübersicht"
+
+#: mybudget/templates/base.html:77
 msgid "Profile"
 msgstr "Profil"
 
-#: mybudget/templates/base.html:72
+#: mybudget/templates/base.html:82
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: mybudget/templates/base.html:78
+#: mybudget/templates/base.html:88
 msgid "Logout"
 msgstr "Abmelden"
 
@@ -122,24 +134,32 @@ msgstr "Hast Du Deinen Benutzernamen oder Passwort vergessen?"
 msgid "Log in"
 msgstr "Anmelden"
 
-#: mybudget/templates/mybudget/category_confirm_delete.html:6
-#: mybudget/templates/mybudget/expense_confirm_delete.html:6
-#: mybudget/templates/mybudget/tag_confirm_delete.html:6
+#: mybudget/templates/mybudget/_list_expenses.html:8
+msgid "Shared?"
+msgstr "Geteilt?"
+
+#: mybudget/templates/mybudget/_list_expenses.html:9
+msgid "Date"
+msgstr "Datum"
+
+#: mybudget/templates/mybudget/category_confirm_delete.html:7
+#: mybudget/templates/mybudget/expense_confirm_delete.html:7
+#: mybudget/templates/mybudget/tag_confirm_delete.html:7
 msgid "Confirmation"
 msgstr "Bestätigung"
 
-#: mybudget/templates/mybudget/category_confirm_delete.html:8
+#: mybudget/templates/mybudget/category_confirm_delete.html:9
 #, python-format
 msgid "Really delete category \"%(object)s\"?"
 msgstr "Soll die Kategorie \"%(object)s\" wirklich gelöscht werden?"
 
-#: mybudget/templates/mybudget/category_confirm_delete.html:14
+#: mybudget/templates/mybudget/category_confirm_delete.html:15
 msgid "Yes, delete the category!"
 msgstr "Ja, Kategorie löschen"
 
-#: mybudget/templates/mybudget/category_confirm_delete.html:17
-#: mybudget/templates/mybudget/expense_confirm_delete.html:17
-#: mybudget/templates/mybudget/tag_confirm_delete.html:17
+#: mybudget/templates/mybudget/category_confirm_delete.html:18
+#: mybudget/templates/mybudget/expense_confirm_delete.html:18
+#: mybudget/templates/mybudget/tag_confirm_delete.html:18
 msgid "No, better not."
 msgstr "Nein, besser nicht."
 
@@ -176,8 +196,8 @@ msgid "Show expenses"
 msgstr "Ausgaben zeigen"
 
 #: mybudget/templates/mybudget/category_detail.html:53
-#: mybudget/templates/mybudget/category_form.html:6
-#: mybudget/templates/mybudget/category_form.html:24
+#: mybudget/templates/mybudget/category_form.html:7
+#: mybudget/templates/mybudget/category_form.html:25
 msgid "Update Category"
 msgstr "Kategorie bearbeiten"
 
@@ -185,8 +205,8 @@ msgstr "Kategorie bearbeiten"
 msgid "Delete Category"
 msgstr "Kategorie löschen"
 
-#: mybudget/templates/mybudget/category_form.html:8
-#: mybudget/templates/mybudget/category_form.html:26
+#: mybudget/templates/mybudget/category_form.html:9
+#: mybudget/templates/mybudget/category_form.html:27
 msgid "Create Category"
 msgstr "Kategorie anlegen"
 
@@ -225,7 +245,7 @@ msgstr "%(days)s Tage"
 msgid "Recent expenses"
 msgstr "Letzte Ausgaben"
 
-#: mybudget/templates/mybudget/dashboard/form.html:10
+#: mybudget/templates/mybudget/dashboard/form.html:11
 #: mybudget/templates/mybudget/expense_form.html:11
 #: mybudget/templates/mybudget/expense_form.html:34
 msgid "Create Expense"
@@ -247,12 +267,20 @@ msgstr "Woche"
 msgid "Monthly"
 msgstr "Monat"
 
-#: mybudget/templates/mybudget/expense_confirm_delete.html:8
+#: mybudget/templates/mybudget/expense_archive_month.html:44
+msgid "Expenses for month"
+msgstr "Ausgaben für Monat"
+
+#: mybudget/templates/mybudget/expense_archive_week.html:7
+msgid "Expenses for week"
+msgstr "Ausgaben für Woche"
+
+#: mybudget/templates/mybudget/expense_confirm_delete.html:9
 #, python-format
 msgid "Really delete expense \"%(object)s\"?"
 msgstr "Soll die Ausgabe \"%(object)s\" wirklich gelöscht werden?"
 
-#: mybudget/templates/mybudget/expense_confirm_delete.html:14
+#: mybudget/templates/mybudget/expense_confirm_delete.html:15
 msgid "Yes, delete the expense!"
 msgstr "Ja, Ausgabe löschen"
 
@@ -273,15 +301,7 @@ msgstr "Neue Ausgabe"
 msgid "Filter"
 msgstr "Filter"
 
-#: mybudget/templates/mybudget/expense_list.html:36
-msgid "Shared?"
-msgstr "Geteilt?"
-
-#: mybudget/templates/mybudget/expense_list.html:37
-msgid "Date"
-msgstr "Datum"
-
-#: mybudget/templates/mybudget/expense_list.html:76
+#: mybudget/templates/mybudget/expense_list.html:33
 #, python-format
 msgid ""
 "There are %(expenses_count)s expenses with a sum of %(expenses_sum)s &euro;"
@@ -289,26 +309,22 @@ msgstr ""
 "Es gibt %(expenses_count)s Ausgaben mit einer Summe von %(expenses_sum)s "
 "&euro;"
 
-#: mybudget/templates/mybudget/expense_list.html:85
-msgid "Show all expenses"
-msgstr "Alle Ausgaben zeigen"
-
-#: mybudget/templates/mybudget/tag_confirm_delete.html:8
+#: mybudget/templates/mybudget/tag_confirm_delete.html:9
 #, python-format
 msgid "Really delete tag \"%(object)s\"?"
 msgstr "Soll das Schlagwort \"%(object)s\" wirklich gelöscht werden?"
 
-#: mybudget/templates/mybudget/tag_confirm_delete.html:14
+#: mybudget/templates/mybudget/tag_confirm_delete.html:15
 msgid "Yes, delete the tag!"
 msgstr "Ja, Schlagwort löschen"
 
-#: mybudget/templates/mybudget/tag_form.html:6
-#: mybudget/templates/mybudget/tag_form.html:24
+#: mybudget/templates/mybudget/tag_form.html:7
+#: mybudget/templates/mybudget/tag_form.html:25
 msgid "Update Tag"
 msgstr "Schlagwort bearbeiten"
 
-#: mybudget/templates/mybudget/tag_form.html:8
-#: mybudget/templates/mybudget/tag_form.html:26
+#: mybudget/templates/mybudget/tag_form.html:9
+#: mybudget/templates/mybudget/tag_form.html:27
 msgid "Create Tag"
 msgstr "Schlagwort anlegen"
 
@@ -329,7 +345,7 @@ msgstr "Löschen"
 msgid "There are %(tag_count)s tags."
 msgstr "Es gibt %(tag_count)s Schlagwörter."
 
-#: mybudget/views.py:31
+#: mybudget/views.py:33
 msgid "You have been logged out succesfully!"
 msgstr "Du wurdest erfolgreich abgemeldet!"
 
@@ -636,3 +652,6 @@ msgstr "Rollstuhl"
 #: mybudget/widgets.py:86
 msgid "Wrench"
 msgstr "Werkzeug"
+
+#~ msgid "Show all expenses"
+#~ msgstr "Alle Ausgaben zeigen"
