@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-01 22:42+0000\n"
+"POT-Creation-Date: 2015-03-01 23:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -271,9 +271,25 @@ msgstr "Monat"
 msgid "Expenses for month"
 msgstr "Ausgaben für Monat"
 
+#: mybudget/templates/mybudget/expense_archive_month.html:52
+msgid "Previous month"
+msgstr "Vorheriger Monat"
+
+#: mybudget/templates/mybudget/expense_archive_month.html:57
+msgid "Next month"
+msgstr "Nächster Monat"
+
 #: mybudget/templates/mybudget/expense_archive_week.html:7
 msgid "Expenses for week"
 msgstr "Ausgaben für Woche"
+
+#: mybudget/templates/mybudget/expense_archive_week.html:13
+msgid "Previous week"
+msgstr "Vorherige Woche"
+
+#: mybudget/templates/mybudget/expense_archive_week.html:18
+msgid "Next week"
+msgstr "Nächste Woche"
 
 #: mybudget/templates/mybudget/expense_confirm_delete.html:9
 #, python-format

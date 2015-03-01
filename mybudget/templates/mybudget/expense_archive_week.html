@@ -10,12 +10,12 @@
     <ul class="pager">
         <li class="previous">
             <a href="{% url "expense_archive_week" year=previous_week.year week=previous_week|date:"W" %}">
-                <span aria-hidden="true">&larr;</span> Previous week
+                <span aria-hidden="true">&larr;</span> {% trans "Previous week" %}
             </a>
         </li>
         <li class="next">
             <a href="{% url "expense_archive_week" year=next_week.year week=next_week|date:"W" %}">
-                Next week <span aria-hidden="true">&rarr;</span>
+                {% trans "Next week" %} <span aria-hidden="true">&rarr;</span>
             </a>
         </li>
     </ul>

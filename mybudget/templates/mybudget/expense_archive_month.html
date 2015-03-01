@@ -49,12 +49,12 @@
     <ul class="pager">
         <li class="previous">
             <a href="{% url "expense_archive_month" year=previous_month.year month=previous_month|date:"m" %}">
-                <span aria-hidden="true">&larr;</span> Previous month
+                <span aria-hidden="true">&larr;</span> {% trans "Previous month" %}
             </a>
         </li>
         <li class="next">
             <a href="{% url "expense_archive_month" year=next_month.year month=next_month|date:"m" %}">
-                Next month<span aria-hidden="true">&rarr;</span>
+                {% trans "Next month" %}<span aria-hidden="true">&rarr;</span>
             </a>
         </li>
     </ul>
