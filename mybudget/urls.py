@@ -14,9 +14,12 @@ urlpatterns = patterns(
         'template_name': 'login.html'}, name='login'),
     url(r'^logout/?$', 'mybudget.views.logout_view', name='logout'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
     url(r'^$', views.DashboardView.as_view(), name='start'),
     url(r'^dashboard/$', views.DashboardView.as_view(), name='dashboard'),
+
+    url(r'^api/whoami$', views.WhoamiAPIView.as_view(), name='whoami_api'),
 
     url(r'^expenses/latest/$', views.LatestExpenseListView.as_view(), name='latest_expense_list'),
     url(r'^expenses/$', views.FilteredExpenseListView.as_view(), name='expense_list'),

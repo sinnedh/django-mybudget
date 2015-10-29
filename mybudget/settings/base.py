@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'bootstrap3',
     'bootstrap_pagination',
     'django_extensions',
+    'oauth2_provider',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,7 +55,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'minidetector.Middleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 import django.conf.global_settings as DEFAULT_SETTINGS
