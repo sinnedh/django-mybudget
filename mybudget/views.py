@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from calendar import monthrange
 import datetime
+import json
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -9,12 +9,13 @@ from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db import connection
 from django.db.models import Sum, Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
 from django.views.generic.dates import WeekArchiveView, MonthArchiveView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from oauth2_provider.views.generic import ProtectedResourceView
 
 from forms import ExpenseFilterForm, ExpenseCreateInlineForm, ExpenseForm, CategoryForm
 from models import Category, Expense, Tag
@@ -32,6 +33,15 @@ def logout_view(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, _('You have been logged out succesfully!'))
     return HttpResponseRedirect(redirect_to=reverse('start'))
+
+
+class WhoamiAPIView(ProtectedResourceView):
+    def get(self, request, *args, **kwargs):
+        # response_dict = dict(username=request.user.username)
+        response_dict = dict(username=request.resource_owner.username)
+        # return HttpResponse(response_dict)
+        # print json.dumps(response_dict)
+        return HttpResponse(json.dumps(response_dict))
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
