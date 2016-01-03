@@ -72,6 +72,11 @@ class ExpenseForOrganisationManager(ExpenseManager):
     def request_filter(self, organisation, request):
         queryset = self.for_organisation(organisation=organisation)
 
+        # filter for comment
+        filter_comment = request.get('comment', None)
+        if filter_comment:
+            queryset = queryset.filter(comment__contains=filter_comment)
+
         # filter for age_in_days
         filter_age_in_days = request.get('age_in_days', None)
         if filter_age_in_days:

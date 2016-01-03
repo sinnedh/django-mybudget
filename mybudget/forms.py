@@ -21,6 +21,7 @@ FILTER_AGE_CHOICES = (
 
 
 class ExpenseFilterForm(forms.Form):
+    comment = forms.CharField(required=False)
     age_in_days = forms.ChoiceField(required=False, choices=FILTER_AGE_CHOICES)
     account = forms.ModelChoiceField(queryset=models.Account.objects.none(), required=False)
     category = forms.ModelChoiceField(queryset=models.Category.objects.none(), required=False)
